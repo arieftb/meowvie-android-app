@@ -21,7 +21,7 @@
         android:id="@+id/textSplashScreenAppName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/pink_e5a5c8"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="@dimen/_32ssp"
         android:fontFamily="@font/bold"
