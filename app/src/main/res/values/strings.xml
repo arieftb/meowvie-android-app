@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MeowVie</string>
+
+
+    <string name="image_description_splash_app_logo">MeowVie App Logo In Splash Screen</string>
 </resources>
