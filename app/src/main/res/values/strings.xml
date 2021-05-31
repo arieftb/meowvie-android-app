@@ -3,4 +3,8 @@
 
 
     <string name="image_description_splash_app_logo">MeowVie App Logo In Splash Screen</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_explore">Explore</string>
+    <string name="menu_watchlist">Watchlist</string>
+    <string name="menu_account">Account</string>
 </resources>

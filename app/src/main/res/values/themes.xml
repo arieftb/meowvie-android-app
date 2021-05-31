@@ -19,4 +19,14 @@
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Widget.MeowVie.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MeowVie.BottomNavigationView</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="ThemeOverlay.MeowVie.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/grey_2e2e2e</item>
+        <item name="colorOnPrimary">@color/pink_e5a5c8</item>
+    </style>
 </resources>

@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">MeowVie</string>
     <string name="image_description_splash_app_logo">MeowVie App Logo Pada Splash Screen</string>
+
+    <string name="menu_home">Beranda</string>
+    <string name="menu_explore">Jelajahi</string>
+    <string name="menu_watchlist">Tandai</string>
+    <string name="menu_account">Akun</string>
 </resources>

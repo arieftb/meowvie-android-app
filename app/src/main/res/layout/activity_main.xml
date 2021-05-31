@@ -22,6 +22,8 @@
         android:id="@+id/bottomNavigationMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.MeowVie.BottomNavigationView"
+        app:menu="@menu/menu_main_bottom"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
