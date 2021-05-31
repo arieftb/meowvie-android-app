@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbarMain"
-        layout="@layout/toolbar_default"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
 <!--    TODO : Add Fragment Container If Navigation Component Ready-->
 <!--    <fragment-->
 <!--        android:id="@+id/fragmentMainContainer"-->
