@@ -14,4 +14,9 @@
         <item name="android:windowBackground">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.MeowVie.NoActionBar" parent="Theme.MeowVie">
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
