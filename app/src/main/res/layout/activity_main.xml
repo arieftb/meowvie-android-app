@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/fragmentMainContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationMain"
-        app:layout_constraintTop_toBottomOf="@id/toolbarMain" />
+<!--    TODO : Add Fragment Container If Navigation Component Ready-->
+<!--    <fragment-->
+<!--        android:id="@+id/fragmentMainContainer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/bottomNavigationMain"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toolbarMain" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationMain"
