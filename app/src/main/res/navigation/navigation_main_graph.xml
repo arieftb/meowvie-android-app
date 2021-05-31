@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="id.my.arieftb.meowvie.feature.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="id.my.arieftb.meowvie.feature.explore.ExploreFragment"
+        android:label="ExploreFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="id.my.arieftb.meowvie.feature.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="id.my.arieftb.meowvie.feature.account.AccountFragment"
+        android:label="AccountFragment" />
+</navigation>
