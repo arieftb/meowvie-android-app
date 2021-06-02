@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ContentSectionDefaultView">
+        <attr name="section_titleText" format="string"/>
+        <attr name="section_titleMarginHorizontal" format="dimension"/>
+
+        <attr name="section_contentShimmer" format="reference"/>
+    </declare-styleable>
+</resources>
