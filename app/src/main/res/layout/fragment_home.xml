@@ -19,7 +19,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:section_titleText="Watchlist"
+            app:section_titleMarginHorizontal="@dimen/_16sdp"/>
 
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
