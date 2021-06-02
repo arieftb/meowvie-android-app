@@ -57,4 +57,18 @@
         app:layout_constraintTop_toBottomOf="@id/textContentSectionTitle"
         tools:text="Error Message"/>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerContentSectionDefault"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:shimmer_duration="800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textContentSectionTitle">
+
+    <!--    Add Layout Of Shimmer Here     -->
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
