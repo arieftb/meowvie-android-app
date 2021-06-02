@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:layout_width="wrap_content"
+    tools:layout_marginHorizontal="@dimen/_8sdp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageContentDefaultPoster"
@@ -13,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/background_image_default" />
+        tools:src="@drawable/background_image_default"
+        tools:layout_width="@dimen/_100sdp"/>
 
     <TextView
         android:id="@+id/textContentDefaultTitle"
