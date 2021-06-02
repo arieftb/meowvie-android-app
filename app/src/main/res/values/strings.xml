@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MeowVie</string>
 
-
     <string name="image_description_splash_app_logo">MeowVie App Logo In Splash Screen</string>
+    <string name="image_description_section_icon">Section More Content Icon</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_explore">Explore</string>
     <string name="menu_watchlist">Watchlist</string>
