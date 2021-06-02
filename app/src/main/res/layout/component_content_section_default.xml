@@ -41,4 +41,20 @@
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:orientation="horizontal"/>
 
+    <TextView
+        android:id="@+id/textContentSectionErrorMessage"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/regular"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textContentSectionTitle"
+        tools:text="Error Message"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
