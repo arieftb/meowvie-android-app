@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ComponentContentSectionDefaultBinding
 
 class ContentSectionDefaultView @JvmOverloads constructor(
@@ -12,15 +13,33 @@ class ContentSectionDefaultView @JvmOverloads constructor(
 
     private var binding: ComponentContentSectionDefaultBinding? = null
 
+    private var sectionTitle: String? = null
+    set(value) {
+        field = value
+        binding?.textContentSectionTitle?.text = field
+    }
+
+    private var sectionTitleMarginHorizontal: Float? = null
+
     init {
         binding = ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
         this.addView(binding?.root)
-        initAttribute(attrs)
+
+        if (!isInEditMode) {
+            initAttribute(attrs)
+        } else {
+            initAttribute(attrs)
+        }
     }
 
     private fun initAttribute(attrs: AttributeSet?) {
-        // TODO: 6/2/21 : get attribute sectionTitle
-        // TODO: 6/2/21 : get attribute marginHorizontal sectionTitle
-        // TODO: 6/2/21 : get attribute layout shimmer
+        context.obtainStyledAttributes(attrs, R.styleable.ContentSectionDefaultView).also {
+            // TODO: 6/2/21 : get attribute sectionTitle
+            sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText) ?: "Section Title"
+            // TODO: 6/2/21 : get attribute marginHorizontal sectionTitle
+            // TODO: 6/2/21 : get attribute layout shimmer
+        }.apply {
+            recycle()
+        }
     }
 }
