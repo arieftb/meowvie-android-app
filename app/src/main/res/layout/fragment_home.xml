@@ -20,8 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:section_titleText="Watchlist"
-            app:section_titleMarginHorizontal="@dimen/_16sdp"/>
+            app:section_titleMarginHorizontal="@dimen/_16sdp"
+            app:section_titleText="Watchlist" />
 
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
