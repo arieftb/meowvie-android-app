@@ -20,8 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:section_titleMarginHorizontal="@dimen/_16sdp"
-            app:section_titleText="Watchlist" />
+            app:section_titleText="@string/section_watchlist" />
 
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
@@ -31,7 +30,8 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sectionHomeWatchlist" />
+            app:layout_constraintTop_toBottomOf="@id/sectionHomeWatchlist"
+            app:section_titleText="@string/section_new_movie" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeNewTvShow"
@@ -40,7 +40,8 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sectionHomeNewMovie" />
+            app:layout_constraintTop_toBottomOf="@id/sectionHomeNewMovie"
+            app:section_titleText="@string/section_new_tv_show" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeComingSoon"
@@ -49,7 +50,8 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sectionHomeNewMovie" />
+            app:layout_constraintTop_toBottomOf="@id/sectionHomeNewTvShow"
+            app:section_titleText="@string/section_coming_soon" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomePopular"
@@ -58,7 +60,8 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sectionHomeNewMovie" />
+            app:layout_constraintTop_toBottomOf="@id/sectionHomeComingSoon"
+            app:section_titleText="@string/section_popular" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
