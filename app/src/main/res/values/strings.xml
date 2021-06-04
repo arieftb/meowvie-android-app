@@ -8,4 +8,10 @@
     <string name="menu_explore">Explore</string>
     <string name="menu_watchlist">Watchlist</string>
     <string name="menu_account">Account</string>
+
+    <string name="section_watchlist">Watchlist</string>
+    <string name="section_new_movie">New Movie in Meowvie</string>
+    <string name="section_new_tv_show">New TV Show in Meowvie</string>
+    <string name="section_coming_soon">Coming Soon</string>
+    <string name="section_popular">Popular</string>
 </resources>
