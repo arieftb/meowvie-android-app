@@ -36,7 +36,6 @@ class ContentSectionDefaultView @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.ContentSectionDefaultView).also {
             // TODO: 6/2/21 : get attribute sectionTitle
             sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText) ?: "Section Title"
-            // TODO: 6/2/21 : get attribute marginHorizontal sectionTitle
             // TODO: 6/2/21 : get attribute layout shimmer
         }.apply {
             recycle()
