@@ -20,7 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:section_titleText="@string/section_watchlist" />
+            app:section_titleText="@string/section_watchlist"
+            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
 
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
