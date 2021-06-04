@@ -19,6 +19,14 @@ class ContentSectionDefaultView @JvmOverloads constructor(
         binding?.textContentSectionTitle?.text = field
     }
 
+    private var shimmerLayout: Int? = -1
+    set(value) {
+        field = value
+        initShimmerLayout(field)
+    }
+
+
+
     init {
         binding = ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
         this.addView(binding?.root)
@@ -35,8 +43,14 @@ class ContentSectionDefaultView @JvmOverloads constructor(
             // TODO: 6/2/21 : get attribute sectionTitle
             sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText) ?: "Section Title"
             // TODO: 6/2/21 : get attribute layout shimmer
+            shimmerLayout = it.getResourceId(R.styleable.ContentSectionDefaultView_section_contentShimmer, R.layout.shimmer_item_content_default)
         }.apply {
             recycle()
         }
+    }
+
+    private fun initShimmerLayout(layoutRes: Int?) {
+        val inflater = LayoutInflater.from(binding?.shimmerContentSectionDefault?.context)
+        inflater.inflate(layoutRes!!, binding?.shimmerContentSectionDefault)
     }
 }
