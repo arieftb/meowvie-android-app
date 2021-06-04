@@ -19,8 +19,6 @@ class ContentSectionDefaultView @JvmOverloads constructor(
         binding?.textContentSectionTitle?.text = field
     }
 
-    private var sectionTitleMarginHorizontal: Float? = null
-
     init {
         binding = ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
         this.addView(binding?.root)
