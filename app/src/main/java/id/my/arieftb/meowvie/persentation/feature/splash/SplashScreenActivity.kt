@@ -1,10 +1,10 @@
-package id.my.arieftb.meowvie.feature.splash
+package id.my.arieftb.meowvie.persentation.feature.splash
 
 import android.content.Intent
 import android.os.Bundle
-import id.my.arieftb.meowvie.base.BaseActivity
+import id.my.arieftb.meowvie.persentation.base.BaseActivity
 import id.my.arieftb.meowvie.databinding.ActivitySplashScreenBinding
-import id.my.arieftb.meowvie.feature.main.MainActivity
+import id.my.arieftb.meowvie.persentation.feature.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

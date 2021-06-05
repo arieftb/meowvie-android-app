@@ -1,6 +1,6 @@
-package id.my.arieftb.meowvie.feature.favorite
+package id.my.arieftb.meowvie.persentation.feature.favorite
 
-import id.my.arieftb.meowvie.base.BaseFragment
+import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment: BaseFragment<FragmentFavoriteBinding>() {

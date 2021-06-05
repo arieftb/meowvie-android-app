@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.base
+package id.my.arieftb.meowvie.persentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

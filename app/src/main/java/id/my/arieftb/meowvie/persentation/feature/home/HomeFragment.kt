@@ -1,11 +1,11 @@
-package id.my.arieftb.meowvie.feature.home
+package id.my.arieftb.meowvie.persentation.feature.home
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import id.my.arieftb.meowvie.base.BaseFragment
+import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint

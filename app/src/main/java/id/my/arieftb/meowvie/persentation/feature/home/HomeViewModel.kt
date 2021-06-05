@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.feature.home
+package id.my.arieftb.meowvie.persentation.feature.home
 
 import androidx.lifecycle.MutableLiveData
 import id.my.arieftb.meowvie.domain.model.movie.Movie

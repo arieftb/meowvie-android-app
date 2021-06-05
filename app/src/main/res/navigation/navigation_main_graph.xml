@@ -5,18 +5,18 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="id.my.arieftb.meowvie.feature.home.HomeFragment"
+        android:name="id.my.arieftb.meowvie.persentation.feature.home.HomeFragment"
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="id.my.arieftb.meowvie.feature.explore.ExploreFragment"
+        android:name="id.my.arieftb.meowvie.persentation.feature.explore.ExploreFragment"
         android:label="ExploreFragment" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="id.my.arieftb.meowvie.feature.favorite.FavoriteFragment"
+        android:name="id.my.arieftb.meowvie.persentation.feature.favorite.FavoriteFragment"
         android:label="FavoriteFragment" />
     <fragment
         android:id="@+id/accountFragment"
-        android:name="id.my.arieftb.meowvie.feature.account.AccountFragment"
+        android:name="id.my.arieftb.meowvie.persentation.feature.account.AccountFragment"
         android:label="AccountFragment" />
 </navigation>

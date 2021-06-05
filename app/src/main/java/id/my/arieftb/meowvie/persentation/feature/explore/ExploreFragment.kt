@@ -1,6 +1,6 @@
-package id.my.arieftb.meowvie.feature.explore
+package id.my.arieftb.meowvie.persentation.feature.explore
 
-import id.my.arieftb.meowvie.base.BaseFragment
+import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.databinding.FragmentExploreBinding
 
 class ExploreFragment: BaseFragment<FragmentExploreBinding>() {
