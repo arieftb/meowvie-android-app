@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.data.remote.movie.MovieApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +17,7 @@ object RetrofitModule {
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("")
+        .baseUrl(BuildConfig.BASE_URL)
         .build()
 
     @Provides
