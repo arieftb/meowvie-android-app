@@ -18,53 +18,54 @@ class ContentSectionDefaultView @JvmOverloads constructor(
     private var binding: ComponentContentSectionDefaultBinding? = null
 
     private var sectionTitle: String? = null
-    set(value) {
-        field = value
-        binding?.textContentSectionTitle?.text = field
-    }
+        set(value) {
+            field = value
+            binding?.textContentSectionTitle?.text = field
+        }
 
     private var shimmerLayout: Int? = -1
-    set(value) {
-        field = value
-        initShimmerLayout(field)
-    }
+        set(value) {
+            field = value
+            initShimmerLayout(field)
+        }
 
     var adapter: RecyclerView.Adapter<*>? = null
-    set(value) {
-        field = value
-        binding?.listContentSection?.adapter = field
-    }
+        set(value) {
+            field = value
+            binding?.listContentSection?.adapter = field
+        }
 
     var layoutManager: RecyclerView.LayoutManager? = null
-    set(value) {
-        field = value
-        binding?.listContentSection?.layoutManager = field
-    }
+        set(value) {
+            field = value
+            binding?.listContentSection?.layoutManager = field
+        }
 
     var status: Status? = Status.LOADING
-    set(value) {
-        field = value
-        when(field) {
-            Status.LOADING -> {
-                binding?.shimmerContentSectionDefault.show()
-                binding?.listContentSection.hide()
-                binding?.textContentSectionErrorMessage.hide()
-            }
-            Status.ERROR -> {
-                binding?.shimmerContentSectionDefault.hide()
-                binding?.listContentSection.hide()
-                binding?.textContentSectionErrorMessage.show()
-            }
-            Status.SUCCESS -> {
-                binding?.shimmerContentSectionDefault.hide()
-                binding?.listContentSection.show()
-                binding?.textContentSectionErrorMessage.hide()
+        set(value) {
+            field = value
+            when (field) {
+                Status.LOADING -> {
+                    binding?.shimmerContentSectionDefault.show()
+                    binding?.listContentSection.hide()
+                    binding?.textContentSectionErrorMessage.hide()
+                }
+                Status.ERROR -> {
+                    binding?.shimmerContentSectionDefault.hide()
+                    binding?.listContentSection.hide()
+                    binding?.textContentSectionErrorMessage.show()
+                }
+                Status.SUCCESS -> {
+                    binding?.shimmerContentSectionDefault.hide()
+                    binding?.listContentSection.show()
+                    binding?.textContentSectionErrorMessage.hide()
+                }
             }
         }
-    }
 
     init {
-        binding = ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
+        binding =
+            ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
         this.addView(binding?.root)
 
         if (!isInEditMode) {
@@ -77,9 +78,13 @@ class ContentSectionDefaultView @JvmOverloads constructor(
     private fun initAttribute(attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.ContentSectionDefaultView).also {
             // TODO: 6/2/21 : get attribute sectionTitle
-            sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText) ?: "Section Title"
+            sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText)
+                ?: "Section Title"
             // TODO: 6/2/21 : get attribute layout shimmer
-            shimmerLayout = it.getResourceId(R.styleable.ContentSectionDefaultView_section_contentShimmer, R.layout.shimmer_item_content_default)
+            shimmerLayout = it.getResourceId(
+                R.styleable.ContentSectionDefaultView_section_contentShimmer,
+                R.layout.shimmer_item_content_default
+            )
         }.apply {
             recycle()
         }
