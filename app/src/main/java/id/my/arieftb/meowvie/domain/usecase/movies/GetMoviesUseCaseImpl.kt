@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.domain.usecase.movies
 
 import id.my.arieftb.meowvie.data.model.request.movie.MovieRequest
+import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import javax.inject.Inject
