@@ -77,10 +77,8 @@ class ContentSectionDefaultView @JvmOverloads constructor(
 
     private fun initAttribute(attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.ContentSectionDefaultView).also {
-            // TODO: 6/2/21 : get attribute sectionTitle
             sectionTitle = it.getString(R.styleable.ContentSectionDefaultView_section_titleText)
                 ?: "Section Title"
-            // TODO: 6/2/21 : get attribute layout shimmer
             shimmerLayout = it.getResourceId(
                 R.styleable.ContentSectionDefaultView_section_contentShimmer,
                 R.layout.shimmer_item_content_default
