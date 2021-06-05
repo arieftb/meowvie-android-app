@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.google.android.material.shape.CornerFamily
+import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
 import id.my.arieftb.meowvie.domain.model.movie.Movie
@@ -48,6 +51,21 @@ class MoviesPortraitRecyclerAdapter(val context: Context) :
 
         getContent(position).let {
             binding.textContentDefaultTitle.text = it.title
+
+            binding.imageContentDefaultPoster.apply {
+                shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
+                    .setAllCorners(CornerFamily.ROUNDED,
+                        this@MoviesPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
+                            .toFloat()
+                    )
+                    .build()
+
+                load(BuildConfig.BASE_URL_IMAGE_PORTRAIT + it.posterPath) {
+                    crossfade(true)
+                    placeholder(R.drawable.background_image_default)
+                    error(R.drawable.background_image_default)
+                }
+            }
         }
     }
 
