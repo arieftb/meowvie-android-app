@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -51,6 +55,9 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    implementation 'com.google.dagger:hilt-android:2.36'
+    kapt 'com.google.dagger:hilt-compiler:2.36'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
