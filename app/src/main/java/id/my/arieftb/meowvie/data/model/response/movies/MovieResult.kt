@@ -3,11 +3,11 @@ package id.my.arieftb.meowvie.data.model.response.movies
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class MovieResult(
     @SerializedName("adult")
     val adult: Boolean? = null,
     @SerializedName("backdrop_path")
-    val backdropPath: Any? = null,
+    val backdropPath: String? = null,
     @SerializedName("genre_ids")
     val genreIds: List<Int>? = null,
     @SerializedName("id")
@@ -21,7 +21,7 @@ data class Result(
     @SerializedName("popularity")
     val popularity: Double? = null,
     @SerializedName("poster_path")
-    val posterPath: Any? = null,
+    val posterPath: String? = null,
     @SerializedName("release_date")
     val releaseDate: String? = null,
     @SerializedName("title")
