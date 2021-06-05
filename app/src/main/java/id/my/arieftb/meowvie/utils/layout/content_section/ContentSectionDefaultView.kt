@@ -4,8 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ComponentContentSectionDefaultBinding
+import id.my.arieftb.meowvie.persentation.model.Status
+import id.my.arieftb.meowvie.utils.extension.hide
+import id.my.arieftb.meowvie.utils.extension.show
 
 class ContentSectionDefaultView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,7 +29,39 @@ class ContentSectionDefaultView @JvmOverloads constructor(
         initShimmerLayout(field)
     }
 
+    var adapter: RecyclerView.Adapter<*>? = null
+    set(value) {
+        field = value
+        binding?.listContentSection?.adapter = field
+    }
 
+    var layoutManager: RecyclerView.LayoutManager? = null
+    set(value) {
+        field = value
+        binding?.listContentSection?.layoutManager = field
+    }
+
+    var status: Status? = Status.LOADING
+    set(value) {
+        field = value
+        when(field) {
+            Status.LOADING -> {
+                binding?.shimmerContentSectionDefault.show()
+                binding?.listContentSection.hide()
+                binding?.textContentSectionErrorMessage.hide()
+            }
+            Status.ERROR -> {
+                binding?.shimmerContentSectionDefault.hide()
+                binding?.listContentSection.hide()
+                binding?.textContentSectionErrorMessage.show()
+            }
+            Status.SUCCESS -> {
+                binding?.shimmerContentSectionDefault.hide()
+                binding?.listContentSection.show()
+                binding?.textContentSectionErrorMessage.hide()
+            }
+        }
+    }
 
     init {
         binding = ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
