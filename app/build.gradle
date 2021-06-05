@@ -5,6 +5,9 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -15,6 +18,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "API_KEY", "\"" + localProperties['API_KEY'] + "\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
