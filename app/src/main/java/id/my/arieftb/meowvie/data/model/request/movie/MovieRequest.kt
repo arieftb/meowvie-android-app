@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.data.model.request
+package id.my.arieftb.meowvie.data.model.request.movie
 
 class MovieRequest(
     var sortBy: String? = "release_date.desc",
