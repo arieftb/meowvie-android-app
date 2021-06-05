@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.data.remote
+package id.my.arieftb.meowvie.data.di
 
 import dagger.Module
 import dagger.Provides
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteModule {
+object RetrofitModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
