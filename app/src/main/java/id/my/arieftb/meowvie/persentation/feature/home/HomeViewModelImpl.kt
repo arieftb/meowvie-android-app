@@ -8,6 +8,7 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -18,11 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModelImpl @Inject constructor(
     private val getMoviesHighlightUseCase: GetMoviesHighlightUseCase,
-    private val getTvShowsHighlightUseCase: GetTvShowsHighlightUseCase
+    private val getTvShowsHighlightUseCase: GetTvShowsHighlightUseCase,
+    private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase
 ) :
     ViewModel(),
     HomeViewModel {
     override var moviesData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
+    override val moviesUpcomingData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
     override val tvShowsData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
 
     override fun getMovies() {
@@ -51,6 +54,20 @@ class HomeViewModelImpl @Inject constructor(
             when (val result = getTvShowsHighlightUseCase.invoke()) {
                 is Result.Success -> tvShowsData.value = Data(Status.SUCCESS, result.data)
                 is Result.Failure -> tvShowsData.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
+            }
+        }
+    }
+
+    override fun getMoviesUpcomingHighlight() {
+        moviesUpcomingData.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            moviesUpcomingData.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = getMoviesUpcomingUseCase.invoke()) {
+                is Result.Success -> moviesUpcomingData.value = Data(Status.SUCCESS, result.data)
+                is Result.Failure -> moviesUpcomingData.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }

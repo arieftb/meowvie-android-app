@@ -10,12 +10,11 @@ import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import id.my.arieftb.meowvie.domain.repo.TvShowRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.date.GetDateMonthAheadUseCase
+import id.my.arieftb.meowvie.domain.usecase.date.GetDateMonthAheadUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.movies.*
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
@@ -38,6 +37,11 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideGetDateMonthAheadUseCase(repository: DateRepository): GetDateMonthAheadUseCase =
+        GetDateMonthAheadUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
     fun provideGetMoviesUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,
@@ -49,6 +53,18 @@ object UseCaseModule {
     @Singleton
     fun provideGetMoviesHighlightUseCase(getMoviesUseCase: GetMoviesUseCase): GetMoviesHighlightUseCase =
         GetMoviesHighlightUseCaseImpl(getMoviesUseCase)
+
+    @Provides
+    @Singleton
+    fun provideGetMoviesUpcomingUseCase(
+        getDateMonthAheadUseCase: GetDateMonthAheadUseCase,
+        getCurrentDateUseCase: GetCurrentDateUseCase,
+        getMoviesUseCase: GetMoviesUseCase
+    ): GetMoviesUpcomingUseCase = GetMoviesUpcomingUseCaseImpl(
+        getDateMonthAheadUseCase,
+        getCurrentDateUseCase,
+        getMoviesUseCase
+    )
 
     @Provides
     @Singleton

@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.persentation.feature.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initView()
         getMoviesHighlight()
         getTvShowsHighlight()
+        getMoviesUpcomingHighlight()
     }
 
     private fun initView() {
@@ -68,5 +70,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.getTvShowsHighlight()
+    }
+
+    private fun getMoviesUpcomingHighlight() {
+        viewModel.moviesUpcomingData.observe(viewLifecycleOwner, {
+            Log.d("MeowVieTag", "getMoviesUpcomingHighlight: $it")
+        })
+
+        viewModel.getMoviesUpcomingHighlight()
     }
 }

@@ -5,11 +5,19 @@ import java.util.*
 
 class DateHelper {
 
+    private var calendar: Calendar? = null
     private var dateTime: Date? = null
     private var dateTimeFormat: SimpleDateFormat? = null
 
     fun now(): DateHelper {
-        dateTime = Calendar.getInstance().time
+        calendar = Calendar.getInstance()
+        dateTime = calendar?.time
+        return this
+    }
+
+    fun addMonth(monthInterval: Int): DateHelper {
+        calendar?.add(Calendar.MONTH, monthInterval)
+        dateTime = calendar?.time
         return this
     }
 
@@ -19,7 +27,7 @@ class DateHelper {
     }
 
     fun getString(): String? {
-        return dateTimeFormat?.format(dateTime)
+        return dateTimeFormat?.format(dateTime!!)
     }
 
     companion object {
