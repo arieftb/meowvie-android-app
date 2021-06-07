@@ -33,9 +33,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initView() {
-        movieAdapter = MoviesPortraitRecyclerAdapter(requireContext())
-        tvShowAdapter = TvShowsPortraitRecyclerAdapter(requireContext())
-        movieUpcomingAdapter = MoviesBannerRecyclerAdapter(requireContext())
+        initMovieHighlightAdapter()
+        initTvShowHighlightAdapter()
+        initMovieUpcomingHighlightAdapter()
+    }
+
+    private fun initMovieHighlightAdapter() {
+        binding.sectionHomeNewMovie.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = MoviesPortraitRecyclerAdapter(requireContext()).also {
+                movieAdapter = it
+            }
+        }
+    }
+
+    private fun initTvShowHighlightAdapter() {
+        binding.sectionHomeNewTvShow.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = TvShowsPortraitRecyclerAdapter(requireContext()).also {
+                tvShowAdapter = it
+            }
+        }
+    }
+
+    private fun initMovieUpcomingHighlightAdapter() {
+        binding.sectionHomeComingSoonMovie.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = MoviesBannerRecyclerAdapter(requireContext()).also {
+                movieUpcomingAdapter = it
+            }
+        }
     }
 
     private fun getMoviesHighlight() {
@@ -43,9 +70,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeNewMovie.status = it.status
-                    binding.sectionHomeNewMovie.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    binding.sectionHomeNewMovie.adapter = movieAdapter
                     movieAdapter.addAll(it.data)
                 }
                 Status.ERROR -> {
@@ -62,9 +86,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeNewTvShow.status = it.status
-                    binding.sectionHomeNewTvShow.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    binding.sectionHomeNewTvShow.adapter = tvShowAdapter
                     tvShowAdapter.addAll(it.data)
                 }
                 else -> binding.sectionHomeNewMovie.status = it.status
@@ -79,9 +100,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeComingSoonMovie.status = it.status
-                    binding.sectionHomeComingSoonMovie.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    binding.sectionHomeComingSoonMovie.adapter = movieUpcomingAdapter
                     movieUpcomingAdapter.addAll(it.data)
                 }
                 else -> binding.sectionHomeComingSoonMovie.status = it.status
