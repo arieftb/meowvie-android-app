@@ -4,10 +4,15 @@ import id.my.arieftb.meowvie.data.model.request.movie.MovieRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
+import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import javax.inject.Inject
 
-class GetMoviesUseCaseImpl @Inject constructor(private val getLanguageUseCase: GetLanguageUseCase, private val repository: MovieRepository) :
+class GetMoviesUseCaseImpl @Inject constructor(
+    private val getCurrentDateUseCase: GetCurrentDateUseCase,
+    private val getLanguageUseCase: GetLanguageUseCase,
+    private val repository: MovieRepository
+) :
     GetMoviesUseCase {
     override suspend fun invoke(
         page: Int,
@@ -18,7 +23,7 @@ class GetMoviesUseCaseImpl @Inject constructor(private val getLanguageUseCase: G
         val request = MovieRequest().apply {
             this.page = page
             this.sortBy = sortBy
-            this.releaseDateLte = releaseDateLte
+            this.releaseDateLte = releaseDateLte ?: getCurrentDateUseCase.invoke("yyyy-MM-dd")
             this.releaseDateGte = releaseDateGte
             this.language = getLanguageUseCase.invoke()
         }
