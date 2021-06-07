@@ -46,6 +46,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         })
 
-        viewModel.getMovies(1)
+        viewModel.getMovies()
     }
 }

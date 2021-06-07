@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -14,18 +14,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModelImpl @Inject constructor(private val getMoviesUseCase: GetMoviesUseCase) :
+class HomeViewModelImpl @Inject constructor(private val getMoviesHighlightUseCase: GetMoviesHighlightUseCase) :
     ViewModel(),
     HomeViewModel {
     override var moviesData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
 
-    override fun getMovies(page: Int) {
+    override fun getMovies() {
         moviesData.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             moviesData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getMoviesUseCase.invoke(page)) {
+            when (val result = getMoviesHighlightUseCase.invoke()) {
                 is Result.Success -> {
                     moviesData.value = Data(Status.SUCCESS, result.data)
                 }

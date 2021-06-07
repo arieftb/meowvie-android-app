@@ -7,5 +7,5 @@ import id.my.arieftb.meowvie.persentation.model.Data
 interface HomeViewModel {
     val moviesData: MutableLiveData<Data<List<Movie>>>
 
-    fun getMovies(page: Int)
+    fun getMovies()
 }

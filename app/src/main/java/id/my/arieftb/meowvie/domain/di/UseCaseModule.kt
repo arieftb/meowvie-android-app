@@ -11,6 +11,8 @@ import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCaseImpl
 import javax.inject.Singleton
@@ -26,10 +28,20 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetCurrentDateUseCase(repository: DateRepository): GetCurrentDateUseCase = GetCurrentDateUseCaseImpl(repository)
+    fun provideGetCurrentDateUseCase(repository: DateRepository): GetCurrentDateUseCase =
+        GetCurrentDateUseCaseImpl(repository)
 
     @Provides
     @Singleton
-    fun provideGetMoviesUseCase(getCurrentDateUseCase: GetCurrentDateUseCase, getLanguageUseCase: GetLanguageUseCase, movieRepository: MovieRepository): GetMoviesUseCase =
+    fun provideGetMoviesUseCase(
+        getCurrentDateUseCase: GetCurrentDateUseCase,
+        getLanguageUseCase: GetLanguageUseCase,
+        movieRepository: MovieRepository
+    ): GetMoviesUseCase =
         GetMoviesUseCaseImpl(getCurrentDateUseCase, getLanguageUseCase, movieRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetMoviesHighlightUseCase(getMoviesUseCase: GetMoviesUseCase): GetMoviesHighlightUseCase =
+        GetMoviesHighlightUseCaseImpl(getMoviesUseCase)
 }
