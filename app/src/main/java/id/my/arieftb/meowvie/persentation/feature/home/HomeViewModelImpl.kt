@@ -8,7 +8,7 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class HomeViewModelImpl @Inject constructor(
     private val getMoviesHighlightUseCase: GetMoviesHighlightUseCase,
     private val getTvShowsHighlightUseCase: GetTvShowsHighlightUseCase,
-    private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase
+    private val getMoviesUpcomingUseCase: GetMoviesUpcomingHighlightUseCase
 ) :
     ViewModel(),
     HomeViewModel {
