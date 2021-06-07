@@ -16,6 +16,8 @@ import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCaseImpl
 import javax.inject.Singleton
@@ -56,4 +58,9 @@ object UseCaseModule {
         repository: TvShowRepository
     ): GetTvShowsUseCase =
         GetTvShowsUseCaseImpl(getCurrentDateUseCase, getLanguageUseCase, repository)
+
+    @Provides
+    @Singleton
+    fun provideGetTvShowsHighlightUseCase(getTvShowsUseCase: GetTvShowsUseCase): GetTvShowsHighlightUseCase =
+        GetTvShowsHighlightUseCaseImpl(getTvShowsUseCase)
 }

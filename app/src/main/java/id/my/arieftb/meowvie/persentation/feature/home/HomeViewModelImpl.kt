@@ -8,7 +8,7 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModelImpl @Inject constructor(
     private val getMoviesHighlightUseCase: GetMoviesHighlightUseCase,
-    private val getTvShowsUseCase: GetTvShowsUseCase
+    private val getTvShowsHighlightUseCase: GetTvShowsHighlightUseCase
 ) :
     ViewModel(),
     HomeViewModel {
@@ -48,7 +48,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getTvShowsUseCase.invoke(page = 1)) {
+            when (val result = getTvShowsHighlightUseCase.invoke()) {
                 is Result.Success -> tvShowsData.value = Data(Status.SUCCESS, result.data)
                 is Result.Failure -> tvShowsData.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
