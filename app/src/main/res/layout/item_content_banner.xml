@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageContentBanner"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_180sdp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="H, 12:5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:fontFamily="@font/bold"
         android:maxLines="2"
         android:textColor="@color/white"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="@id/imageContentBanner"
         app:layout_constraintEnd_toEndOf="@id/imageContentBanner"
         app:layout_constraintStart_toStartOf="@id/imageContentBanner"
