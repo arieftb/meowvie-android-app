@@ -1,6 +1,6 @@
 package id.my.arieftb.meowvie.domain.usecase.movies
 
-import id.my.arieftb.meowvie.data.model.request.movie.MovieRequest
+import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
@@ -20,7 +20,7 @@ class GetMoviesUseCaseImpl @Inject constructor(
         releaseDateLte: String?,
         releaseDateGte: String?
     ): Result<List<Movie>> {
-        val request = MovieRequest().apply {
+        val request = DiscoverRequest().apply {
             this.page = page
             this.sortBy = sortBy
             this.releaseDateLte = releaseDateLte ?: getCurrentDateUseCase.invoke("yyyy-MM-dd")

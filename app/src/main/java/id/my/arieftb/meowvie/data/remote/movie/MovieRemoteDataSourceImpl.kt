@@ -1,6 +1,6 @@
 package id.my.arieftb.meowvie.data.remote.movie
 
-import id.my.arieftb.meowvie.data.model.request.movie.MovieRequest
+import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -8,7 +8,7 @@ import javax.inject.Inject
 class MovieRemoteDataSourceImpl @Inject constructor(private val movieApiService: MovieApiService) :
     MovieRemoteDataSource {
 
-    override suspend fun fetchAll(request: MovieRequest): Response<MoviesResponse> {
+    override suspend fun fetchAll(request: DiscoverRequest): Response<MoviesResponse> {
         val queryMap = HashMap<String, Any>()
         queryMap["api_key"] = request.apiKey
         queryMap["region"] = request.region

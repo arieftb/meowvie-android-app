@@ -1,8 +1,8 @@
-package id.my.arieftb.meowvie.data.model.request.movie
+package id.my.arieftb.meowvie.data.model.request.discover
 
 import id.my.arieftb.meowvie.data.model.request.BaseRequest
 
-class MovieRequest(
+class DiscoverRequest(
     var sortBy: String? = "release_date.desc",
     var page: Int = 1,
     var language: String = "en-US",
