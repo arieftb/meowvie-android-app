@@ -23,14 +23,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        handleGetMovies()
+        getMoviesHighlight()
     }
 
     private fun initView() {
         movieAdapter = MoviesPortraitRecyclerAdapter(requireContext())
     }
 
-    private fun handleGetMovies() {
+    private fun getMoviesHighlight() {
         viewModel.moviesData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
