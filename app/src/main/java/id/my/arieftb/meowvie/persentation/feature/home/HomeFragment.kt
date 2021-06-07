@@ -8,12 +8,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.feature.movie.MoviesPortraitRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsPortraitRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.model.Status
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
+    private lateinit var tvShowAdapter: TvShowsPortraitRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -24,10 +26,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         initView()
         getMoviesHighlight()
+        getTvShowsHighlight()
     }
 
     private fun initView() {
         movieAdapter = MoviesPortraitRecyclerAdapter(requireContext())
+        tvShowAdapter = TvShowsPortraitRecyclerAdapter(requireContext())
     }
 
     private fun getMoviesHighlight() {
@@ -47,5 +51,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.getMovies()
+    }
+
+    private fun getTvShowsHighlight() {
+        viewModel.tvShowsData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.sectionHomeNewTvShow.status = it.status
+                    binding.sectionHomeNewTvShow.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    binding.sectionHomeNewTvShow.adapter = tvShowAdapter
+                    tvShowAdapter.addAll(it.data)
+                }
+                else -> binding.sectionHomeNewMovie.status = it.status
+            }
+        })
+
+        viewModel.getTvShowsHighlight()
     }
 }

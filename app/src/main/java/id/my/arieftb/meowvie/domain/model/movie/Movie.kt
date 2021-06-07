@@ -3,13 +3,13 @@ package id.my.arieftb.meowvie.domain.model.movie
 import id.my.arieftb.meowvie.data.model.response.movies.MovieResult
 import id.my.arieftb.meowvie.domain.base.BaseMapper
 
-class Movie(
+open class Movie(
     var id: Long? = -1,
     var title: String? = "",
     var bannerPath: String? = null,
     var posterPath: String? = null,
     var releaseDate: String? = ""
-): MovieMapper {
+) : MovieMapper {
     override fun mapFromResponse(response: MovieResult?): Movie {
         return Movie().apply {
             id = response?.id?.toLong()
@@ -21,4 +21,4 @@ class Movie(
     }
 }
 
-interface MovieMapper: BaseMapper.ResponseDataMapper<MovieResult, Movie>
+interface MovieMapper : BaseMapper.ResponseDataMapper<MovieResult, Movie>

@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.data.remote.movie.MovieApiService
+import id.my.arieftb.meowvie.data.remote.tv_show.TvShowApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -37,5 +38,11 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideMovieApiService(retrofit: Retrofit): MovieApiService = retrofit.create(MovieApiService::class.java)
+    fun provideMovieApiService(retrofit: Retrofit): MovieApiService =
+        retrofit.create(MovieApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTvShowApiService(retrofit: Retrofit): TvShowApiService =
+        retrofit.create(TvShowApiService::class.java)
 }

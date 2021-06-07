@@ -2,10 +2,10 @@ package id.my.arieftb.meowvie.data.repo
 
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
+import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import javax.inject.Inject
-import id.my.arieftb.meowvie.domain.model.Result
 
 class MovieRepositoryImpl @Inject constructor(val remote: MovieRemoteDataSource) : MovieRepository {
     override suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Movie>> {
@@ -17,6 +17,7 @@ class MovieRepositoryImpl @Inject constructor(val remote: MovieRemoteDataSource)
                         data.mapFromResponse(it)
                     }?.toList()!!)
                 }
+                return Result.Failure(Exception("404"))
             }
             return Result.Failure(Exception("${response.code()}"))
         }
