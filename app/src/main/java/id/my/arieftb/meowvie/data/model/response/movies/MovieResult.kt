@@ -29,7 +29,7 @@ data class MovieResult(
     @SerializedName("video")
     val video: Boolean? = null,
     @SerializedName("vote_average")
-    val voteAverage: Int? = null,
+    val voteAverage: String? = null,
     @SerializedName("vote_count")
     val voteCount: Int? = null
 )
