@@ -1,13 +1,13 @@
 package id.my.arieftb.meowvie.persentation.feature.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
+import id.my.arieftb.meowvie.persentation.feature.movie.MoviesBannerRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.feature.movie.MoviesPortraitRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsPortraitRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -17,6 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
     private lateinit var tvShowAdapter: TvShowsPortraitRecyclerAdapter
+    private lateinit var movieUpcomingAdapter: MoviesBannerRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -34,6 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initView() {
         movieAdapter = MoviesPortraitRecyclerAdapter(requireContext())
         tvShowAdapter = TvShowsPortraitRecyclerAdapter(requireContext())
+        movieUpcomingAdapter = MoviesBannerRecyclerAdapter(requireContext())
     }
 
     private fun getMoviesHighlight() {
@@ -74,7 +76,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun getMoviesUpcomingHighlight() {
         viewModel.moviesUpcomingData.observe(viewLifecycleOwner, {
-            Log.d("MeowVieTag", "getMoviesUpcomingHighlight: $it")
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.sectionHomeComingSoonMovie.status = it.status
+                    binding.sectionHomeComingSoonMovie.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    binding.sectionHomeComingSoonMovie.adapter = movieUpcomingAdapter
+                    movieUpcomingAdapter.addAll(it.data)
+                }
+                else -> binding.sectionHomeComingSoonMovie.status = it.status
+            }
         })
 
         viewModel.getMoviesUpcomingHighlight()
