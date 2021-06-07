@@ -7,8 +7,6 @@ import javax.inject.Inject
 class LanguageRepositoryImpl @Inject constructor(val local: LanguageLocalDataSource) :
     LanguageRepository {
     override suspend fun getLanguageCode(): String {
-        return if (local.getLanguageCode() != "in") {
-            "en"
-        } else local.getLanguageCode()
+        return local.getLanguageCode()
     }
 }

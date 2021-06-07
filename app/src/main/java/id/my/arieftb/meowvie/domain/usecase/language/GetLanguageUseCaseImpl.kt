@@ -5,6 +5,10 @@ import javax.inject.Inject
 
 class GetLanguageUseCaseImpl @Inject constructor(private val repository: LanguageRepository): GetLanguageUseCase {
     override suspend fun invoke(): String {
-        return repository.getLanguageCode()
+        return if (repository.getLanguageCode() != "in") {
+            "en-US"
+        } else {
+            "id-ID"
+        }
     }
 }
