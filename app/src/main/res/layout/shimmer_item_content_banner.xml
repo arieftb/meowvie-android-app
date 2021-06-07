@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <View
         android:id="@+id/viewShimmer1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:background="@drawable/background_shimmer_default"
         app:layout_constraintDimensionRatio="H, 20:9"
@@ -18,7 +19,7 @@
 
     <View
         android:id="@+id/viewShimmer2"
-        android:layout_width="@dimen/_120sdp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_4sdp"
         android:background="@drawable/background_shimmer_default"
