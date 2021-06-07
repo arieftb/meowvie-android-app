@@ -13,7 +13,7 @@ import id.my.arieftb.meowvie.persentation.model.Status
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
+    private lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
