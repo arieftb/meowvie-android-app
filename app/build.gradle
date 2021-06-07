@@ -22,6 +22,7 @@ android {
         buildConfigField("String", "API_KEY", "\"" + localProperties['API_KEY'] + "\"")
         buildConfigField("String", "BASE_URL", "\""+ "https://api.themoviedb.org/3/" + "\"")
         buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT", "\""+ "https://www.themoviedb.org/t/p/w220_and_h330_face/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_LANDSCAPE", "\""+ "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + "\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
