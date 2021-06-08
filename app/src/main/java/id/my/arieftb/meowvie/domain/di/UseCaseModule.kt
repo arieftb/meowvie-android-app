@@ -75,6 +75,14 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideGetMoviesPopularUseCase(
+        getCurrentDateUseCase: GetCurrentDateUseCase,
+        getMoviesUseCase: GetMoviesUseCase
+    ): GetMoviesPopularUseCase =
+        GetMoviesPopularUseCaseImpl(getCurrentDateUseCase, getMoviesUseCase)
+
+    @Provides
+    @Singleton
     fun provideGetTvShowsUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,
