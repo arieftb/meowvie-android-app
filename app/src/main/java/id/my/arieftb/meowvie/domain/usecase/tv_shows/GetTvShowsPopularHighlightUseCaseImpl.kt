@@ -2,8 +2,9 @@ package id.my.arieftb.meowvie.domain.usecase.tv_shows
 
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
+import javax.inject.Inject
 
-class GetTvShowsPopularHighlightUseCaseImpl constructor(
+class GetTvShowsPopularHighlightUseCaseImpl @Inject constructor(
     private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase
 ) : GetTvShowsPopularHighlightUseCase {
     override suspend fun invoke(limit: Int): Result<List<TvShow>> {
