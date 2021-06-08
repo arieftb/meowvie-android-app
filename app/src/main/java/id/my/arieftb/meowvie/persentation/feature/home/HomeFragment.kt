@@ -21,6 +21,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var movieUpcomingAdapter: MoviesBannerRecyclerAdapter
     private lateinit var tvShowUpcomingAdapter: TvShowsBannerRecyclerAdapter
     private lateinit var moviePopularAdapter: MoviesPortraitRecyclerAdapter
+    private lateinit var tvShowPopularAdapter: TvShowsPortraitRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -35,6 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         getMoviesUpcomingHighlight()
         getTvShowsUpcomingHighlight()
         getMoviesPopularHighlight()
+        getTvShowsPopularHighlight()
     }
 
     private fun initView() {
@@ -43,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initMovieUpcomingHighlightAdapter()
         initTvShowUpcomingHighlightAdapter()
         initMoviesPopularHighlightAdapter()
+        initTvShowPopularHighlightAdapter()
     }
 
     private fun initMovieHighlightAdapter() {
@@ -86,6 +89,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = MoviesPortraitRecyclerAdapter(requireContext()).also {
                 moviePopularAdapter = it
+            }
+        }
+    }
+
+    private fun initTvShowPopularHighlightAdapter() {
+        binding.sectionHomePopularTvShow.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = TvShowsPortraitRecyclerAdapter(requireContext()).also {
+                tvShowPopularAdapter = it
             }
         }
     }
@@ -150,7 +162,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun getMoviesPopularHighlight() {
         viewModel.moviesPopularData.observe(viewLifecycleOwner, {
-            when(it.status) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomePopularMovie.status = it.status
                     moviePopularAdapter.addAll(it.data)
@@ -160,5 +172,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.getMoviesPopularHighlight()
+    }
+
+    private fun getTvShowsPopularHighlight() {
+        viewModel.tvShowsPopularData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.sectionHomePopularTvShow.status = it.status
+                    tvShowPopularAdapter.addAll(it.data)
+                }
+                else -> binding.sectionHomePopularTvShow.status = it.status
+            }
+        })
+
+        viewModel.getTvShowsPopularHighlight()
     }
 }
