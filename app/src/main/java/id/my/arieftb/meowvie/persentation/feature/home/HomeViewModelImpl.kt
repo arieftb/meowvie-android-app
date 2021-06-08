@@ -11,6 +11,7 @@ import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesPopularHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsPopularHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -24,7 +25,8 @@ class HomeViewModelImpl @Inject constructor(
     private val getTvShowsHighlightUseCase: GetTvShowsHighlightUseCase,
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingHighlightUseCase,
     private val getTvShowsUpcomingHighlightUseCase: GetTvShowsUpcomingHighlightUseCase,
-    private val getMoviesPopularHighlightUseCase: GetMoviesPopularHighlightUseCase
+    private val getMoviesPopularHighlightUseCase: GetMoviesPopularHighlightUseCase,
+    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase
 ) :
     ViewModel(),
     HomeViewModel {
@@ -109,6 +111,16 @@ class HomeViewModelImpl @Inject constructor(
     }
 
     override fun getTvShowsPopularHighlight() {
-        TODO("Not yet implemented")
+        tvShowsPopularData.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            tvShowsPopularData.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = getTvShowsPopularHighlightUseCase.invoke()) {
+                is Result.Success -> tvShowsPopularData.value = Data(Status.SUCCESS, result.data)
+                is Result.Failure -> tvShowsPopularData.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
+            }
+        }
     }
 }
