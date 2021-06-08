@@ -120,4 +120,12 @@ object UseCaseModule {
         getTvShowsUpcomingUseCase: GetTvShowsUpcomingUseCase
     ): GetTvShowsUpcomingHighlightUseCase =
         GetTvShowsUpcomingHighlightImpl(getTvShowsUpcomingUseCase)
+
+    @Provides
+    @Singleton
+    fun provideGetTvShowsPopularUseCase(
+        getCurrentDateUseCase: GetCurrentDateUseCase,
+        getTvShowsUseCase: GetTvShowsUseCase
+    ): GetTvShowsPopularUseCase =
+        GetTvShowsPopularUseCaseImpl(getCurrentDateUseCase, getTvShowsUseCase)
 }
