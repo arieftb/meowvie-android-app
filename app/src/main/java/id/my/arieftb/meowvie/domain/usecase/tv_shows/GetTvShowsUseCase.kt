@@ -6,7 +6,7 @@ import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 interface GetTvShowsUseCase {
     suspend fun invoke(
         page: Int = 1,
-        sortBy: String? = "release_date.desc",
+        sortBy: String? = "first_air_date.desc",
         releaseDateLte: String? = null,
         releaseDateGte: String? = null
     ): Result<List<TvShow>>

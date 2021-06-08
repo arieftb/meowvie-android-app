@@ -15,10 +15,7 @@ import id.my.arieftb.meowvie.domain.usecase.date.GetDateMonthAheadUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.*
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.*
 import javax.inject.Singleton
 
 @Module
@@ -87,4 +84,23 @@ object UseCaseModule {
     @Singleton
     fun provideGetTvShowsHighlightUseCase(getTvShowsUseCase: GetTvShowsUseCase): GetTvShowsHighlightUseCase =
         GetTvShowsHighlightUseCaseImpl(getTvShowsUseCase)
+
+    @Provides
+    @Singleton
+    fun provideGetTvShowsUpcomingUseCase(
+        getDateMonthAheadUseCase: GetDateMonthAheadUseCase,
+        getCurrentDateUseCase: GetCurrentDateUseCase,
+        getTvShowsUseCase: GetTvShowsUseCase
+    ): GetTvShowsUpcomingUseCase = GetTvShowsUpcomingUseCaseImpl(
+        getDateMonthAheadUseCase,
+        getCurrentDateUseCase,
+        getTvShowsUseCase
+    )
+
+    @Provides
+    @Singleton
+    fun provideGetTvShowUpcomingHighlightUseCase(
+        getTvShowsUpcomingUseCase: GetTvShowsUpcomingUseCase
+    ): GetTvShowsUpcomingHighlightUseCase =
+        GetTvShowsUpcomingHighlightImpl(getTvShowsUpcomingUseCase)
 }

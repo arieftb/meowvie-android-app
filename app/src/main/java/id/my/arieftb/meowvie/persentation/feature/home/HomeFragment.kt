@@ -9,6 +9,7 @@ import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.feature.movie.MoviesBannerRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.feature.movie.MoviesPortraitRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsBannerRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsPortraitRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.model.Status
 
@@ -18,6 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
     private lateinit var tvShowAdapter: TvShowsPortraitRecyclerAdapter
     private lateinit var movieUpcomingAdapter: MoviesBannerRecyclerAdapter
+    private lateinit var tvShowUpcomingAdapter: TvShowsBannerRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -30,12 +32,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         getMoviesHighlight()
         getTvShowsHighlight()
         getMoviesUpcomingHighlight()
+        getTvShowsUpcomingHighlight()
     }
 
     private fun initView() {
         initMovieHighlightAdapter()
         initTvShowHighlightAdapter()
         initMovieUpcomingHighlightAdapter()
+        initTvShowUpcomingHighlightAdapter()
     }
 
     private fun initMovieHighlightAdapter() {
@@ -61,6 +65,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = MoviesBannerRecyclerAdapter(requireContext()).also {
                 movieUpcomingAdapter = it
+            }
+        }
+    }
+
+    private fun initTvShowUpcomingHighlightAdapter() {
+        binding.sectionHomeComingSoonTvShow.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = TvShowsBannerRecyclerAdapter(requireContext()).also {
+                tvShowUpcomingAdapter = it
             }
         }
     }
@@ -107,5 +120,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.getMoviesUpcomingHighlight()
+    }
+
+    private fun getTvShowsUpcomingHighlight() {
+        viewModel.tvShowsUpcomingData.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.sectionHomeComingSoonTvShow.status = it.status
+                    tvShowUpcomingAdapter.addAll(it.data)
+                }
+                else -> binding.sectionHomeComingSoonTvShow.status = it.status
+            }
+        })
+
+        viewModel.getTvShowsUpcomingHighlight()
     }
 }
