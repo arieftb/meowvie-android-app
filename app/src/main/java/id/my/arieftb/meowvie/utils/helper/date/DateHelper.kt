@@ -21,6 +21,12 @@ class DateHelper {
         return this
     }
 
+    fun addDay(dayInterval: Int): DateHelper {
+        calendar?.add(Calendar.DATE, dayInterval)
+        dateTime = calendar?.time
+        return this
+    }
+
     fun toPattern(dateTimePattern: String): DateHelper {
         dateTimeFormat = SimpleDateFormat(dateTimePattern, Locale.getDefault())
         return this

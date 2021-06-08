@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetDateMonthAheadUseCaseImpl @Inject constructor(private val repository: DateRepository): GetDateMonthAheadUseCase {
     override suspend fun invoke(format: String, monthInterval: Int): String? {
-        return repository.getDateAhead(format, monthInterval)
+        return repository.getMonthAhead(format, monthInterval)
     }
 }

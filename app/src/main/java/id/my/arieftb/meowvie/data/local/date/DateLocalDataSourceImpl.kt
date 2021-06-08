@@ -10,6 +10,10 @@ class DateLocalDataSourceImpl @Inject constructor(private val dateHelper: DateHe
     }
 
     override suspend fun getDateMonthAhead(format: String, monthInterval: Int): String? {
-        return dateHelper.now().addMonth(monthInterval).getString()
+        return dateHelper.now().toPattern(format).addMonth(monthInterval).getString()
+    }
+
+    override suspend fun getDateDayAhead(format: String, dayInterval: Int): String? {
+        return dateHelper.now().toPattern(format).addDay(dayInterval).getString()
     }
 }
