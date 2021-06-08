@@ -71,7 +71,7 @@
             app:section_contentShimmer="@layout/shimmer_item_content_banner"/>
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
-            android:id="@+id/sectionHomePopular"
+            android:id="@+id/sectionHomePopularMovie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
