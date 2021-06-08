@@ -22,6 +22,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
 
             Intent(this@SplashScreenActivity, MainActivity::class.java).also {
                 startActivity(it)
+                finish()
             }
         }
     }
