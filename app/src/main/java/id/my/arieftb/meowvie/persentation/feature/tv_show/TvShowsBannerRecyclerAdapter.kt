@@ -65,7 +65,7 @@ class TvShowsBannerRecyclerAdapter(val context: Context) :
                 load(it.bannerPath) {
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
-                    error(R.drawable.background_image_default)
+                    error(R.drawable.image_not_found)
                 }
             }
         }

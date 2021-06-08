@@ -66,7 +66,7 @@ class TvShowsPortraitRecyclerAdapter(val context: Context) :
                 load(it.posterPath) {
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
-                    error(R.drawable.background_image_default)
+                    error(R.drawable.image_not_found)
                 }
             }
         }
