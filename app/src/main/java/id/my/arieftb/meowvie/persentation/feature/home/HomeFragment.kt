@@ -20,6 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var tvShowAdapter: TvShowsPortraitRecyclerAdapter
     private lateinit var movieUpcomingAdapter: MoviesBannerRecyclerAdapter
     private lateinit var tvShowUpcomingAdapter: TvShowsBannerRecyclerAdapter
+    private lateinit var moviePopularAdapter: MoviesPortraitRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -33,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         getTvShowsHighlight()
         getMoviesUpcomingHighlight()
         getTvShowsUpcomingHighlight()
+        getMoviesPopularHighlight()
     }
 
     private fun initView() {
@@ -40,6 +42,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initTvShowHighlightAdapter()
         initMovieUpcomingHighlightAdapter()
         initTvShowUpcomingHighlightAdapter()
+        initMoviesPopularHighlightAdapter()
     }
 
     private fun initMovieHighlightAdapter() {
@@ -74,6 +77,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = TvShowsBannerRecyclerAdapter(requireContext()).also {
                 tvShowUpcomingAdapter = it
+            }
+        }
+    }
+
+    private fun initMoviesPopularHighlightAdapter() {
+        binding.sectionHomePopularMovie.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = MoviesPortraitRecyclerAdapter(requireContext()).also {
+                moviePopularAdapter = it
             }
         }
     }
@@ -134,5 +146,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.getTvShowsUpcomingHighlight()
+    }
+
+    private fun getMoviesPopularHighlight() {
+        viewModel.moviesPopularData.observe(viewLifecycleOwner, {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    binding.sectionHomePopularMovie.status = it.status
+                    moviePopularAdapter.addAll(it.data)
+                }
+                else -> binding.sectionHomePopularMovie.status = it.status
+            }
+        })
+
+        viewModel.getMoviesPopularHighlight()
     }
 }
