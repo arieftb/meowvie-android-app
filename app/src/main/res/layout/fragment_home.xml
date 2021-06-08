@@ -81,5 +81,16 @@
             app:section_titleText="@string/section_popular_movie"
             app:section_contentShimmer="@layout/shimmer_item_content_default"/>
 
+        <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
+            android:id="@+id/sectionHomePopularTvShow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sectionHomePopularMovie"
+            app:section_titleText="@string/section_popular_tv_show"
+            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

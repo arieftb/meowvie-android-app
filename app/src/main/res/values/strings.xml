@@ -15,4 +15,5 @@
     <string name="section_coming_soon_movie">Upcoming Movie</string>
     <string name="section_coming_soon_tv_show">Upcoming Tv Show</string>
     <string name="section_popular_movie">Popular Movie</string>
+    <string name="section_popular_tv_show">Popular Tv Show</string>
 </resources>
