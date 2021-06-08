@@ -28,6 +28,7 @@ class HomeViewModelImpl @Inject constructor(
     HomeViewModel {
     override var moviesData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
     override val moviesUpcomingData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
+    override val moviesPopularData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
     override val tvShowsData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
     override val tvShowsUpcomingData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
 
@@ -88,5 +89,9 @@ class HomeViewModelImpl @Inject constructor(
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
+    }
+
+    override fun getMoviesPopularHighlight() {
+
     }
 }
