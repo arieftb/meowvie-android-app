@@ -33,6 +33,7 @@ class HomeViewModelImpl @Inject constructor(
     override val moviesPopularData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
     override val tvShowsData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
     override val tvShowsUpcomingData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
+    override val tvShowsPopularData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
 
     override fun getMovies() {
         moviesData.value = Data(Status.LOADING)
@@ -105,5 +106,9 @@ class HomeViewModelImpl @Inject constructor(
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
+    }
+
+    override fun getTvShowsPopularHighlight() {
+        TODO("Not yet implemented")
     }
 }

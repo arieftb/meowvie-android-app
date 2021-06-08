@@ -11,10 +11,12 @@ interface HomeViewModel {
     val moviesPopularData: MutableLiveData<Data<List<Movie>>>
     val tvShowsData: MutableLiveData<Data<List<TvShow>>>
     val tvShowsUpcomingData : MutableLiveData<Data<List<TvShow>>>
+    val tvShowsPopularData : MutableLiveData<Data<List<TvShow>>>
 
     fun getMovies()
     fun getTvShowsHighlight()
     fun getMoviesUpcomingHighlight()
     fun getTvShowsUpcomingHighlight()
     fun getMoviesPopularHighlight()
+    fun getTvShowsPopularHighlight()
 }
