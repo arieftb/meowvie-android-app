@@ -61,7 +61,7 @@ class MoviesBannerRecyclerAdapter(val context: Context) :
                     )
                     .build()
 
-                load(BuildConfig.BASE_URL_IMAGE_LANDSCAPE + it.bannerPath) {
+                load(it.bannerPath) {
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.background_image_default)

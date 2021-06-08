@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.domain.model.tv_show
 
+import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.data.model.response.tv_shows.TvShowResult
 import id.my.arieftb.meowvie.domain.base.BaseMapper
 
@@ -15,8 +16,10 @@ class TvShow(
         return TvShow().apply {
             id = response?.id?.toLong()
             title = response?.name
-            bannerPath = response?.backdropPath
-            posterPath = response?.posterPath
+            bannerPath = if (response?.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
+            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
             releaseDate = response?.firstAirDate
         }
     }

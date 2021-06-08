@@ -60,7 +60,7 @@ class MoviesPortraitRecyclerAdapter(val context: Context) :
                     )
                     .build()
 
-                load(BuildConfig.BASE_URL_IMAGE_PORTRAIT + it.posterPath) {
+                load(it.posterPath) {
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.background_image_default)
