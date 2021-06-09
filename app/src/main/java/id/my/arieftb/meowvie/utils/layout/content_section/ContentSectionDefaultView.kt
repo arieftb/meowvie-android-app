@@ -63,6 +63,14 @@ class ContentSectionDefaultView @JvmOverloads constructor(
             }
         }
 
+    var errorMessage: String? = null
+    set(value) {
+        field = value
+        field?.let {
+            binding?.textContentSectionErrorMessage?.text = field
+        }
+    }
+
     init {
         binding =
             ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
