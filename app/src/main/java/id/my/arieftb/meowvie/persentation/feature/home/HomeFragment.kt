@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
-import id.my.arieftb.meowvie.persentation.feature.movie.MoviesBannerRecyclerAdapter
-import id.my.arieftb.meowvie.persentation.feature.movie.MoviesPortraitRecyclerAdapter
-import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsBannerRecyclerAdapter
-import id.my.arieftb.meowvie.persentation.feature.tv_show.TvShowsPortraitRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.MoviesBannerRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.MoviesPortraitRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.TvShowsBannerRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.TvShowsPortraitRecyclerAdapter
 import id.my.arieftb.meowvie.persentation.model.Status
 
 @AndroidEntryPoint

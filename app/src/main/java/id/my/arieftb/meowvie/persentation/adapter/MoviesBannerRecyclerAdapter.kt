@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.persentation.feature.movie
+package id.my.arieftb.meowvie.persentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
-import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
 import id.my.arieftb.meowvie.domain.model.movie.Movie
