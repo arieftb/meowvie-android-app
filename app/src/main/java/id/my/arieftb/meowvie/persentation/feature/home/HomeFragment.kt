@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.adapter.MoviesBannerRecyclerAdapter
@@ -110,6 +111,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     movieAdapter.addAll(it.data)
                 }
                 Status.ERROR -> {
+                    binding.sectionHomeNewMovie.status = it.status
+                    binding.sectionHomeNewMovie.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
                 }
                 else -> binding.sectionHomeNewMovie.status = it.status
             }
