@@ -43,11 +43,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewModel.detailData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> setSuccessDetailView(it.data)
-                Status.ERROR -> {
-                }
-                else -> {
-                    setLoadingView()
-                }
+                Status.ERROR -> setErrorView()
+                else -> setLoadingView()
+
             }
         })
 
@@ -57,6 +55,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun setLoadingView() {
         binding.shimmerDetailLoading.show()
         binding.groupDetailView.hide()
+        binding.textDetailErrorMessage.hide()
+    }
+
+    private fun setErrorView() {
+        binding.shimmerDetailLoading.hide()
+        binding.groupDetailView.hide()
+        binding.textDetailErrorMessage.apply {
+            show()
+            text = getString(R.string.error_message_something_went_wrong)
+        }
     }
 
     private fun setSuccessDetailView(data: ContentDetail?) {
