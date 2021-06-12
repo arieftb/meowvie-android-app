@@ -4,6 +4,7 @@
 
     <string name="image_description_splash_app_logo">Logo Aplikasi MeowVie Pada Splash Screen</string>
     <string name="image_description_section_icon">Ikon lebih banyak konten dari sesi ini</string>
+    <string name="image_description_detail_image_poster">Poster of Content</string>
 
     <string name="menu_home">Beranda</string>
     <string name="menu_explore">Jelajahi</string>
