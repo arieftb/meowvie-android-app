@@ -23,7 +23,8 @@
             textDetailOverviewLabel,
             textDetailOverview,
             buttonDetailFavorite,
-            buttonDetailShare" />
+            buttonDetailShare"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/imageDetailPoster"
@@ -196,7 +197,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shimmer_duration="800"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <include
                 layout="@layout/shimmer_content_detail"
