@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.domain.model.movie
 
+import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.meowvie.domain.base.BaseMapper
 
@@ -15,7 +16,7 @@ class MovieDetail(
         return MovieDetail().apply {
             id = response?.id
             title = response?.title
-            posterPath = response?.posterPath
+            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
             releaseDate = response?.releaseDate
             overview = response?.overview
             genre = response?.genres?.joinToString(separator = ", ") {
