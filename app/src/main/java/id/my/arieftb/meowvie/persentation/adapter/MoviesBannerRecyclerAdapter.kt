@@ -15,12 +15,15 @@ import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 class MoviesBannerRecyclerAdapter(val context: Context) :
     BaseRecyclerDefaultAdapter<Movie, MoviesBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
+    var listener: MovieRecyclerListener? = null
+
     lateinit var binding: ItemContentBannerBinding
 
     inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
-        binding = ItemContentBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            ItemContentBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MoviesRecyclerViewHolder(binding.root)
     }
 
@@ -64,6 +67,12 @@ class MoviesBannerRecyclerAdapter(val context: Context) :
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.image_not_found)
+                }
+            }
+
+            binding.root.setOnClickListener { view ->
+                it.id?.let { id ->
+                    listener?.onMovieClickListener(id, view)
                 }
             }
         }
