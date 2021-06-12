@@ -12,21 +12,21 @@ import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 
-class TvShowsPortraitRecyclerAdapter(val context: Context) :
-    BaseRecyclerDefaultAdapter<Content, TvShowsPortraitRecyclerAdapter.TvShowsRecyclerViewHolder>() {
+class ContentPortraitRecyclerAdapter(val context: Context) :
+    BaseRecyclerDefaultAdapter<Content, ContentPortraitRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
-    var listener: TvShowRecyclerListener? = null
+    var listener: ContentRecyclerListener? = null
 
     lateinit var binding: ItemContentDefaultBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsRecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =
             ItemContentDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return TvShowsRecyclerViewHolder(binding.root)
+        return MoviesRecyclerViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: TvShowsRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
             (layoutParams as RecyclerView.LayoutParams).apply {
                 val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
@@ -57,9 +57,7 @@ class TvShowsPortraitRecyclerAdapter(val context: Context) :
                 shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
                     .setAllCorners(
                         CornerFamily.ROUNDED,
-                        this@TvShowsPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(
-                            R.dimen._8sdp
-                        )
+                        this@ContentPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
                             .toFloat()
                     )
                     .build()
@@ -73,11 +71,11 @@ class TvShowsPortraitRecyclerAdapter(val context: Context) :
 
             binding.root.setOnClickListener { view ->
                 it.id?.let { id ->
-                    listener?.onTvShowClickListener(id, view)
+                    listener?.onContentClickListener(id, view)
                 }
             }
         }
     }
 
-    inner class TvShowsRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

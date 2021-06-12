@@ -12,22 +12,22 @@ import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 
-class TvShowsBannerRecyclerAdapter(val context: Context) :
-    BaseRecyclerDefaultAdapter<Content, TvShowsBannerRecyclerAdapter.TvShowsRecyclerViewHolder>() {
+class ContentBannerRecyclerAdapter(val context: Context) :
+    BaseRecyclerDefaultAdapter<Content, ContentBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
-    var listener: TvShowRecyclerListener? = null
+    var listener: ContentRecyclerListener? = null
 
     lateinit var binding: ItemContentBannerBinding
 
-    inner class TvShowsRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsRecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =
             ItemContentBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TvShowsRecyclerViewHolder(binding.root)
+        return MoviesRecyclerViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: TvShowsRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
             (layoutParams as RecyclerView.LayoutParams).apply {
                 val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
@@ -58,7 +58,7 @@ class TvShowsBannerRecyclerAdapter(val context: Context) :
                 shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
                     .setAllCorners(
                         CornerFamily.ROUNDED,
-                        this@TvShowsBannerRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
+                        this@ContentBannerRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
                             .toFloat()
                     )
                     .build()
@@ -72,7 +72,7 @@ class TvShowsBannerRecyclerAdapter(val context: Context) :
 
             binding.root.setOnClickListener { view ->
                 it.id?.let { id ->
-                    listener?.onTvShowClickListener(id, view)
+                    listener?.onContentClickListener(id, view)
                 }
             }
         }

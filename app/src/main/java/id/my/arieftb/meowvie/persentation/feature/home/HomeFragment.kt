@@ -14,15 +14,14 @@ import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
-    TvShowRecyclerListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListener{
 
-    private lateinit var movieAdapter: MoviesPortraitRecyclerAdapter
-    private lateinit var tvShowAdapter: TvShowsPortraitRecyclerAdapter
-    private lateinit var movieUpcomingAdapter: MoviesBannerRecyclerAdapter
-    private lateinit var tvShowUpcomingAdapter: TvShowsBannerRecyclerAdapter
-    private lateinit var moviePopularAdapter: MoviesPortraitRecyclerAdapter
-    private lateinit var tvShowPopularAdapter: TvShowsPortraitRecyclerAdapter
+    private lateinit var movieAdapter: ContentPortraitRecyclerAdapter
+    private lateinit var tvShowAdapter: ContentPortraitRecyclerAdapter
+    private lateinit var movieUpcomingAdapter: ContentBannerRecyclerAdapter
+    private lateinit var tvShowUpcomingAdapter: ContentBannerRecyclerAdapter
+    private lateinit var moviePopularAdapter: ContentPortraitRecyclerAdapter
+    private lateinit var tvShowPopularAdapter: ContentPortraitRecyclerAdapter
 
     private val viewModel: HomeViewModelImpl by viewModels()
 
@@ -52,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initMovieHighlightAdapter() {
         binding.sectionHomeNewMovie.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MoviesPortraitRecyclerAdapter(requireContext()).apply {
+            adapter = ContentPortraitRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 movieAdapter = it
@@ -63,7 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initTvShowHighlightAdapter() {
         binding.sectionHomeNewTvShow.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = TvShowsPortraitRecyclerAdapter(requireContext()).apply {
+            adapter = ContentPortraitRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 tvShowAdapter = it
@@ -74,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initMovieUpcomingHighlightAdapter() {
         binding.sectionHomeComingSoonMovie.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MoviesBannerRecyclerAdapter(requireContext()).apply {
+            adapter = ContentBannerRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 movieUpcomingAdapter = it
@@ -85,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initTvShowUpcomingHighlightAdapter() {
         binding.sectionHomeComingSoonTvShow.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = TvShowsBannerRecyclerAdapter(requireContext()).apply {
+            adapter = ContentBannerRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 tvShowUpcomingAdapter = it
@@ -96,7 +95,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initMoviesPopularHighlightAdapter() {
         binding.sectionHomePopularMovie.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MoviesPortraitRecyclerAdapter(requireContext()).apply {
+            adapter = ContentPortraitRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 moviePopularAdapter = it
@@ -107,7 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
     private fun initTvShowPopularHighlightAdapter() {
         binding.sectionHomePopularTvShow.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = TvShowsPortraitRecyclerAdapter(requireContext()).apply {
+            adapter = ContentPortraitRecyclerAdapter(requireContext()).apply {
                 listener = this@HomeFragment
             }.also {
                 tvShowPopularAdapter = it
@@ -229,14 +228,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener,
         viewModel.getTvShowsPopularHighlight()
     }
 
-    override fun onMovieClickListener(id: Long, view: View) {
+    override fun onContentClickListener(id: Long, view: View) {
         HomeFragmentDirections.actionHomeToDetail(id, ContentType.MOVIE).also {
-            view.findNavController().navigate(it)
-        }
-    }
-
-    override fun onTvShowClickListener(id: Long, view: View) {
-        HomeFragmentDirections.actionHomeToDetail(id, ContentType.TV_SHOW).also {
             view.findNavController().navigate(it)
         }
     }
