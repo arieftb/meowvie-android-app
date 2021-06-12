@@ -65,6 +65,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             binding.textDetailTitle.text = it.title
             binding.textDetailGenre.text = it.genre
             binding.textDetailReleaseDate.text = it.releaseDate
+            binding.textDetailOverview.text = it.overview
             binding.ratingDetailVote.rating = it.rating?.div(2)?.toFloat() ?: 0.0f
         }
     }
