@@ -17,7 +17,7 @@ data class TvShowDetailResponse(
     @SerializedName("homepage")
     val homepage: String? = null,
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Long? = null,
     @SerializedName("in_production")
     val inProduction: Boolean? = null,
     @SerializedName("languages")
