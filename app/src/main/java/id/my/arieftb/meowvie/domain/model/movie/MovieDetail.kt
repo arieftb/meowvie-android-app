@@ -10,7 +10,8 @@ class MovieDetail(
     var posterPath: String? = null,
     var releaseDate: String? = "",
     var overview: String? = null,
-    var genre: String? = null
+    var genre: String? = null,
+    var rating: Double? = 0.0
 ) : MovieDetailMapper {
     override fun mapFromResponse(response: MovieDetailResponse?): MovieDetail {
         return MovieDetail().apply {
@@ -22,6 +23,7 @@ class MovieDetail(
             genre = response?.genres?.joinToString(separator = ", ") {
                 it.name.toString()
             }
+            rating = response?.voteAverage
         }
     }
 }
