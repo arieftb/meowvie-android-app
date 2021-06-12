@@ -29,4 +29,9 @@
         <item name="colorPrimary">@color/grey_2e2e2e</item>
         <item name="colorOnPrimary">@color/white</item>
     </style>
+
+    <style name="Theme.MeowVie.RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grey_979797</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
 </resources>
