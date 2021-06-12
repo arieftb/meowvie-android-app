@@ -17,7 +17,7 @@ class MovieDetail(
         return MovieDetail().apply {
             id = response?.id
             title = response?.title
-            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
+            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + response?.posterPath
             releaseDate = response?.releaseDate
             overview = response?.overview
             genre = response?.genres?.joinToString(separator = ", ") {

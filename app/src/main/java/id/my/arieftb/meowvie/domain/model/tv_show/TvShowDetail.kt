@@ -12,12 +12,12 @@ class TvShowDetail(
     var overview: String? = null,
     var genre: String? = null,
     var rating: Double? = 0.0
-): TvShowDetailMapper {
+) : TvShowDetailMapper {
     override fun mapFromResponse(response: TvShowDetailResponse?): TvShowDetail {
         return TvShowDetail().apply {
             id = response?.id
             title = response?.name
-            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
+            posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + response?.posterPath
             releaseDate = response?.firstAirDate
             overview = response?.overview
             genre = response?.genres?.joinToString(separator = ", ") {
@@ -28,4 +28,4 @@ class TvShowDetail(
     }
 }
 
-interface TvShowDetailMapper: BaseMapper.ResponseDataMapper<TvShowDetailResponse, TvShowDetail>
+interface TvShowDetailMapper : BaseMapper.ResponseDataMapper<TvShowDetailResponse, TvShowDetail>
