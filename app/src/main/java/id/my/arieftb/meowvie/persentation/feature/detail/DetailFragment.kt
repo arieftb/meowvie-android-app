@@ -47,9 +47,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 Status.ERROR -> {
                 }
                 else -> {
+                    setLoadingView()
                 }
             }
         })
+    }
+
+    private fun setLoadingView() {
+        binding.shimmerDetailLoading.show()
+        binding.groupDetailView.hide()
     }
 
     private fun setSuccessMovieView(data: MovieDetail?) {
