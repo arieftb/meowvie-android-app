@@ -19,4 +19,8 @@
         android:id="@+id/accountFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.account.AccountFragment"
         android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="id.my.arieftb.meowvie.persentation.feature.detail.DetailFragment"
+        android:label="DetailFragment" />
 </navigation>
