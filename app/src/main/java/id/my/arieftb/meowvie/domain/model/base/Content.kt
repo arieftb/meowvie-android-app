@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.domain.model.base
 
 import id.my.arieftb.meowvie.BuildConfig
+import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.model.response.movies.MovieResult
 import id.my.arieftb.meowvie.data.model.response.tv_shows.TvShowResult
 
@@ -9,6 +10,7 @@ open class Content(
     var title: String? = "",
     var bannerPath: String? = null,
     var posterPath: String? = null,
+    var type: ContentType? = ContentType.MOVIE
 ) : ContentMovieMapper, ContentTvShowMapper {
     override fun mapFromMovieResult(response: MovieResult): Content {
         return Content().apply {
@@ -18,6 +20,7 @@ open class Content(
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
+            this.type = ContentType.MOVIE
         }
     }
 
@@ -29,6 +32,7 @@ open class Content(
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
+            this.type = ContentType.TV_SHOW
         }
     }
 

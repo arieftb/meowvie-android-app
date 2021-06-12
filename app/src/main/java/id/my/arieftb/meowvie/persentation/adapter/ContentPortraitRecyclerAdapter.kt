@@ -57,7 +57,9 @@ class ContentPortraitRecyclerAdapter(val context: Context) :
                 shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
                     .setAllCorners(
                         CornerFamily.ROUNDED,
-                        this@ContentPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
+                        this@ContentPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(
+                            R.dimen._8sdp
+                        )
                             .toFloat()
                     )
                     .build()
@@ -70,9 +72,7 @@ class ContentPortraitRecyclerAdapter(val context: Context) :
             }
 
             binding.root.setOnClickListener { view ->
-                it.id?.let { id ->
-                    listener?.onContentClickListener(id, view)
-                }
+                listener?.onContentClickListener(it.id, it.type, view)
             }
         }
     }

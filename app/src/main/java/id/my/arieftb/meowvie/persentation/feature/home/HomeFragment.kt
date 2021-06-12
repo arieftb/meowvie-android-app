@@ -14,7 +14,7 @@ import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListener{
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListener {
 
     private lateinit var movieAdapter: ContentPortraitRecyclerAdapter
     private lateinit var tvShowAdapter: ContentPortraitRecyclerAdapter
@@ -228,8 +228,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
         viewModel.getTvShowsPopularHighlight()
     }
 
-    override fun onContentClickListener(id: Long, view: View) {
-        HomeFragmentDirections.actionHomeToDetail(id, ContentType.MOVIE).also {
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {
+        HomeFragmentDirections.actionHomeToDetail(id ?: -1, type ?: ContentType.MOVIE).also {
             view.findNavController().navigate(it)
         }
     }

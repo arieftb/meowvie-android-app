@@ -71,9 +71,7 @@ class ContentBannerRecyclerAdapter(val context: Context) :
             }
 
             binding.root.setOnClickListener { view ->
-                it.id?.let { id ->
-                    listener?.onContentClickListener(id, view)
-                }
+                listener?.onContentClickListener(it.id, it.type, view)
             }
         }
     }

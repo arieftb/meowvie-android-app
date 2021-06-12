@@ -6,23 +6,23 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/actionHomeToDetail"
             app:destination="@id/detailFragment"
-            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/homeFragment">
             <argument
                 android:name="id"
-                app:argType="long"
-                android:defaultValue="-1L" />
+                android:defaultValue="-1L"
+                app:argType="long" />
             <argument
                 android:name="type"
-                app:argType="id.my.arieftb.meowvie.constant.ContentType"
-                android:defaultValue="MOVIE" />
+                android:defaultValue="MOVIE"
+                app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
         </action>
     </fragment>
     <fragment
