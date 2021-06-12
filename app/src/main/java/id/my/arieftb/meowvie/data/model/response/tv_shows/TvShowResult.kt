@@ -11,7 +11,7 @@ data class TvShowResult(
     @SerializedName("genre_ids")
     val genreIds: List<Int>? = null,
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Long? = null,
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("origin_country")
@@ -29,5 +29,5 @@ data class TvShowResult(
     @SerializedName("vote_average")
     val voteAverage: String? = null,
     @SerializedName("vote_count")
-    val voteCount: Int? = null
+    val voteCount: Long? = null
 )

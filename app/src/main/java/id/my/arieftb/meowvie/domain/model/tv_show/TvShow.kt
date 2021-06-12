@@ -14,7 +14,7 @@ class TvShow(
 ) : TvShowMapper {
     override fun mapFromResponse(response: TvShowResult?): TvShow {
         return TvShow().apply {
-            id = response?.id?.toLong()
+            id = response?.id
             title = response?.name
             bannerPath = if (response?.backdropPath != null) {
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
