@@ -15,6 +15,11 @@ class DateHelper {
         return this
     }
 
+    fun fromDateString(date: String, format: String): DateHelper {
+        dateTime = SimpleDateFormat(format, Locale.getDefault()).parse(date)
+        return this
+    }
+
     fun addMonth(monthInterval: Int): DateHelper {
         calendar?.add(Calendar.MONTH, monthInterval)
         dateTime = calendar?.time
