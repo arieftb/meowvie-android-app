@@ -6,7 +6,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/actionHomeToDetail"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/homeFragment">
+            <argument
+                android:name="id"
+                app:argType="long"
+                android:defaultValue="-1L" />
+            <argument
+                android:name="type"
+                app:argType="id.my.arieftb.meowvie.constant.ContentType"
+                android:defaultValue="MOVIE" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.explore.ExploreFragment"
