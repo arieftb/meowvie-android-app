@@ -97,6 +97,13 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideSaveMovieUseCase(
+        repository: MovieRepository,
+        getCurrentDateUseCase: GetCurrentDateUseCase
+    ): SaveMovieUseCase = SaveMovieUseCaseImpl(repository, getCurrentDateUseCase)
+
+    @Provides
+    @Singleton
     fun provideGetTvShowsUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,

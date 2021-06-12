@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.data.repo
 
+import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSource
+import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
@@ -11,7 +13,11 @@ import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import javax.inject.Inject
 
-class MovieRepositoryImpl @Inject constructor(val remote: MovieRemoteDataSource) : MovieRepository {
+class MovieRepositoryImpl @Inject constructor(
+    private val remote: MovieRemoteDataSource,
+    private val local: MovieLocalDataSource
+) :
+    MovieRepository {
     override suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Content>> {
         val response = remote.fetchAll(request)
         if (response.isSuccessful) {
@@ -40,5 +46,14 @@ class MovieRepositoryImpl @Inject constructor(val remote: MovieRemoteDataSource)
             return Result.Failure(Exception("${response.code()}"))
         }
         return Result.Failure(Exception("${response.code()}"))
+    }
+
+    override suspend fun save(request: ContentSaveRequest): Result<Boolean> {
+        val response = local.saveMovie(request)
+        if (response != -1L) {
+            return Result.Success(data = true)
+        }
+
+        return Result.Failure(exception = Exception("400"))
     }
 }

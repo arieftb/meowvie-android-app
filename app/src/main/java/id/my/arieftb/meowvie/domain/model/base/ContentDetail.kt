@@ -8,6 +8,7 @@ open class ContentDetail(
     var id: Long? = -1,
     var title: String? = "",
     var posterPath: String? = null,
+    var bannerPath: String? = null,
     var releaseDate: String? = "",
     var overview: String? = null,
     var genre: String? = null,
@@ -18,6 +19,9 @@ open class ContentDetail(
             this.id = response?.id
             this.title = response?.title
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + response?.posterPath
+            this.bannerPath = if (response?.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response?.posterPath
             this.releaseDate = response?.releaseDate
             this.overview = response?.overview
             this.genre = response?.genres?.joinToString(", ") {

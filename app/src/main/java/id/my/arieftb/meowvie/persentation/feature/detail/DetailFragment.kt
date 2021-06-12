@@ -2,12 +2,14 @@ package id.my.arieftb.meowvie.persentation.feature.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -20,6 +22,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private var id: Long = -1
     private var type: ContentType = ContentType.MOVIE
+    private var isSaved: Boolean = false
+    private var contentDetail: ContentDetail? = null
     private val viewModel: DetailViewModelImpl by viewModels()
 
     override fun getViewBinding(): FragmentDetailBinding =
@@ -29,13 +33,29 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initArgs()
+        initView()
         getDetail()
+        getContentSaveStatus()
     }
 
     private fun initArgs() {
         arguments?.let {
             id = it.getLong("id")
             type = it.get("type") as ContentType
+        }
+    }
+
+    private fun initView() {
+        binding.buttonDetailFavorite.setOnClickListener {
+            if (!isSaved && contentDetail != null) {
+                viewModel.saveContent(Content().apply {
+                    this.id = contentDetail?.id
+                    this.title = contentDetail?.title
+                    this.posterPath = contentDetail?.posterPath
+                    this.bannerPath = contentDetail?.bannerPath
+                    this.type = this@DetailFragment.type
+                })
+            }
         }
     }
 
@@ -50,6 +70,30 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         })
 
         viewModel.getDetail(id, type)
+    }
+
+    private fun getContentSaveStatus() {
+        viewModel.isSaved.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Toast.makeText(context, "Save to watch later successfully", Toast.LENGTH_SHORT).show()
+                    setSuccessSaveView(it.data)
+                }
+                Status.ERROR -> Toast.makeText(
+                    context,
+                    getString(R.string.error_message_something_went_wrong),
+                    Toast.LENGTH_SHORT
+                ).show()
+                else -> {
+                }
+            }
+        })
+    }
+
+    private fun setSuccessSaveView(data: Boolean?) {
+        if (data!!) {
+            binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+        } else binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
     }
 
     private fun setLoadingView() {
@@ -68,6 +112,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun setSuccessDetailView(data: ContentDetail?) {
+        this.contentDetail = data
         binding.shimmerDetailLoading.hide()
         binding.groupDetailView.show()
 

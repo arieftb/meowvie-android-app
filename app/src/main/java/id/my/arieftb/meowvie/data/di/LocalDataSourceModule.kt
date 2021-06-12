@@ -8,6 +8,9 @@ import id.my.arieftb.meowvie.data.local.date.DateLocalDataSource
 import id.my.arieftb.meowvie.data.local.date.DateLocalDataSourceImpl
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSource
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSourceImpl
+import id.my.arieftb.meowvie.data.local.movie.MovieDao
+import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSource
+import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSourceImpl
 import id.my.arieftb.meowvie.utils.helper.date.DateHelper
 import javax.inject.Singleton
 
@@ -22,4 +25,9 @@ object LocalDataSourceModule {
     @Singleton
     fun provideDateLocalDataSource(dateHelper: DateHelper): DateLocalDataSource =
         DateLocalDataSourceImpl(dateHelper)
+
+    @Provides
+    @Singleton
+    fun provideMovieLocalDataSource(movieDao: MovieDao): MovieLocalDataSource =
+        MovieLocalDataSourceImpl(movieDao)
 }

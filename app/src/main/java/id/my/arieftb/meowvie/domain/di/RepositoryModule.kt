@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.data.local.date.DateLocalDataSource
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSource
+import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSource
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
 import id.my.arieftb.meowvie.data.repo.DateRepositoryImpl
@@ -23,8 +24,8 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideMovieRepository(remote: MovieRemoteDataSource): MovieRepository =
-        MovieRepositoryImpl(remote)
+    fun provideMovieRepository(remote: MovieRemoteDataSource, local: MovieLocalDataSource): MovieRepository =
+        MovieRepositoryImpl(remote, local)
 
     @Provides
     @Singleton
