@@ -13,7 +13,7 @@ class TvShowDetail(
     var genre: String? = null,
     var rating: Double? = 0.0
 ): TvShowDetailMapper {
-    override fun mapFromResponse(response: TvShowDetailResponse?): TvShowDetail? {
+    override fun mapFromResponse(response: TvShowDetailResponse?): TvShowDetail {
         return TvShowDetail().apply {
             id = response?.id
             title = response?.name
