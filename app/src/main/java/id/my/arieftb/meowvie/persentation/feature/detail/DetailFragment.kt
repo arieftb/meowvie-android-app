@@ -13,6 +13,7 @@ import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
+import id.my.arieftb.meowvie.utils.helper.date.DateHelper
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
@@ -66,7 +67,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             binding.textDetailGenre.text = it.genre
             binding.textDetailReleaseDate.text = it.releaseDate
             binding.textDetailOverview.text = it.overview
-            binding.textDetailReleaseDate.text = String.format(getString(R.string.label_release_date, it.releaseDate))
+            binding.textDetailReleaseDate.text = String.format(
+                getString(
+                    R.string.label_release_date,
+                    DateHelper.instance?.fromDateString(
+                        it.releaseDate ?: "0000-00-00",
+                        "yyyy-MM-dd"
+                    )
+                        ?.toPattern("dd MMM yyyy")?.getString() ?: ""
+                )
+            )
             binding.ratingDetailVote.rating = it.rating?.div(2)?.toFloat() ?: 0.0f
         }
     }
