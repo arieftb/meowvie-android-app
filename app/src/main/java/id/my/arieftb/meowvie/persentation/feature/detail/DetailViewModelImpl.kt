@@ -21,8 +21,7 @@ class DetailViewModelImpl @Inject constructor(
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase
 ) :
     ViewModel(), DetailViewModel {
-    override var movieData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
-    override val tvShowData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
+    override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
 
     override fun getDetail(id: Long, type: ContentType) {
         when (type) {
@@ -32,28 +31,28 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun getMovieDetail(id: Long) {
-        movieData.value = Data(Status.LOADING)
+        detailData.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            movieData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            detailData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMovieDetailUseCase.invoke(id)) {
-                is Result.Success -> movieData.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> movieData.value =
+                is Result.Success -> detailData.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> detailData.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
 
     override fun getTvShowDetail(id: Long) {
-        tvShowData.value = Data(Status.LOADING)
+        detailData.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            tvShowData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            detailData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowDetailUseCase.invoke(id)) {
-                is Result.Success -> tvShowData.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> tvShowData.value =
+                is Result.Success -> detailData.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> detailData.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }

@@ -29,8 +29,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initArgs()
-        getMovieDetail()
-        getTvShowDetail()
         getDetail()
     }
 
@@ -41,8 +39,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun getMovieDetail() {
-        viewModel.movieData.observe(viewLifecycleOwner, {
+    private fun getDetail() {
+        viewModel.detailData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> setSuccessDetailView(it.data)
                 Status.ERROR -> {
@@ -52,19 +50,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
         })
-    }
 
-    private fun getTvShowDetail() {
-        viewModel.tvShowData.observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> setSuccessDetailView(it.data)
-                Status.ERROR -> {
-                }
-                else -> {
-                    setLoadingView()
-                }
-            }
-        })
+        viewModel.getDetail(id, type)
     }
 
     private fun setLoadingView() {
@@ -99,9 +86,5 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             )
             binding.ratingDetailVote.rating = it.rating?.toFloat() ?: 0.0f
         }
-    }
-
-    private fun getDetail() {
-        viewModel.getDetail(id, type)
     }
 }
