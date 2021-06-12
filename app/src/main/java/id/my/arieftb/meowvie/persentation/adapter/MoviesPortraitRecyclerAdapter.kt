@@ -15,6 +15,8 @@ import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 class MoviesPortraitRecyclerAdapter(val context: Context) :
     BaseRecyclerDefaultAdapter<Movie, MoviesPortraitRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
+    var listener: MovieRecyclerListener? = null
+
     lateinit var binding: ItemContentDefaultBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
@@ -53,7 +55,8 @@ class MoviesPortraitRecyclerAdapter(val context: Context) :
 
             binding.imageContentDefaultPoster.apply {
                 shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
-                    .setAllCorners(CornerFamily.ROUNDED,
+                    .setAllCorners(
+                        CornerFamily.ROUNDED,
                         this@MoviesPortraitRecyclerAdapter.context.resources.getDimensionPixelSize(R.dimen._8sdp)
                             .toFloat()
                     )
@@ -63,6 +66,12 @@ class MoviesPortraitRecyclerAdapter(val context: Context) :
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.image_not_found)
+                }
+            }
+
+            binding.root.setOnClickListener { view ->
+                it.id?.let { id ->
+                    listener?.onMovieClickListener(id, view)
                 }
             }
         }
