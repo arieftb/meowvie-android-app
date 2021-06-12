@@ -10,6 +10,8 @@
     <string name="menu_watchlist">Watchlist</string>
     <string name="menu_account">Account</string>
 
+    <string name="label_overview">Overview</string>
+
     <string name="section_watchlist">Watchlist</string>
     <string name="section_new_movie">New Movie in Meowvie</string>
     <string name="section_new_tv_show">New TV Show in Meowvie</string>

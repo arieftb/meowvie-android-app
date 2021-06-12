@@ -11,6 +11,8 @@
     <string name="menu_watchlist">Tandai</string>
     <string name="menu_account">Akun</string>
 
+    <string name="label_overview">Overview</string>
+
 <!--    TODO : 04/05/2021 - Translate THIS-->
     <string name="section_watchlist">Watchlist</string>
     <string name="section_new_movie">New Movie in Meowvie</string>
