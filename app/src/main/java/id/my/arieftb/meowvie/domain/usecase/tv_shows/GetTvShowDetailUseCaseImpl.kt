@@ -5,8 +5,9 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
 import id.my.arieftb.meowvie.domain.repo.TvShowRepository
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
+import javax.inject.Inject
 
-class GetTvShowDetailUseCaseImpl constructor(
+class GetTvShowDetailUseCaseImpl @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase,
     private val repository: TvShowRepository
 ) : GetTvShowDetailUseCase {
