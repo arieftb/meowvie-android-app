@@ -7,7 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_16sdp">
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/groupDetailView"
@@ -169,6 +170,7 @@
             android:fontFamily="@font/bold"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
+            android:text="@string/label_overview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/barrierDetailButton"
