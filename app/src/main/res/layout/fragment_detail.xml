@@ -83,6 +83,7 @@
 
         <RatingBar
             android:id="@+id/ratingDetailVote"
+            android:theme="@style/Theme.MeowVie.RatingBar"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
