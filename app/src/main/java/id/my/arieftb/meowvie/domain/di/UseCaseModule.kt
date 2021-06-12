@@ -90,6 +90,13 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideGetMovieDetailUseCase(
+        getLanguageUseCase: GetLanguageUseCase,
+        repository: MovieRepository
+    ): GetMovieDetailUseCase = GetMovieDetailUseCaseImpl(getLanguageUseCase, repository)
+
+    @Provides
+    @Singleton
     fun provideGetTvShowsUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,
