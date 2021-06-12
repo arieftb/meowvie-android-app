@@ -134,6 +134,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener 
                     binding.sectionHomeNewTvShow.status = it.status
                     tvShowAdapter.addAll(it.data)
                 }
+                Status.ERROR -> {
+                    binding.sectionHomeNewTvShow.status = it.status
+                    binding.sectionHomeNewTvShow.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
+                }
                 else -> binding.sectionHomeNewMovie.status = it.status
             }
         })
@@ -147,6 +152,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener 
                 Status.SUCCESS -> {
                     binding.sectionHomeComingSoonMovie.status = it.status
                     movieUpcomingAdapter.addAll(it.data)
+                }
+                Status.ERROR -> {
+                    binding.sectionHomeComingSoonMovie.status = it.status
+                    binding.sectionHomeComingSoonMovie.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
                 }
                 else -> binding.sectionHomeComingSoonMovie.status = it.status
             }
@@ -162,6 +172,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener 
                     binding.sectionHomeComingSoonTvShow.status = it.status
                     tvShowUpcomingAdapter.addAll(it.data)
                 }
+                Status.ERROR -> {
+                    binding.sectionHomeComingSoonTvShow.status = it.status
+                    binding.sectionHomeComingSoonTvShow.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
+                }
                 else -> binding.sectionHomeComingSoonTvShow.status = it.status
             }
         })
@@ -176,6 +191,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener 
                     binding.sectionHomePopularMovie.status = it.status
                     moviePopularAdapter.addAll(it.data)
                 }
+                Status.ERROR -> {
+                    binding.sectionHomePopularMovie.status = it.status
+                    binding.sectionHomePopularMovie.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
+                }
                 else -> binding.sectionHomePopularMovie.status = it.status
             }
         })
@@ -189,6 +209,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MovieRecyclerListener 
                 Status.SUCCESS -> {
                     binding.sectionHomePopularTvShow.status = it.status
                     tvShowPopularAdapter.addAll(it.data)
+                }
+                Status.ERROR -> {
+                    binding.sectionHomePopularTvShow.status = it.status
+                    binding.sectionHomePopularTvShow.errorMessage =
+                        getString(R.string.error_message_something_went_wrong)
                 }
                 else -> binding.sectionHomePopularTvShow.status = it.status
             }
