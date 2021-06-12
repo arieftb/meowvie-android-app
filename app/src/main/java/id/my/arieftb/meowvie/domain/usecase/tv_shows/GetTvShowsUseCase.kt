@@ -1,7 +1,7 @@
 package id.my.arieftb.meowvie.domain.usecase.tv_shows
 
 import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
+import id.my.arieftb.meowvie.domain.model.base.Content
 
 interface GetTvShowsUseCase {
     suspend fun invoke(
@@ -9,5 +9,5 @@ interface GetTvShowsUseCase {
         sortBy: String? = "first_air_date.desc",
         releaseDateLte: String? = null,
         releaseDateGte: String? = null
-    ): Result<List<TvShow>>
+    ): Result<List<Content>>
 }

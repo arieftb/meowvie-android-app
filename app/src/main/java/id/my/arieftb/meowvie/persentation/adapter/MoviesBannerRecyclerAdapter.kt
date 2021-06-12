@@ -9,11 +9,11 @@ import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
-import id.my.arieftb.meowvie.domain.model.movie.Movie
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 
 class MoviesBannerRecyclerAdapter(val context: Context) :
-    BaseRecyclerDefaultAdapter<Movie, MoviesBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
+    BaseRecyclerDefaultAdapter<Content, MoviesBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
     var listener: MovieRecyclerListener? = null
 

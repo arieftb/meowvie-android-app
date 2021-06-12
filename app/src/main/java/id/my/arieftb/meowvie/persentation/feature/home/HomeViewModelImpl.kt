@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.movie.Movie
-import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesPopularHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingHighlightUseCase
@@ -30,12 +29,12 @@ class HomeViewModelImpl @Inject constructor(
 ) :
     ViewModel(),
     HomeViewModel {
-    override var moviesData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
-    override val moviesUpcomingData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
-    override val moviesPopularData: MutableLiveData<Data<List<Movie>>> = MutableLiveData()
-    override val tvShowsData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
-    override val tvShowsUpcomingData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
-    override val tvShowsPopularData: MutableLiveData<Data<List<TvShow>>> = MutableLiveData()
+    override var moviesData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val moviesUpcomingData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val moviesPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val tvShowsData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val tvShowsPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
     override fun getMovies() {
         moviesData.value = Data(Status.LOADING)

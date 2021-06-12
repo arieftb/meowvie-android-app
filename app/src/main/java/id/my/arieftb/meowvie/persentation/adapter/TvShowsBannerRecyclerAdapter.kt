@@ -9,11 +9,11 @@ import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
-import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 
 class TvShowsBannerRecyclerAdapter(val context: Context) :
-    BaseRecyclerDefaultAdapter<TvShow, TvShowsBannerRecyclerAdapter.TvShowsRecyclerViewHolder>() {
+    BaseRecyclerDefaultAdapter<Content, TvShowsBannerRecyclerAdapter.TvShowsRecyclerViewHolder>() {
 
     var listener: TvShowRecyclerListener? = null
 

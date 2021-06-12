@@ -2,6 +2,7 @@ package id.my.arieftb.meowvie.domain.usecase.movies
 
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
@@ -19,7 +20,7 @@ class GetMoviesUseCaseImpl @Inject constructor(
         sortBy: String?,
         releaseDateLte: String?,
         releaseDateGte: String?
-    ): Result<List<Movie>> {
+    ): Result<List<Content>> {
         val request = DiscoverRequest().apply {
             this.page = page
             this.sortBy = sortBy

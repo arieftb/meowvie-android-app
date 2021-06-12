@@ -2,6 +2,7 @@ package id.my.arieftb.meowvie.domain.usecase.tv_shows
 
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.repo.TvShowRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
@@ -17,7 +18,7 @@ class GetTvShowsUseCaseImpl constructor(
         sortBy: String?,
         releaseDateLte: String?,
         releaseDateGte: String?
-    ): Result<List<TvShow>> {
+    ): Result<List<Content>> {
         val request = DiscoverRequest().apply {
             this.page = page
             this.sortBy = sortBy
