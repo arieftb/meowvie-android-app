@@ -85,13 +85,13 @@
 
         <RatingBar
             android:id="@+id/ratingDetailVote"
-            android:theme="@style/Theme.MeowVie.RatingBar"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:numStars="5"
+            android:theme="@style/Theme.MeowVie.RatingBar"
             app:layout_constraintBottom_toBottomOf="@id/imageDetailPoster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -169,9 +169,9 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:fontFamily="@font/bold"
+            android:text="@string/label_overview"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
-            android:text="@string/label_overview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/barrierDetailButton"
@@ -192,6 +192,23 @@
             app:layout_constraintTop_toBottomOf="@id/textDetailOverviewLabel"
             tools:maxLines="3"
             tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/textDetailErrorMessage"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/regular"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Error Message" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmerDetailLoading"
