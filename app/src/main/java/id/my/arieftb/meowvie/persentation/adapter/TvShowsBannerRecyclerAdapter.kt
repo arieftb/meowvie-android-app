@@ -15,6 +15,8 @@ import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
 class TvShowsBannerRecyclerAdapter(val context: Context) :
     BaseRecyclerDefaultAdapter<TvShow, TvShowsBannerRecyclerAdapter.TvShowsRecyclerViewHolder>() {
 
+    var listener: TvShowRecyclerListener? = null
+
     lateinit var binding: ItemContentBannerBinding
 
     inner class TvShowsRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -65,6 +67,12 @@ class TvShowsBannerRecyclerAdapter(val context: Context) :
                     crossfade(true)
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.image_not_found)
+                }
+            }
+
+            binding.root.setOnClickListener { view ->
+                it.id?.let { id ->
+                    listener?.onTvShowClickListener(id, view)
                 }
             }
         }
