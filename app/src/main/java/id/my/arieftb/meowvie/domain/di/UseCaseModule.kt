@@ -142,4 +142,11 @@ object UseCaseModule {
         getTvShowsPopularUseCase: GetTvShowsPopularUseCase
     ): GetTvShowsPopularHighlightUseCase =
         GetTvShowsPopularHighlightUseCaseImpl(getTvShowsPopularUseCase)
+
+    @Provides
+    @Singleton
+    fun provideGetTvShowDetailUseCase(
+        getLanguageUseCase: GetLanguageUseCase,
+        repository: TvShowRepository
+    ): GetTvShowDetailUseCase = GetTvShowDetailUseCaseImpl(getLanguageUseCase, repository)
 }
