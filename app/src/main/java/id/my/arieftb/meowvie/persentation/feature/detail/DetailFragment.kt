@@ -66,6 +66,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             binding.textDetailGenre.text = it.genre
             binding.textDetailReleaseDate.text = it.releaseDate
             binding.textDetailOverview.text = it.overview
+            binding.textDetailReleaseDate.text = String.format(getString(R.string.label_release_date, it.releaseDate))
             binding.ratingDetailVote.rating = it.rating?.div(2)?.toFloat() ?: 0.0f
         }
     }
