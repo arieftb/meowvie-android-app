@@ -12,6 +12,7 @@
     <string name="menu_account">Akun</string>
 
     <string name="label_overview">Overview</string>
+    <string name="label_release_date">Release Date : %s</string>
 
 <!--    TODO : 04/05/2021 - Translate THIS-->
     <string name="section_watchlist">Watchlist</string>
