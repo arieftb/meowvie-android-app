@@ -4,7 +4,7 @@ import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.data.model.response.movies.MovieResult
 import id.my.arieftb.meowvie.domain.base.BaseMapper
 
-open class Movie(
+class Movie(
     var id: Long? = -1,
     var title: String? = "",
     var bannerPath: String? = null,
@@ -13,7 +13,7 @@ open class Movie(
 ) : MovieMapper {
     override fun mapFromResponse(response: MovieResult?): Movie {
         return Movie().apply {
-            id = response?.id?.toLong()
+            id = response?.id
             title = response?.originalTitle
             bannerPath = if (response?.backdropPath != null) {
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
