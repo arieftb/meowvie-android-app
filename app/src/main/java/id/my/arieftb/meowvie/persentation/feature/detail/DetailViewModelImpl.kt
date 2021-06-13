@@ -9,6 +9,7 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.CheckMovieWatchListUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.DeleteMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowWatchListUseCase
@@ -27,7 +28,8 @@ class DetailViewModelImpl @Inject constructor(
     private val saveMovieWatchListUseCase: SaveMovieWatchListUseCase,
     private val checkMovieWatchListUseCase: CheckMovieWatchListUseCase,
     private val saveTvShowWatchListUseCase: SaveTvShowWatchListUseCase,
-    private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase
+    private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase,
+    private val deleteMovieWatchListUseCase: DeleteMovieWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -137,5 +139,30 @@ class DetailViewModelImpl @Inject constructor(
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
+    }
+
+    override fun removeContent(code: Long, type: ContentType) {
+        when(type) {
+            ContentType.TV_SHOW -> removeTvShow(code)
+            else -> removeMovie(code)
+        }
+    }
+
+    override fun removeMovie(code: Long) {
+        isSaved.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = deleteMovieWatchListUseCase.invoke(code)) {
+                is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isSaved.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
+            }
+        }
+    }
+
+    override fun removeTvShow(code: Long) {
+        // TODO: 6/13/21 - add remove tv show here
     }
 }

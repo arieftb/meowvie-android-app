@@ -1,7 +1,6 @@
 package id.my.arieftb.meowvie.persentation.feature.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -57,7 +56,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     this.bannerPath = contentDetail?.bannerPath
                     this.type = this@DetailFragment.type
                 })
-            } else Log.d("MeowVieTag", "initView: remove content")
+            } else viewModel.removeContent(id, type)
         }
     }
 
@@ -92,8 +91,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewModel.isSaved.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Toast.makeText(context, "Save to watch later successfully", Toast.LENGTH_SHORT)
-                        .show()
+                    if (it.data == true) {
+                        Toast.makeText(
+                            context,
+                            "Save to watch list successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Remove from watch list successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     setSuccessSaveView(it.data)
                 }
                 Status.ERROR -> Toast.makeText(

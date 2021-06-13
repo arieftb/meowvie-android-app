@@ -20,4 +20,7 @@ interface DetailViewModel {
     fun saveContent(content: Content)
     fun saveMovie(content: Content)
     fun saveTvShow(content: Content)
+    fun removeContent(code: Long, type: ContentType)
+    fun removeMovie(code: Long)
+    fun removeTvShow(code: Long)
 }

@@ -105,13 +105,20 @@ object UseCaseModule {
     fun provideSaveMovieUseCase(
         repository: MovieRepository,
         getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
-    ): SaveMovieWatchListUseCase = SaveMovieWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
+    ): SaveMovieWatchListUseCase =
+        SaveMovieWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
 
     @Provides
     @Singleton
     fun provideCheckMovieUseCase(
         repository: MovieRepository
     ): CheckMovieWatchListUseCase = CheckMovieWatchListUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteMovieUWatchListUseCase(
+        repository: MovieRepository
+    ): DeleteMovieWatchListUseCase = DeleteMovieWatchListUseCaseImpl(repository)
 
     @Provides
     @Singleton
@@ -173,7 +180,8 @@ object UseCaseModule {
     fun provideSaveTvShowUseCase(
         repository: TvShowRepository,
         getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
-    ): SaveTvShowWatchListUseCase = SaveTvShowWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
+    ): SaveTvShowWatchListUseCase =
+        SaveTvShowWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
 
     @Provides
     @Singleton

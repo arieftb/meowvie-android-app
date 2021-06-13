@@ -14,4 +14,5 @@ interface MovieRepository {
     suspend fun fetch(request: DetailRequest, data: MovieDetail): Result<ContentDetail>
     suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean>
     suspend fun checkWatchList(code: Long): Result<Boolean>
+    suspend fun removeWatchList(code: Long): Result<Boolean>
 }

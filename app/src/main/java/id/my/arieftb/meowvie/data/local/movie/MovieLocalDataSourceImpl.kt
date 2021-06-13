@@ -24,4 +24,8 @@ class MovieLocalDataSourceImpl @Inject constructor(
     override suspend fun checkWatchList(code: Long): MovieWatchListEntity? {
         return dao.findByCode(code)
     }
+
+    override suspend fun deleteWatchList(code: Long): Int {
+        return dao.deleteByCode(code)
+    }
 }

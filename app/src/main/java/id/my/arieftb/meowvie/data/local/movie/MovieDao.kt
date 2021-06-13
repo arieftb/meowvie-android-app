@@ -14,4 +14,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM ${DataConstant.MOVIE_TABLE_NAME} WHERE ${DataConstant.CONTENT_ID_COLUMN_NAME} = :code")
     suspend fun findByCode(code: Long): MovieWatchListEntity
+
+    @Query("DELETE FROM ${DataConstant.MOVIE_TABLE_NAME} WHERE ${DataConstant.CONTENT_ID_COLUMN_NAME} = :code")
+    suspend fun deleteByCode(code: Long): Int
 }

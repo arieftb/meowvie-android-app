@@ -65,4 +65,13 @@ class MovieRepositoryImpl @Inject constructor(
 
         return Result.Success(data = false)
     }
+
+    override suspend fun removeWatchList(code: Long): Result<Boolean> {
+        val response = local.deleteWatchList(code)
+        if (response > 0) {
+            return Result.Success(data = false)
+        }
+
+        return Result.Failure(exception = Exception("400"))
+    }
 }
