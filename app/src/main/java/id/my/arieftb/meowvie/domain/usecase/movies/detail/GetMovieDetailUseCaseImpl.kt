@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.domain.usecase.movies
+package id.my.arieftb.meowvie.domain.usecase.movies.detail
 
 import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.domain.model.Result

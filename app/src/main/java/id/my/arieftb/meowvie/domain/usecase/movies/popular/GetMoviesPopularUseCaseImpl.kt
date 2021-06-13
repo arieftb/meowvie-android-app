@@ -1,8 +1,9 @@
-package id.my.arieftb.meowvie.domain.usecase.movies
+package id.my.arieftb.meowvie.domain.usecase.movies.popular
 
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import javax.inject.Inject
 
 class GetMoviesPopularUseCaseImpl @Inject constructor(

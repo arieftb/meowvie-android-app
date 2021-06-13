@@ -1,9 +1,10 @@
-package id.my.arieftb.meowvie.domain.usecase.movies
+package id.my.arieftb.meowvie.domain.usecase.movies.upcoming
 
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.usecase.date.GetDateDayAheadUseCase
 import id.my.arieftb.meowvie.domain.usecase.date.GetDateMonthAheadUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import javax.inject.Inject
 
 class GetMoviesUpcomingUseCaseImpl @Inject constructor(

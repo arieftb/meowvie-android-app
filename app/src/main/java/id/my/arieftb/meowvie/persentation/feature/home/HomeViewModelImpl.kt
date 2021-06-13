@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesPopularHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUpcomingHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsPopularHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUpcomingHighlightUseCase
