@@ -22,4 +22,5 @@
     <string name="section_popular_tv_show">Popular Tv Show</string>
     
     <string name="error_message_something_went_wrong">Something went wrong, please try again later.</string>
+    <string name="error_message_watch_list_empty">You don\'t have any watch list item yet</string>
 </resources>

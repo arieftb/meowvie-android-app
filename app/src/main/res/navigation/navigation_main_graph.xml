@@ -32,7 +32,25 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.favorite.FavoriteFragment"
-        android:label="FavoriteFragment" />
+        android:label="FavoriteFragment">
+        <action
+            android:id="@+id/actionFavoriteToDetail"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/favoriteFragment">
+            <argument
+                android:name="id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+            <argument
+                android:name="type"
+                android:defaultValue="MOVIE"
+                app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.account.AccountFragment"

@@ -1,7 +1,11 @@
 package id.my.arieftb.meowvie.data.repo
 
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
+import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.repo.WatchListRepository
@@ -35,5 +39,14 @@ class WatchListRepositoryImpl @Inject constructor(
         }
 
         return Result.Failure(exception = Exception("400"))
+    }
+
+    override fun fetchAllWatchList(limit: Int): LiveData<PagedList<WatchListEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(limit)
+            .setPageSize(limit)
+            .build()
+        return LivePagedListBuilder(local.fetchAllWatchList(), config).build()
     }
 }

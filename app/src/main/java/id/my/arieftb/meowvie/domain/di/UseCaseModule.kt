@@ -195,4 +195,10 @@ object UseCaseModule {
     fun provideRemoveWatchListUseCase(
         repository: WatchListRepository
     ): RemoveWatchListUseCase = RemoveWatchListUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetWatchListAllUseCase(
+        repository: WatchListRepository
+    ): GetWatchListAllUseCase = GetWatchListAllUseCaseImpl(repository)
 }

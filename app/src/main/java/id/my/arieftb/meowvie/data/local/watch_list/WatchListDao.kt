@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.data.local.watch_list
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,4 +18,7 @@ interface WatchListDao {
 
     @Query("DELETE FROM ${DataConstant.WATCH_LIST_TABLE_NAME} WHERE ${DataConstant.CONTENT_ID_COLUMN_NAME} = :code AND ${DataConstant.CONTENT_TYPE_COLUMN_NAME} = :type")
     suspend fun deleteByCode(code: Long, type: String): Int
+
+    @Query("SELECT * FROM ${DataConstant.WATCH_LIST_TABLE_NAME}")
+    fun fetchAll(): DataSource.Factory<Int, WatchListEntity>
 }

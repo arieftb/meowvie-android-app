@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.data.local.watch_list
 
+import androidx.paging.DataSource
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
@@ -21,12 +22,16 @@ class WatchListLocalDataSourceImpl @Inject constructor(
         return dao.insert(entity)
     }
 
-    override suspend fun checkWatchList(code: Long, type: ContentType): WatchListEntity? {
+    override suspend fun checkWatchList(code: Long, type: ContentType): WatchListEntity {
         return dao.findByCode(code, type.toString())
     }
 
     override suspend fun deleteWatchList(code: Long, type: ContentType): Int {
         return dao.deleteByCode(code, type.toString())
+    }
+
+    override fun fetchAllWatchList(): DataSource.Factory<Int, WatchListEntity> {
+        return dao.fetchAll()
     }
 
 }
