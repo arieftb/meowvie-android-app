@@ -14,11 +14,11 @@ class MovieEntity(
     @ColumnInfo(name = DataConstant.CONTENT_TITLE_COLUMN_NAME)
     var title: String,
     @ColumnInfo(name = DataConstant.CONTENT_BANNER_COLUMN_NAME)
-    var bannerPath: String,
+    var bannerPath: String? = null,
     @ColumnInfo(name = DataConstant.CONTENT_POSTER_COLUMN_NAME)
-    var posterPath: String,
+    var posterPath: String? = null,
     @ColumnInfo(name = DataConstant.CONTENT_TYPE_COLUMN_NAME)
     var type: String,
     @ColumnInfo(name = DataConstant.CONTENT_CREATED_AT_COLUMN_NAME)
-    var createdAt: Long
+    var createdAt: Long? = null
 )

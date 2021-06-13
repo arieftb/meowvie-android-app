@@ -13,10 +13,10 @@ class MovieLocalDataSourceImpl @Inject constructor(
             null,
             request.id!!,
             request.title!!,
-            request.banner!!,
-            request.poster!!,
+            request.banner,
+            request.poster,
             request.type.toString(),
-            request.createdAt!!
+            request.createdAt
         )
         return movieDao.insert(entity)
     }
