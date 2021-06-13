@@ -41,27 +41,36 @@ class WatchListRecyclerAdapter(
     lateinit var binding: ItemContentBannerBinding
     var listener: ContentRecyclerListener? = null
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onBindViewHolder(holder: WatchListRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
-            (layoutParams as RecyclerView.LayoutParams).apply {
-                val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
-                val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
-                when (position) {
-                    0 -> {
-                        topMargin = startMargin
-                        bottomMargin = endMargin
-                        marginEnd = startMargin
-                        marginStart = startMargin
-                    }
-                    else -> {
-                        topMargin = endMargin
-                        bottomMargin = endMargin
-                        marginEnd = startMargin
-                        marginStart = startMargin
+            when(layoutParams) {
+                is RecyclerView.LayoutParams -> {
+                    (layoutParams as RecyclerView.LayoutParams).apply {
+                        val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
+                        val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
+                        when (position) {
+                            0 -> {
+                                topMargin = startMargin
+                                bottomMargin = endMargin
+                                marginEnd = startMargin
+                                marginStart = startMargin
+                            }
+                            else -> {
+                                topMargin = endMargin
+                                bottomMargin = endMargin
+                                marginEnd = startMargin
+                                marginStart = startMargin
+                            }
+                        }
+                    }.also {
+                        layoutParams = it
                     }
                 }
-            }.also {
-                layoutParams = it
+                else -> {}
             }
         }
 
