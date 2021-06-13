@@ -11,6 +11,5 @@ import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 interface MovieRepository {
     suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Content>>
     suspend fun fetch(request: DetailRequest, data: MovieDetail): Result<ContentDetail>
-    suspend fun checkWatchList(code: Long): Result<Boolean>
     suspend fun removeWatchList(code: Long): Result<Boolean>
 }

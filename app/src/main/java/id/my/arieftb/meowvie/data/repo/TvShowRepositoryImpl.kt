@@ -1,7 +1,6 @@
 package id.my.arieftb.meowvie.data.repo
 
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
-import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
@@ -49,15 +48,6 @@ class TvShowRepositoryImpl @Inject constructor(
             return Result.Failure(Exception("${response.code()}"))
         }
         return Result.Failure(Exception("${response.code()}"))
-    }
-
-    override suspend fun checkWatchList(code: Long): Result<Boolean> {
-        val response = local.checkWatchList(code)
-        if (response != null) {
-            return Result.Success(data = true)
-        }
-
-        return Result.Success(data = false)
     }
 
     override suspend fun removeWatchList(code: Long): Result<Boolean> {
