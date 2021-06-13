@@ -14,6 +14,7 @@ import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.DeleteTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
+import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
@@ -25,11 +26,10 @@ import javax.inject.Inject
 class DetailViewModelImpl @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
-    private val checkMovieWatchListUseCase: CheckMovieWatchListUseCase,
-    private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase,
     private val deleteMovieWatchListUseCase: DeleteMovieWatchListUseCase,
     private val deleteTvShowWatchListUseCase: DeleteTvShowWatchListUseCase,
-    private val saveWatchListUseCase: SaveWatchListUseCase
+    private val saveWatchListUseCase: SaveWatchListUseCase,
+    private val checkWatchListUseCase: CheckWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -71,34 +71,13 @@ class DetailViewModelImpl @Inject constructor(
         }
     }
 
-    override fun checkContent(code: Long, type: ContentType) {
-        when (type) {
-            ContentType.TV_SHOW -> checkTvShow(code)
-            else -> checkMovie(code)
-        }
-    }
-
-    override fun checkMovie(code: Long) {
+    override fun checkWatchList(code: Long, type: ContentType) {
         isAvailable.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = checkMovieWatchListUseCase.invoke(code)) {
-                is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isAvailable.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
-            }
-        }
-    }
-
-    override fun checkTvShow(code: Long) {
-        isAvailable.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = checkTvShowWatchListUseCase.invoke(code)) {
+            when (val result = checkWatchListUseCase.invoke(code, type)) {
                 is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isAvailable.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)

@@ -84,7 +84,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
         })
 
-        viewModel.checkContent(id, type)
+        viewModel.checkWatchList(id, type)
     }
 
     private fun getContentSaveStatus() {
