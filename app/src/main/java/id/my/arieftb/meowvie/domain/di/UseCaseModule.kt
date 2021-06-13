@@ -10,10 +10,7 @@ import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.*
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.*
-import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.watch_list.*
 import javax.inject.Singleton
 
 @Module
@@ -180,4 +177,10 @@ object UseCaseModule {
     fun provideCheckWatchListUseCase(
         repository: WatchListRepository
     ): CheckWatchListUseCase = CheckWatchListUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideRemoveWatchListUseCase(
+        repository: WatchListRepository
+    ): RemoveWatchListUseCase = RemoveWatchListUseCaseImpl(repository)
 }

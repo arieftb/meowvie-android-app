@@ -17,6 +17,4 @@ interface DetailViewModel {
     fun checkWatchList(code: Long, type: ContentType)
     fun saveWatchList(content: Content)
     fun removeContent(code: Long, type: ContentType)
-    fun removeMovie(code: Long)
-    fun removeTvShow(code: Long)
 }
