@@ -6,8 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.data.local.date.DateLocalDataSource
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSource
-import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSource
-import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
@@ -22,9 +20,8 @@ object RepositoryModule {
     @Singleton
     fun provideMovieRepository(
         remote: MovieRemoteDataSource,
-        local: MovieLocalDataSource
     ): MovieRepository =
-        MovieRepositoryImpl(remote, local)
+        MovieRepositoryImpl(remote)
 
     @Provides
     @Singleton
@@ -40,9 +37,8 @@ object RepositoryModule {
     @Singleton
     fun provideTvShowRepository(
         remote: TvShowRemoteDataSource,
-        local: TvShowLocalDataSource
     ): TvShowRepository =
-        TvShowRepositoryImpl(remote, local)
+        TvShowRepositoryImpl(remote)
 
     @Provides
     @Singleton

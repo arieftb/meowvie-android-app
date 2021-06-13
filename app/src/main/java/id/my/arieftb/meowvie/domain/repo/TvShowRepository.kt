@@ -11,5 +11,4 @@ import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
 interface TvShowRepository {
     suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>>
     suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail>
-    suspend fun removeWatchList(code: Long): Result<Boolean>
 }

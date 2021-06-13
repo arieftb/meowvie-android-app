@@ -100,12 +100,6 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideDeleteMovieUWatchListUseCase(
-        repository: MovieRepository
-    ): DeleteMovieWatchListUseCase = DeleteMovieWatchListUseCaseImpl(repository)
-
-    @Provides
-    @Singleton
     fun provideGetTvShowsUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,
@@ -158,12 +152,6 @@ object UseCaseModule {
         getLanguageUseCase: GetLanguageUseCase,
         repository: TvShowRepository
     ): GetTvShowDetailUseCase = GetTvShowDetailUseCaseImpl(getLanguageUseCase, repository)
-
-    @Provides
-    @Singleton
-    fun provideDeleteTvShowWatchListUseCase(
-        repository: TvShowRepository
-    ): DeleteTvShowWatchListUseCase = DeleteTvShowWatchListUseCaseImpl(repository)
 
     @Provides
     @Singleton

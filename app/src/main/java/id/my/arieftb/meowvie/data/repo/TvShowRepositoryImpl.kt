@@ -1,6 +1,5 @@
 package id.my.arieftb.meowvie.data.repo
 
-import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
 import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
@@ -13,8 +12,7 @@ import id.my.arieftb.meowvie.domain.repo.TvShowRepository
 import javax.inject.Inject
 
 class TvShowRepositoryImpl @Inject constructor(
-    val remote: TvShowRemoteDataSource,
-    val local: TvShowLocalDataSource
+    val remote: TvShowRemoteDataSource
 ) : TvShowRepository {
     override suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>> {
         val response = remote.fetchAll(request)
@@ -50,12 +48,4 @@ class TvShowRepositoryImpl @Inject constructor(
         return Result.Failure(Exception("${response.code()}"))
     }
 
-    override suspend fun removeWatchList(code: Long): Result<Boolean> {
-        val response = local.deleteWatchList(code)
-        if (response > 0) {
-            return Result.Success(data = false)
-        }
-
-        return Result.Failure(exception = Exception("400"))
-    }
 }
