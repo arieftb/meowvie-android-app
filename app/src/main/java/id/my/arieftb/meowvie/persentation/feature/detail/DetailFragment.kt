@@ -49,7 +49,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun initView() {
         binding.buttonDetailFavorite.setOnClickListener {
             if (!isSaved && contentDetail != null) {
-                viewModel.saveContent(Content().apply {
+                viewModel.saveWatchList(Content().apply {
                     this.id = contentDetail?.id
                     this.title = contentDetail?.title
                     this.posterPath = contentDetail?.posterPath

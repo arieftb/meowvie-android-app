@@ -1,17 +1,15 @@
-package id.my.arieftb.meowvie.domain.usecase.movies
+package id.my.arieftb.meowvie.domain.usecase.watch_list
 
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.repo.MovieRepository
+import id.my.arieftb.meowvie.domain.repo.WatchListRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateTimeMillisUseCase
-import javax.inject.Inject
 
-class SaveMovieWatchListUseCaseImpl @Inject constructor(
-    private val repository: MovieRepository,
-    private val getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
-) : SaveMovieWatchListUseCase {
-
+class SaveWatchListUseCaseImpl(
+    private val getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase,
+    private val repository: WatchListRepository
+): SaveWatchListUseCase {
     override suspend fun invoke(content: Content): Result<Boolean> {
         val request = ContentSaveRequest(
             content.id,

@@ -9,9 +9,6 @@ import id.my.arieftb.meowvie.data.model.entity.TvShowWatchListEntity
 
 @Dao
 interface TvShowDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(tvShowWatchListEntity: TvShowWatchListEntity): Long
-
     @Query("SELECT * FROM ${DataConstant.TV_SHOW_TABLE_NAME} WHERE ${DataConstant.CONTENT_ID_COLUMN_NAME} = :code")
     suspend fun findByCode(code: Long): TvShowWatchListEntity
 

@@ -11,11 +11,10 @@ import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.CheckMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.DeleteMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.DeleteTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.SaveTvShowWatchListUseCase
+import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -26,12 +25,11 @@ import javax.inject.Inject
 class DetailViewModelImpl @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
-    private val saveMovieWatchListUseCase: SaveMovieWatchListUseCase,
     private val checkMovieWatchListUseCase: CheckMovieWatchListUseCase,
-    private val saveTvShowWatchListUseCase: SaveTvShowWatchListUseCase,
     private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase,
     private val deleteMovieWatchListUseCase: DeleteMovieWatchListUseCase,
-    private val deleteTvShowWatchListUseCase: DeleteTvShowWatchListUseCase
+    private val deleteTvShowWatchListUseCase: DeleteTvShowWatchListUseCase,
+    private val saveWatchListUseCase: SaveWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -108,34 +106,13 @@ class DetailViewModelImpl @Inject constructor(
         }
     }
 
-    override fun saveContent(content: Content) {
-        when (content.type) {
-            ContentType.TV_SHOW -> saveTvShow(content)
-            else -> saveMovie(content)
-        }
-    }
-
-    override fun saveMovie(content: Content) {
+    override fun saveWatchList(content: Content) {
         isSaved.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = saveMovieWatchListUseCase.invoke(content)) {
-                is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isSaved.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
-            }
-        }
-    }
-
-    override fun saveTvShow(content: Content) {
-        isSaved.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = saveTvShowWatchListUseCase.invoke(content)) {
+            when (val result = saveWatchListUseCase.invoke(content)) {
                 is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isSaved.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)

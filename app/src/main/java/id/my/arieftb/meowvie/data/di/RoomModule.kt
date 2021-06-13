@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.data.local.db.MeowVieDb
 import id.my.arieftb.meowvie.data.local.movie.MovieDao
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowDao
+import id.my.arieftb.meowvie.data.local.watch_list.WatchListDao
 import javax.inject.Singleton
 
 @Module
@@ -23,4 +24,9 @@ object RoomModule {
     @Singleton
     fun provideTvShowDao(@ApplicationContext context: Context): TvShowDao =
         MeowVieDb.getInstance(context).tvShowDao
+
+    @Provides
+    @Singleton
+    fun provideWatchListDao(@ApplicationContext context: Context): WatchListDao =
+        MeowVieDb.getInstance(context).watchListDao
 }

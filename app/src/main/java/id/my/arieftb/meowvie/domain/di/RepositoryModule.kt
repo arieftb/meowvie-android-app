@@ -8,16 +8,11 @@ import id.my.arieftb.meowvie.data.local.date.DateLocalDataSource
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSource
 import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSource
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
+import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
-import id.my.arieftb.meowvie.data.repo.DateRepositoryImpl
-import id.my.arieftb.meowvie.data.repo.LanguageRepositoryImpl
-import id.my.arieftb.meowvie.data.repo.MovieRepositoryImpl
-import id.my.arieftb.meowvie.data.repo.TvShowRepositoryImpl
-import id.my.arieftb.meowvie.domain.repo.DateRepository
-import id.my.arieftb.meowvie.domain.repo.LanguageRepository
-import id.my.arieftb.meowvie.domain.repo.MovieRepository
-import id.my.arieftb.meowvie.domain.repo.TvShowRepository
+import id.my.arieftb.meowvie.data.repo.*
+import id.my.arieftb.meowvie.domain.repo.*
 import javax.inject.Singleton
 
 @Module
@@ -48,4 +43,10 @@ object RepositoryModule {
         local: TvShowLocalDataSource
     ): TvShowRepository =
         TvShowRepositoryImpl(remote, local)
+
+    @Provides
+    @Singleton
+    fun provideWatchListRepository(
+        local: WatchListLocalDataSource
+    ): WatchListRepository = WatchListRepositoryImpl(local)
 }

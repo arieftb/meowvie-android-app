@@ -14,6 +14,9 @@ import id.my.arieftb.meowvie.data.local.movie.MovieLocalDataSourceImpl
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowDao
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSourceImpl
+import id.my.arieftb.meowvie.data.local.watch_list.WatchListDao
+import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
+import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSourceImpl
 import id.my.arieftb.meowvie.utils.helper.date.DateHelper
 import javax.inject.Singleton
 
@@ -38,4 +41,9 @@ object LocalDataSourceModule {
     @Singleton
     fun provideTvShowLocalDataSource(tvShowDao: TvShowDao): TvShowLocalDataSource =
         TvShowLocalDataSourceImpl(tvShowDao)
+
+    @Provides
+    @Singleton
+    fun provideWatchListLocalDataSource(dao: WatchListDao): WatchListLocalDataSource =
+        WatchListLocalDataSourceImpl(dao)
 }

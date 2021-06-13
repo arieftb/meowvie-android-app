@@ -4,15 +4,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import id.my.arieftb.meowvie.domain.repo.DateRepository
-import id.my.arieftb.meowvie.domain.repo.LanguageRepository
-import id.my.arieftb.meowvie.domain.repo.MovieRepository
-import id.my.arieftb.meowvie.domain.repo.TvShowRepository
+import id.my.arieftb.meowvie.domain.repo.*
 import id.my.arieftb.meowvie.domain.usecase.date.*
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.*
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.*
+import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
+import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCaseImpl
 import javax.inject.Singleton
 
 @Module
@@ -102,14 +101,6 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideSaveMovieUseCase(
-        repository: MovieRepository,
-        getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
-    ): SaveMovieWatchListUseCase =
-        SaveMovieWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
-
-    @Provides
-    @Singleton
     fun provideCheckMovieUseCase(
         repository: MovieRepository
     ): CheckMovieWatchListUseCase = CheckMovieWatchListUseCaseImpl(repository)
@@ -177,14 +168,6 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideSaveTvShowUseCase(
-        repository: TvShowRepository,
-        getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
-    ): SaveTvShowWatchListUseCase =
-        SaveTvShowWatchListUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
-
-    @Provides
-    @Singleton
     fun provideCheckTvShowUseCase(
         repository: TvShowRepository
     ): CheckTvShowWatchListUseCase = CheckTvShowWatchListUseCaseImpl(repository)
@@ -194,4 +177,11 @@ object UseCaseModule {
     fun provideDeleteTvShowWatchListUseCase(
         repository: TvShowRepository
     ): DeleteTvShowWatchListUseCase = DeleteTvShowWatchListUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideSaveWatchListUseCase(
+        repository: WatchListRepository,
+        getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
+    ): SaveWatchListUseCase = SaveWatchListUseCaseImpl(getCurrentDateTimeMillisUseCase, repository)
 }

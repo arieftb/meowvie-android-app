@@ -7,19 +7,6 @@ import javax.inject.Inject
 class TvShowLocalDataSourceImpl @Inject constructor(
     private val dao: TvShowDao
 ): TvShowLocalDataSource {
-    override suspend fun saveWatchList(request: ContentSaveRequest): Long {
-        val entity = TvShowWatchListEntity(
-            null,
-            request.id!!,
-            request.title!!,
-            request.banner,
-            request.poster,
-            request.type.toString(),
-            request.createdAt
-        )
-        return dao.insert(entity)
-    }
-
     override suspend fun checkWatchList(code: Long): TvShowWatchListEntity? {
         return dao.findByCode(code)
     }
