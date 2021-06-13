@@ -22,6 +22,18 @@ import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHig
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.*
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCaseImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightImpl
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.watch_list.*
 import javax.inject.Singleton
 

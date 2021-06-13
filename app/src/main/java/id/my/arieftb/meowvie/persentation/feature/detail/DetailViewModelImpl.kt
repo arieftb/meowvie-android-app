@@ -9,7 +9,7 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase

@@ -1,7 +1,8 @@
-package id.my.arieftb.meowvie.domain.usecase.tv_shows
+package id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight
 
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
 import javax.inject.Inject
 
 class GetTvShowsHighlightUseCaseImpl @Inject constructor(private val getTvShowsUseCase: GetTvShowsUseCase) :

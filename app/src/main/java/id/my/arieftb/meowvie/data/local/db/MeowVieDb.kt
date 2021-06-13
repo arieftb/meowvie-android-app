@@ -10,7 +10,7 @@ import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 
 @Database(
     entities = [WatchListEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class MeowVieDb : RoomDatabase() {
