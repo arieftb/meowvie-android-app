@@ -6,11 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.my.arieftb.meowvie.data.constant.DataConstant
 import id.my.arieftb.meowvie.data.local.movie.MovieDao
+import id.my.arieftb.meowvie.data.local.tv_show.TvShowDao
 import id.my.arieftb.meowvie.data.model.entity.MovieEntity
+import id.my.arieftb.meowvie.data.model.entity.TvShowEntity
 
-@Database(entities = [MovieEntity::class], version = 1, exportSchema = false)
+@Database(entities = [MovieEntity::class, TvShowEntity::class], version = 1, exportSchema = false)
 abstract class MeowVieDb : RoomDatabase() {
     abstract val movieDao: MovieDao
+    abstract val tvShowDao: TvShowDao
 
     companion object {
         @Volatile

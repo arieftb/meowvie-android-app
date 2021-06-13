@@ -167,4 +167,11 @@ object UseCaseModule {
         getLanguageUseCase: GetLanguageUseCase,
         repository: TvShowRepository
     ): GetTvShowDetailUseCase = GetTvShowDetailUseCaseImpl(getLanguageUseCase, repository)
+
+    @Provides
+    @Singleton
+    fun provideSaveTvShowUseCase(
+        repository: TvShowRepository,
+        getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
+    ): SaveTvShowUseCase = SaveTvShowUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
 }

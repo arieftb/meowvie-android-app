@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.data.repo
 
+import id.my.arieftb.meowvie.data.local.tv_show.TvShowLocalDataSource
+import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
@@ -9,8 +11,12 @@ import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
 import id.my.arieftb.meowvie.domain.repo.TvShowRepository
+import javax.inject.Inject
 
-class TvShowRepositoryImpl constructor(val remote: TvShowRemoteDataSource) : TvShowRepository {
+class TvShowRepositoryImpl @Inject constructor(
+    val remote: TvShowRemoteDataSource,
+    val local: TvShowLocalDataSource
+) : TvShowRepository {
     override suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>> {
         val response = remote.fetchAll(request)
         if (response.isSuccessful) {
@@ -43,5 +49,14 @@ class TvShowRepositoryImpl constructor(val remote: TvShowRemoteDataSource) : TvS
             return Result.Failure(Exception("${response.code()}"))
         }
         return Result.Failure(Exception("${response.code()}"))
+    }
+
+    override suspend fun save(request: ContentSaveRequest): Result<Boolean> {
+        val response = local.saveTvShow(request)
+        if (response != -1L) {
+            return Result.Success(data = true)
+        }
+
+        return Result.Failure(exception = Exception("400"))
     }
 }

@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.data.local.db.MeowVieDb
 import id.my.arieftb.meowvie.data.local.movie.MovieDao
+import id.my.arieftb.meowvie.data.local.tv_show.TvShowDao
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +18,9 @@ object RoomModule {
     @Singleton
     fun provideMovieDao(@ApplicationContext context: Context): MovieDao =
         MeowVieDb.getInstance(context).movieDao
+
+    @Provides
+    @Singleton
+    fun provideTvShowDao(@ApplicationContext context: Context): TvShowDao =
+        MeowVieDb.getInstance(context).tvShowDao
 }
