@@ -51,8 +51,8 @@ class TvShowRepositoryImpl @Inject constructor(
         return Result.Failure(Exception("${response.code()}"))
     }
 
-    override suspend fun save(request: ContentSaveRequest): Result<Boolean> {
-        val response = local.saveTvShow(request)
+    override suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean> {
+        val response = local.saveWatchList(request)
         if (response != -1L) {
             return Result.Success(data = true)
         }
@@ -60,8 +60,8 @@ class TvShowRepositoryImpl @Inject constructor(
         return Result.Failure(exception = Exception("400"))
     }
 
-    override suspend fun check(code: Long): Result<Boolean> {
-        val response = local.checkTvShow(code)
+    override suspend fun checkWatchList(code: Long): Result<Boolean> {
+        val response = local.checkWatchList(code)
         if (response != null) {
             return Result.Success(data = true)
         }

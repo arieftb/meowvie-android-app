@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import id.my.arieftb.meowvie.data.constant.DataConstant
 import id.my.arieftb.meowvie.data.local.movie.MovieDao
 import id.my.arieftb.meowvie.data.local.tv_show.TvShowDao
-import id.my.arieftb.meowvie.data.model.entity.MovieEntity
-import id.my.arieftb.meowvie.data.model.entity.TvShowEntity
+import id.my.arieftb.meowvie.data.model.entity.MovieWatchListEntity
+import id.my.arieftb.meowvie.data.model.entity.TvShowWatchListEntity
 
-@Database(entities = [MovieEntity::class, TvShowEntity::class], version = 1, exportSchema = false)
+@Database(entities = [MovieWatchListEntity::class, TvShowWatchListEntity::class], version = 1, exportSchema = false)
 abstract class MeowVieDb : RoomDatabase() {
     abstract val movieDao: MovieDao
     abstract val tvShowDao: TvShowDao

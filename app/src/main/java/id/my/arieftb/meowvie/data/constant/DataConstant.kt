@@ -3,8 +3,8 @@ package id.my.arieftb.meowvie.data.constant
 object DataConstant {
     const val DB_NAME = "meowvie_db"
 
-    const val MOVIE_TABLE_NAME = "movie"
-    const val TV_SHOW_TABLE_NAME = "tv_show"
+    const val MOVIE_TABLE_NAME = "movie_favorite"
+    const val TV_SHOW_TABLE_NAME = "tv_show_favorite"
     const val CONTENT_ID_COLUMN_NAME = "code"
     const val CONTENT_TITLE_COLUMN_NAME = "title"
     const val CONTENT_BANNER_COLUMN_NAME = "banner"

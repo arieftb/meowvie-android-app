@@ -1,7 +1,7 @@
-package id.my.arieftb.meowvie.domain.usecase.tv_shows
+package id.my.arieftb.meowvie.domain.usecase.movies
 
 import id.my.arieftb.meowvie.domain.model.Result
 
-interface CheckTvShowUseCase {
+interface CheckMovieWatchListUseCase {
     suspend fun invoke(code: Long): Result<Boolean>
 }

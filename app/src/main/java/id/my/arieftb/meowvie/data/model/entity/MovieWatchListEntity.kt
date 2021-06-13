@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import id.my.arieftb.meowvie.data.constant.DataConstant
 
 @Entity(tableName = DataConstant.MOVIE_TABLE_NAME)
-class MovieEntity(
+class MovieWatchListEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = -1,
     @ColumnInfo(name = DataConstant.CONTENT_ID_COLUMN_NAME)

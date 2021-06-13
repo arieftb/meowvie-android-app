@@ -8,12 +8,12 @@ import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
-import id.my.arieftb.meowvie.domain.usecase.movies.CheckMovieUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.CheckMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieWatchListUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.SaveTvShowUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.SaveTvShowWatchListUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -24,10 +24,10 @@ import javax.inject.Inject
 class DetailViewModelImpl @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
-    private val saveMovieUseCase: SaveMovieUseCase,
-    private val checkMovieUseCase: CheckMovieUseCase,
-    private val saveTvShowUseCase: SaveTvShowUseCase,
-    private val checkTvShowUseCase: CheckTvShowUseCase
+    private val saveMovieWatchListUseCase: SaveMovieWatchListUseCase,
+    private val checkMovieWatchListUseCase: CheckMovieWatchListUseCase,
+    private val saveTvShowWatchListUseCase: SaveTvShowWatchListUseCase,
+    private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -82,7 +82,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = checkMovieUseCase.invoke(code)) {
+            when (val result = checkMovieWatchListUseCase.invoke(code)) {
                 is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isAvailable.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
@@ -96,7 +96,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = checkTvShowUseCase.invoke(code)) {
+            when (val result = checkTvShowWatchListUseCase.invoke(code)) {
                 is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isAvailable.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
@@ -117,7 +117,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = saveMovieUseCase.invoke(content)) {
+            when (val result = saveMovieWatchListUseCase.invoke(content)) {
                 is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isSaved.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
@@ -131,7 +131,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = saveTvShowUseCase.invoke(content)) {
+            when (val result = saveTvShowWatchListUseCase.invoke(content)) {
                 is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isSaved.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
