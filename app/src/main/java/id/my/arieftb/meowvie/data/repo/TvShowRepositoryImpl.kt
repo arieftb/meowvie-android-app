@@ -59,4 +59,13 @@ class TvShowRepositoryImpl @Inject constructor(
 
         return Result.Failure(exception = Exception("400"))
     }
+
+    override suspend fun check(code: Long): Result<Boolean> {
+        val response = local.checkTvShow(code)
+        if (response != null) {
+            return Result.Success(data = true)
+        }
+
+        return Result.Success(data = false)
+    }
 }

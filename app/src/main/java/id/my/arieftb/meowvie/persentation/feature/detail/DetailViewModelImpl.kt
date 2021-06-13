@@ -11,6 +11,7 @@ import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.CheckMovieUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.SaveTvShowUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
@@ -25,7 +26,8 @@ class DetailViewModelImpl @Inject constructor(
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
     private val saveMovieUseCase: SaveMovieUseCase,
     private val checkMovieUseCase: CheckMovieUseCase,
-    private val saveTvShowUseCase: SaveTvShowUseCase
+    private val saveTvShowUseCase: SaveTvShowUseCase,
+    private val checkTvShowUseCase: CheckTvShowUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -89,7 +91,17 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun checkTvShow(code: Long) {
-        // TODO: 6/13/21 - check tv show here
+        isAvailable.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = checkTvShowUseCase.invoke(code)) {
+                is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isAvailable.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
+            }
+        }
     }
 
     override fun saveContent(content: Content) {

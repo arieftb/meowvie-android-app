@@ -174,4 +174,10 @@ object UseCaseModule {
         repository: TvShowRepository,
         getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
     ): SaveTvShowUseCase = SaveTvShowUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
+
+    @Provides
+    @Singleton
+    fun provideCheckTvShowUseCase(
+        repository: TvShowRepository
+    ): CheckTvShowUseCase = CheckTvShowUseCaseImpl(repository)
 }

@@ -19,4 +19,8 @@ class TvShowLocalDataSourceImpl @Inject constructor(
         )
         return tvShowDao.insert(entity)
     }
+
+    override suspend fun checkTvShow(code: Long): TvShowEntity? {
+        return tvShowDao.findByCode(code)
+    }
 }
