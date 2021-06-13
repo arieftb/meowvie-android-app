@@ -24,6 +24,11 @@ class ContentBannerRecyclerAdapter(val context: Context) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =
             ItemContentBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val layoutParam = binding.root.layoutParams
+        layoutParam.width = context.resources.getDimensionPixelSize(R.dimen._180sdp)
+        binding.root.layoutParams = layoutParam
+
         return MoviesRecyclerViewHolder(binding.root)
     }
 
