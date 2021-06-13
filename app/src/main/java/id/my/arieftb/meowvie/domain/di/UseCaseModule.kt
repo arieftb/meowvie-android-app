@@ -188,4 +188,10 @@ object UseCaseModule {
     fun provideCheckTvShowUseCase(
         repository: TvShowRepository
     ): CheckTvShowWatchListUseCase = CheckTvShowWatchListUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteTvShowWatchListUseCase(
+        repository: TvShowRepository
+    ): DeleteTvShowWatchListUseCase = DeleteTvShowWatchListUseCaseImpl(repository)
 }

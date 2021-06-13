@@ -14,4 +14,5 @@ interface TvShowRepository {
     suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail>
     suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean>
     suspend fun checkWatchList(code: Long): Result<Boolean>
+    suspend fun removeWatchList(code: Long): Result<Boolean>
 }

@@ -13,6 +13,7 @@ import id.my.arieftb.meowvie.domain.usecase.movies.DeleteMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.SaveMovieWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.CheckTvShowWatchListUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.DeleteTvShowWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.SaveTvShowWatchListUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
@@ -29,7 +30,8 @@ class DetailViewModelImpl @Inject constructor(
     private val checkMovieWatchListUseCase: CheckMovieWatchListUseCase,
     private val saveTvShowWatchListUseCase: SaveTvShowWatchListUseCase,
     private val checkTvShowWatchListUseCase: CheckTvShowWatchListUseCase,
-    private val deleteMovieWatchListUseCase: DeleteMovieWatchListUseCase
+    private val deleteMovieWatchListUseCase: DeleteMovieWatchListUseCase,
+    private val deleteTvShowWatchListUseCase: DeleteTvShowWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -142,7 +144,7 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun removeContent(code: Long, type: ContentType) {
-        when(type) {
+        when (type) {
             ContentType.TV_SHOW -> removeTvShow(code)
             else -> removeMovie(code)
         }
@@ -163,6 +165,16 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun removeTvShow(code: Long) {
-        // TODO: 6/13/21 - add remove tv show here
+        isSaved.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = deleteTvShowWatchListUseCase.invoke(code)) {
+                is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isSaved.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
+            }
+        }
     }
 }
