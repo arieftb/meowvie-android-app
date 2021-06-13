@@ -9,10 +9,14 @@ import id.my.arieftb.meowvie.persentation.model.Data
 interface DetailViewModel {
     val detailData: MutableLiveData<Data<ContentDetail>>
     val isSaved: MutableLiveData<Data<Boolean>>
+    val isAvailable: MutableLiveData<Data<Boolean>>
 
     fun getDetail(id: Long, type: ContentType)
     fun getMovieDetail(id: Long)
     fun getTvShowDetail(id: Long)
+    fun checkContent(code: Long, type: ContentType)
+    fun checkMovie(code: Long)
+    fun checkTvShow(code: Long)
     fun saveContent(content: Content)
     fun saveMovie(content: Content)
     fun saveTvShow(content: Content)

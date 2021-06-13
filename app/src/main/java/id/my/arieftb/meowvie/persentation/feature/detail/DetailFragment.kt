@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.persentation.feature.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -35,6 +36,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         initArgs()
         initView()
         getDetail()
+        getContentAvailabilityStatus()
         getContentSaveStatus()
     }
 
@@ -55,7 +57,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     this.bannerPath = contentDetail?.bannerPath
                     this.type = this@DetailFragment.type
                 })
-            }
+            } else Log.d("MeowVieTag", "initView: remove content")
         }
     }
 
@@ -72,11 +74,26 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewModel.getDetail(id, type)
     }
 
+    private fun getContentAvailabilityStatus() {
+        viewModel.isAvailable.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.buttonDetailFavorite.isEnabled = true
+                    setSuccessSaveView(it.data)
+                }
+                else -> binding.buttonDetailFavorite.isEnabled = false
+            }
+        })
+
+        viewModel.checkContent(id, type)
+    }
+
     private fun getContentSaveStatus() {
         viewModel.isSaved.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Toast.makeText(context, "Save to watch later successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Save to watch later successfully", Toast.LENGTH_SHORT)
+                        .show()
                     setSuccessSaveView(it.data)
                 }
                 Status.ERROR -> Toast.makeText(
@@ -91,7 +108,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun setSuccessSaveView(data: Boolean?) {
-        if (data!!) {
+        this.isSaved = data ?: false
+        if (this.isSaved) {
             binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
         } else binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
     }

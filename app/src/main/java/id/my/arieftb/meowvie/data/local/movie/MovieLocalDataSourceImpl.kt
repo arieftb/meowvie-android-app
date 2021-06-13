@@ -20,4 +20,8 @@ class MovieLocalDataSourceImpl @Inject constructor(
         )
         return movieDao.insert(entity)
     }
+
+    override suspend fun checkMovie(code: Long): MovieEntity? {
+        return movieDao.findByCode(code)
+    }
 }

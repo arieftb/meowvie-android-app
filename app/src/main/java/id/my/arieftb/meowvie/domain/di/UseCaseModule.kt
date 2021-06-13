@@ -109,6 +109,12 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideCheckMovieUseCase(
+        repository: MovieRepository
+    ): CheckMovieUseCase = CheckMovieUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
     fun provideGetTvShowsUseCase(
         getCurrentDateUseCase: GetCurrentDateUseCase,
         getLanguageUseCase: GetLanguageUseCase,
