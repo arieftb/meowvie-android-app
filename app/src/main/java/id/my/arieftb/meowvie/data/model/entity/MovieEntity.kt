@@ -20,5 +20,5 @@ class MovieEntity(
     @ColumnInfo(name = DataConstant.CONTENT_TYPE_COLUMN_NAME)
     var type: String,
     @ColumnInfo(name = DataConstant.CONTENT_CREATED_AT_COLUMN_NAME)
-    var createdAt: String
+    var createdAt: Long
 )

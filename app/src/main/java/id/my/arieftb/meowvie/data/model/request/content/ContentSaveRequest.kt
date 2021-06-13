@@ -8,5 +8,5 @@ class ContentSaveRequest(
     var poster: String? = null,
     var banner: String? = null,
     var type: ContentType? = null,
-    var createdAt: String? = null
+    var createdAt: Long? = null
 )

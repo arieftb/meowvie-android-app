@@ -16,4 +16,8 @@ class DateLocalDataSourceImpl @Inject constructor(private val dateHelper: DateHe
     override suspend fun getDateDayAhead(format: String, dayInterval: Int): String? {
         return dateHelper.now().toPattern(format).addDay(dayInterval).getString()
     }
+
+    override suspend fun getCurrentDateTimeMillis(): Long? {
+        return dateHelper.now().getMillis()
+    }
 }

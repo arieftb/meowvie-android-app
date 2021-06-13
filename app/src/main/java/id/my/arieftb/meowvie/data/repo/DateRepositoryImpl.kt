@@ -17,4 +17,8 @@ class DateRepositoryImpl @Inject constructor(private val local: DateLocalDataSou
     override suspend fun getDateAhead(format: String, dateInterval: Int): String? {
         return local.getDateDayAhead(format, dateInterval)
     }
+
+    override suspend fun getCurrentDateTimeMillis(): Long? {
+        return local.getCurrentDateTimeMillis()
+    }
 }

@@ -41,6 +41,10 @@ class DateHelper {
         return dateTimeFormat?.format(dateTime!!)
     }
 
+    fun getMillis(): Long? {
+        return dateTime?.time
+    }
+
     companion object {
         var instance: DateHelper? = null
 

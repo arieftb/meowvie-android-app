@@ -31,6 +31,11 @@ object UseCaseModule {
 
     @Provides
     @Singleton
+    fun provideGetCurrentDateTimeMillisUseCase(repository: DateRepository): GetCurrentDateTimeMillisUseCase =
+        GetCurrentDateTimeMillisUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
     fun provideGetDateMonthAheadUseCase(repository: DateRepository): GetDateMonthAheadUseCase =
         GetDateMonthAheadUseCaseImpl(repository)
 
@@ -99,8 +104,8 @@ object UseCaseModule {
     @Singleton
     fun provideSaveMovieUseCase(
         repository: MovieRepository,
-        getCurrentDateUseCase: GetCurrentDateUseCase
-    ): SaveMovieUseCase = SaveMovieUseCaseImpl(repository, getCurrentDateUseCase)
+        getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase
+    ): SaveMovieUseCase = SaveMovieUseCaseImpl(repository, getCurrentDateTimeMillisUseCase)
 
     @Provides
     @Singleton
