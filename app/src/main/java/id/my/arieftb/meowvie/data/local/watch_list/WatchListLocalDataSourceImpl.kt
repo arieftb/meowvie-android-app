@@ -14,7 +14,7 @@ class WatchListLocalDataSourceImpl @Inject constructor(
             null,
             request.id!!,
             request.title!!,
-            request.banner,
+            request.banner ?: request.poster,
             request.poster,
             request.type.toString(),
             request.createdAt
