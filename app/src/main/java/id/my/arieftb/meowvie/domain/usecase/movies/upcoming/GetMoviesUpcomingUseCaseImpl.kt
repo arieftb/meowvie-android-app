@@ -14,6 +14,7 @@ class GetMoviesUpcomingUseCaseImpl @Inject constructor(
 ) : GetMoviesUpcomingUseCase {
     override suspend fun invoke(page: Int): Result<List<Content>> {
         return getMoviesUseCase.invoke(
+            page = page,
             releaseDateGte = getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1),
             releaseDateLte = getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1),
             sortBy = "release_date.asc"
