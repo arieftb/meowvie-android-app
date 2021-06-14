@@ -11,19 +11,19 @@
     <string name="menu_watchlist">Tandai</string>
     <string name="menu_account">Akun</string>
 
-    <string name="label_overview">Overview</string>
-    <string name="label_release_date">Release Date : %s</string>
+    <string name="label_overview">Deskripsi</string>
+    <string name="label_release_date">Tanggal Tayang : %s</string>
 
 <!--    TODO : 04/05/2021 - Translate THIS-->
-    <string name="section_watchlist">Watchlist</string>
-    <string name="section_new_movie">New Movie in Meowvie</string>
-    <string name="section_new_tv_show">New TV Show in Meowvie</string>
-    <string name="section_coming_soon_movie">Upcoming Movie</string>
-    <string name="section_coming_soon_tv_show">Upcoming Tv Show</string>
-    <string name="section_popular_movie">Popular Movie</string>
-    <string name="section_popular_tv_show">Popular Tv Show</string>
+    <string name="section_watchlist">Daftar Tontonan</string>
+    <string name="section_new_movie">Film Terbaru di Meowvie</string>
+    <string name="section_new_tv_show">Acara TV Terbaru di Meowvie</string>
+    <string name="section_coming_soon_movie">Film Akan Datang</string>
+    <string name="section_coming_soon_tv_show">Acara TV Akan Datang</string>
+    <string name="section_popular_movie">Film Teropuler</string>
+    <string name="section_popular_tv_show">Acara TV Terpopuler</string>
 
-    <string name="error_message_something_went_wrong">Something went wrong, please try again later.</string>
-    <string name="error_message_watch_list_empty">You don\'t have any watch list item yet</string>
-    <string name="error_message_list_empty">The content that you request is empty, please try again later.</string>
+    <string name="error_message_something_went_wrong">Terjadi kesalahan, silahkan coba lagi nanti.</string>
+    <string name="error_message_watch_list_empty">Anda belum memiliki daftar tontonan.</string>
+    <string name="error_message_list_empty">Konten yang anda minta kosong, silahkan coba lagi nanti.</string>
 </resources>
