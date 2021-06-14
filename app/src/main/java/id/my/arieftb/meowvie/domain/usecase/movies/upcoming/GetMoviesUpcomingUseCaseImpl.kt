@@ -12,7 +12,7 @@ class GetMoviesUpcomingUseCaseImpl @Inject constructor(
     private val getDateDayAheadUseCase: GetDateDayAheadUseCase,
     private val getMoviesUseCase: GetMoviesUseCase
 ) : GetMoviesUpcomingUseCase {
-    override suspend fun invoke(): Result<List<Content>> {
+    override suspend fun invoke(page: Int): Result<List<Content>> {
         return getMoviesUseCase.invoke(
             releaseDateGte = getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1),
             releaseDateLte = getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1),
