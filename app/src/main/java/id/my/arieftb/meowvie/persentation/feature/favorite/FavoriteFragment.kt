@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
@@ -36,7 +37,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
             listener = this@FavoriteFragment
         }.also {
             with(binding.listFavorite) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                layoutManager = GridLayoutManager(requireContext(), 2)
                 adapter = it
             }
         }
