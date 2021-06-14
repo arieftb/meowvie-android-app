@@ -52,18 +52,32 @@ class WatchListRecyclerAdapter(
                     (layoutParams as RecyclerView.LayoutParams).apply {
                         val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
                         val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
-                        when (position) {
+                        when (position % 2) {
                             0 -> {
-                                topMargin = startMargin
-                                bottomMargin = endMargin
-                                marginEnd = startMargin
-                                marginStart = startMargin
+                                if (position == 0) {
+                                    topMargin = startMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = endMargin
+                                    marginStart = startMargin
+                                } else  {
+                                    topMargin = endMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = endMargin
+                                    marginStart = startMargin
+                                }
                             }
                             else -> {
-                                topMargin = endMargin
-                                bottomMargin = endMargin
-                                marginEnd = startMargin
-                                marginStart = startMargin
+                                if (position == 1) {
+                                    topMargin = startMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = startMargin
+                                    marginStart = endMargin
+                                } else {
+                                    topMargin = endMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = startMargin
+                                    marginStart = endMargin
+                                }
                             }
                         }
                     }.also {
