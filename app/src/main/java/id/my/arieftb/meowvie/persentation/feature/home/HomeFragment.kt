@@ -118,6 +118,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 moviePopularAdapter = it
             }
         }
+
+        binding.sectionHomePopularMovie.buttonMore?.setOnClickListener {
+            navigateToSection(it, SectionType.POPULAR_MOVIE)
+        }
     }
 
     private fun initTvShowPopularHighlightAdapter() {
