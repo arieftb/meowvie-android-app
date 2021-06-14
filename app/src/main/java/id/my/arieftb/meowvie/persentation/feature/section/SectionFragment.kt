@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.constant.SectionType
@@ -21,6 +22,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
     private var page: Int = 1
     private var type: SectionType = SectionType.NEW_MOVIE
     private var adapter: ContentPortraitGridRecyclerAdapter? = null
+    private var isPaginationEnable: Boolean = false
 
     override fun getViewBinding(): FragmentSectionBinding =
         FragmentSectionBinding.inflate(layoutInflater)
@@ -41,6 +43,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
 
     private fun initView() {
         initContentList()
+        initRecyclerScroll()
     }
 
     private fun initContentList() {
@@ -52,12 +55,26 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
         }
     }
 
+    private fun initRecyclerScroll() {
+        binding.listSection.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!binding.listSection.canScrollVertically(1) && isPaginationEnable) {
+                    isPaginationEnable = false
+                    page += 1
+                    viewModel.getContents(page, type)
+                }
+            }
+        })
+    }
+
     private fun getContents() {
         viewModel.contentData.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> setSuccessView(it.data)
                 Status.ERROR -> setErrorView()
-                else -> binding.shimmerSectionDefault.show()
+                else -> setLoadingView()
             }
         })
 
@@ -72,6 +89,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
                 listSection.show()
                 adapter?.addAll(data)
             }
+            isPaginationEnable = true
         } else {
             setErrorView(getString(R.string.error_message_list_empty))
         }
@@ -87,6 +105,12 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
                     text = errorMessage
                 }
             }
+        }
+    }
+
+    private fun setLoadingView() {
+        if (page == 1) {
+            binding.shimmerSectionDefault.show()
         }
     }
 }
