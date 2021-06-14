@@ -19,7 +19,10 @@ class ContentPortraitGridRecyclerAdapter(
     inner class ContentPortraitGridRecyclerViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView)
 
-    lateinit var binding: ItemContentDefaultBinding
+    private lateinit var binding: ItemContentDefaultBinding
+
+    var listener: ContentRecyclerListener? = null
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -97,9 +100,9 @@ class ContentPortraitGridRecyclerAdapter(
                 }
             }
 
-//            binding.root.setOnClickListener { view ->
-//                listener?.onContentClickListener(it.id, it.type, view)
-//            }
+            binding.root.setOnClickListener { view ->
+                listener?.onContentClickListener(it.id, it.type, view)
+            }
         }
     }
 }

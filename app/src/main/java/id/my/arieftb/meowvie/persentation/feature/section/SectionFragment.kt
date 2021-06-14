@@ -3,21 +3,24 @@ package id.my.arieftb.meowvie.persentation.feature.section
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.constant.SectionType
 import id.my.arieftb.meowvie.databinding.FragmentSectionBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.adapter.ContentPortraitGridRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.ContentRecyclerListener
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 
 @AndroidEntryPoint
-class SectionFragment : BaseFragment<FragmentSectionBinding>() {
+class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerListener {
     private val viewModel: SectionViewModelImpl by viewModels()
     private var page: Int = 1
     private var type: SectionType = SectionType.NEW_MOVIE
@@ -47,7 +50,9 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
     }
 
     private fun initContentList() {
-        adapter = ContentPortraitGridRecyclerAdapter(requireContext()).also {
+        adapter = ContentPortraitGridRecyclerAdapter(requireContext()).apply {
+            listener = this@SectionFragment
+        }.also {
             with(binding.listSection) {
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 adapter = it
@@ -111,6 +116,12 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
     private fun setLoadingView() {
         if (page == 1) {
             binding.shimmerSectionDefault.show()
+        }
+    }
+
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {
+        SectionFragmentDirections.actionSectionToDetail(id!!, type!!).also {
+            view.findNavController().navigate(it)
         }
     }
 }
