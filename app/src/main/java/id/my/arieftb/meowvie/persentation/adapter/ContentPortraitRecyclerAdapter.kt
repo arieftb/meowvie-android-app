@@ -23,6 +23,10 @@ class ContentPortraitRecyclerAdapter(val context: Context) :
         binding =
             ItemContentDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
+        val layoutParam = binding.root.layoutParams
+        layoutParam.width = context.resources.getDimensionPixelSize(R.dimen._100sdp)
+        binding.root.layoutParams = layoutParam
+
         return MoviesRecyclerViewHolder(binding.root)
     }
 
