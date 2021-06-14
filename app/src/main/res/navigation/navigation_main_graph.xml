@@ -23,12 +23,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/homeFragment">
-            <argument
-                android:name="type"
-                android:defaultValue="NEW_MOVIE"
-                app:argType="id.my.arieftb.meowvie.constant.SectionType"/>
-        </action>
+            app:popUpTo="@id/homeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
@@ -72,7 +67,12 @@
     <fragment
         android:id="@+id/sectionFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.section.SectionFragment"
-        android:label="SectionFragment">
+        android:label="{title}">
+        <argument
+            android:name="type"
+            android:defaultValue="NEW_MOVIE"
+            app:argType="id.my.arieftb.meowvie.constant.SectionType"/>
+
         <action
             android:id="@+id/actionSectionToDetail"
             app:destination="@id/detailFragment"
@@ -81,5 +81,10 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/sectionFragment"/>
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Section" />
     </fragment>
 </navigation>

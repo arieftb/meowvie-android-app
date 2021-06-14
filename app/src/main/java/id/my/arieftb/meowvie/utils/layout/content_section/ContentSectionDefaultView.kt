@@ -18,7 +18,7 @@ class ContentSectionDefaultView @JvmOverloads constructor(
 
     private var binding: ComponentContentSectionDefaultBinding? = null
 
-    private var sectionTitle: String? = null
+    var sectionTitle: String? = null
         set(value) {
             field = value
             binding?.textContentSectionTitle?.text = field

@@ -59,8 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomeNewMovie.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.NEW_MOVIE)
+        with(binding.sectionHomeNewMovie) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.NEW_MOVIE, sectionTitle ?: "")
+            }
         }
     }
 
@@ -74,8 +76,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomeNewTvShow.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.NEW_TV)
+        with(binding.sectionHomeNewTvShow) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.NEW_TV, sectionTitle ?: "")
+            }
         }
     }
 
@@ -89,8 +93,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomeComingSoonMovie.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.UPCOMING_MOVIE)
+        with(binding.sectionHomeComingSoonMovie) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.UPCOMING_MOVIE, sectionTitle ?: "")
+            }
         }
     }
 
@@ -104,8 +110,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomeComingSoonTvShow.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.UPCOMING_TV)
+        with(binding.sectionHomeComingSoonTvShow) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.UPCOMING_TV, sectionTitle ?: "")
+            }
         }
     }
 
@@ -119,8 +127,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomePopularMovie.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.POPULAR_MOVIE)
+        with(binding.sectionHomePopularMovie) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.POPULAR_MOVIE, sectionTitle ?: "")
+            }
         }
     }
 
@@ -134,8 +144,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         }
 
-        binding.sectionHomePopularTvShow.buttonMore?.setOnClickListener {
-            navigateToSection(it, SectionType.POPULAR_TV)
+        with(binding.sectionHomePopularTvShow) {
+            buttonMore?.setOnClickListener {
+                navigateToSection(it, SectionType.POPULAR_TV, sectionTitle ?: "")
+            }
         }
     }
 
@@ -253,8 +265,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
         viewModel.getTvShowsPopularHighlight()
     }
 
-    private fun navigateToSection(view: View, type: SectionType) {
-        HomeFragmentDirections.actionHomeToSection(type).also {
+    private fun navigateToSection(view: View, type: SectionType, title: String) {
+        HomeFragmentDirections.actionHomeToSection(type, title).also {
             view.findNavController().navigate(it)
         }
     }
