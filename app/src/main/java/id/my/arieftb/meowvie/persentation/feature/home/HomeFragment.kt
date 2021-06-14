@@ -73,6 +73,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 tvShowAdapter = it
             }
         }
+
+        binding.sectionHomeNewTvShow.buttonMore?.setOnClickListener {
+            navigateToSection(it, SectionType.NEW_TV)
+        }
     }
 
     private fun initMovieUpcomingHighlightAdapter() {
