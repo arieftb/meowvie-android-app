@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.home.HomeFragment"
-        android:label="HomeFragment">
+        android:label="@string/app_name">
         <action
             android:id="@+id/actionHomeToDetail"
             app:destination="@id/detailFragment"
@@ -42,11 +42,11 @@
     <fragment
         android:id="@+id/exploreFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.explore.ExploreFragment"
-        android:label="ExploreFragment" />
+        android:label="@string/menu_explore" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.favorite.FavoriteFragment"
-        android:label="FavoriteFragment">
+        android:label="@string/menu_watchlist">
         <action
             android:id="@+id/actionFavoriteToDetail"
             app:destination="@id/detailFragment"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/accountFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.account.AccountFragment"
-        android:label="AccountFragment" />
+        android:label="@string/menu_account" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.detail.DetailFragment"
