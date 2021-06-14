@@ -10,6 +10,7 @@ import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
 import id.my.arieftb.meowvie.persentation.model.Data
 import id.my.arieftb.meowvie.persentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class SectionViewModelImpl @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase,
     private val getTvShowsUseCase: GetTvShowsUseCase,
-    private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase
+    private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
+    private val getTvShowsUpcomingUseCase: GetTvShowsUpcomingUseCase
 ) : ViewModel(), SectionViewModel {
     override val contentData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
@@ -32,6 +34,7 @@ class SectionViewModelImpl @Inject constructor(
         when (type) {
             SectionType.NEW_TV -> getTvShows(page)
             SectionType.UPCOMING_MOVIE -> getUpComingMovies(page)
+            SectionType.UPCOMING_TV -> getUpComingTvShows(page)
             else -> getMovies(page)
         }
     }
@@ -77,6 +80,23 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesUpcomingUseCase.invoke(page = page)) {
+                is Result.Success -> {
+                    contentData.value = Data(Status.SUCCESS, result.data)
+                }
+                is Result.Failure -> {
+                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                }
+            }
+        }
+    }
+
+    override fun getUpComingTvShows(page: Int) {
+        contentData.value = Data(Status.LOADING)
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            throwable.printStackTrace()
+            contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
+        }) {
+            when (val result = getTvShowsUpcomingUseCase.invoke(page = page)) {
                 is Result.Success -> {
                     contentData.value = Data(Status.SUCCESS, result.data)
                 }

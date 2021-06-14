@@ -103,6 +103,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 tvShowUpcomingAdapter = it
             }
         }
+
+        binding.sectionHomeComingSoonTvShow.buttonMore?.setOnClickListener {
+            navigateToSection(it, SectionType.UPCOMING_TV)
+        }
     }
 
     private fun initMoviesPopularHighlightAdapter() {

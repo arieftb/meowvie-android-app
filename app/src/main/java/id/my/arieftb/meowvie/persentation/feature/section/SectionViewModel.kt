@@ -12,4 +12,5 @@ interface SectionViewModel {
     fun getMovies(page: Int = 1)
     fun getTvShows(page: Int = 1)
     fun getUpComingMovies(page: Int = 1)
+    fun getUpComingTvShows(page: Int = 1)
 }
