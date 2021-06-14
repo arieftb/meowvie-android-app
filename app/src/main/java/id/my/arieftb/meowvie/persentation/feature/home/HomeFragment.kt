@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.constant.SectionType
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.persentation.adapter.*
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
@@ -56,6 +57,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }.also {
                 movieAdapter = it
             }
+        }
+
+        binding.sectionHomeNewMovie.buttonMore?.setOnClickListener {
+            navigateToSection(it, SectionType.NEW_MOVIE)
         }
     }
 
@@ -226,6 +231,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
         })
 
         viewModel.getTvShowsPopularHighlight()
+    }
+
+    private fun navigateToSection(view: View, type: SectionType) {
+        HomeFragmentDirections.actionHomeToSection(type).also {
+            view.findNavController().navigate(it)
+        }
     }
 
     override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {

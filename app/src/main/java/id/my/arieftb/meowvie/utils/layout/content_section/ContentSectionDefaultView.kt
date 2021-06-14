@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ComponentContentSectionDefaultBinding
@@ -28,6 +29,8 @@ class ContentSectionDefaultView @JvmOverloads constructor(
             field = value
             initShimmerLayout(field)
         }
+
+    var buttonMore: ImageView? = null
 
     var adapter: RecyclerView.Adapter<*>? = null
         set(value) {
@@ -73,8 +76,10 @@ class ContentSectionDefaultView @JvmOverloads constructor(
 
     init {
         binding =
-            ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false)
-        this.addView(binding?.root)
+            ComponentContentSectionDefaultBinding.inflate(LayoutInflater.from(context), null, false).also {
+                this.addView(it.root)
+                buttonMore = it.imageContentSectionMore
+            }
 
         if (!isInEditMode) {
             initAttribute(attrs)
