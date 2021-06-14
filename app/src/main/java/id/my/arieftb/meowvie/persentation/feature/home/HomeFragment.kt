@@ -133,6 +133,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 tvShowPopularAdapter = it
             }
         }
+
+        binding.sectionHomePopularTvShow.buttonMore?.setOnClickListener {
+            navigateToSection(it, SectionType.POPULAR_TV)
+        }
     }
 
     private fun getMoviesHighlight() {
