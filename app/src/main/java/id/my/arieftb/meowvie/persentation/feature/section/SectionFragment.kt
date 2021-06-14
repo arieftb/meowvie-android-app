@@ -72,6 +72,8 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
                 listSection.show()
                 adapter?.addAll(data)
             }
+        } else {
+            setErrorView(getString(R.string.error_message_list_empty))
         }
     }
 
