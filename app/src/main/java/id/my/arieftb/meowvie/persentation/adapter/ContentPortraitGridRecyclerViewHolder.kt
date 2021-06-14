@@ -33,23 +33,37 @@ class ContentPortraitGridRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ContentPortraitGridRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
-            when (layoutParams) {
+            when(layoutParams) {
                 is RecyclerView.LayoutParams -> {
                     (layoutParams as RecyclerView.LayoutParams).apply {
                         val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
-                        val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
-                        when (position) {
+                        val endMargin = context.resources.getDimensionPixelSize(R.dimen._8sdp)
+                        when (position % 2) {
                             0 -> {
-                                marginStart = startMargin
-                                marginEnd = endMargin
-                            }
-                            getContents().lastIndex -> {
-                                marginEnd = startMargin
-                                marginStart = endMargin
+                                if (position == 0) {
+                                    topMargin = startMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = endMargin
+                                    marginStart = startMargin
+                                } else  {
+                                    topMargin = endMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = endMargin
+                                    marginStart = startMargin
+                                }
                             }
                             else -> {
-                                marginStart = endMargin
-                                marginEnd = endMargin
+                                if (position == 1) {
+                                    topMargin = startMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = startMargin
+                                    marginStart = endMargin
+                                } else {
+                                    topMargin = endMargin
+                                    bottomMargin = endMargin
+                                    marginEnd = startMargin
+                                    marginStart = endMargin
+                                }
                             }
                         }
                     }.also {
