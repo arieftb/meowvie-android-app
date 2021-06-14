@@ -60,7 +60,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if (!binding.listSection.canScrollVertically(1) && isPaginationEnable) {
+                if (!binding.listSection.canScrollVertically(1) && isPaginationEnable && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     isPaginationEnable = false
                     page += 1
                     viewModel.getContents(page, type)
