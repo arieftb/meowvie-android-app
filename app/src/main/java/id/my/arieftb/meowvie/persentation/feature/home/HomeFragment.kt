@@ -259,8 +259,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
         }
     }
 
-    override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {
-        HomeFragmentDirections.actionHomeToDetail(id ?: -1, type ?: ContentType.MOVIE).also {
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
+        HomeFragmentDirections.actionHomeToDetail(id ?: -1, type ?: ContentType.MOVIE, title).also {
             view.findNavController().navigate(it)
         }
     }

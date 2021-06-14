@@ -119,8 +119,8 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
         }
     }
 
-    override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {
-        SectionFragmentDirections.actionSectionToDetail(id!!, type!!).also {
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
+        SectionFragmentDirections.actionSectionToDetail(id!!, type!!, title).also {
             view.findNavController().navigate(it)
         }
     }

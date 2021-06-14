@@ -14,16 +14,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/homeFragment">
-            <argument
-                android:name="id"
-                android:defaultValue="-1L"
-                app:argType="long" />
-            <argument
-                android:name="type"
-                android:defaultValue="MOVIE"
-                app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
-        </action>
+            app:popUpTo="@id/homeFragment"/>
 
         <action
             android:id="@+id/actionHomeToSection"
@@ -54,16 +45,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/favoriteFragment">
-            <argument
-                android:name="id"
-                android:defaultValue="-1L"
-                app:argType="long" />
-            <argument
-                android:name="type"
-                android:defaultValue="MOVIE"
-                app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
-        </action>
+            app:popUpTo="@id/favoriteFragment"/>
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -72,7 +54,21 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="{title}">
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <argument
+            android:name="type"
+            android:defaultValue="MOVIE"
+            app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
+        <argument
+            android:name="title"
+            android:defaultValue="MeowVie"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/sectionFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.section.SectionFragment"
@@ -84,15 +80,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/sectionFragment">
-            <argument
-                android:name="id"
-                android:defaultValue="-1L"
-                app:argType="long" />
-            <argument
-                android:name="type"
-                android:defaultValue="MOVIE"
-                app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
-        </action>
+            app:popUpTo="@id/sectionFragment"/>
     </fragment>
 </navigation>

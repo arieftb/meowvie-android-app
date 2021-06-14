@@ -68,8 +68,8 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
         }
     }
 
-    override fun onContentClickListener(id: Long?, type: ContentType?, view: View) {
-        FavoriteFragmentDirections.actionFavoriteToDetail(id ?: -1, type ?: ContentType.MOVIE)
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
+        FavoriteFragmentDirections.actionFavoriteToDetail(id ?: -1, type ?: ContentType.MOVIE, title)
             .also {
                 view.findNavController().navigate(it)
             }

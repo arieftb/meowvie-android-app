@@ -110,7 +110,7 @@ class WatchListRecyclerAdapter(
             }
 
             binding.root.setOnClickListener { view ->
-                listener?.onContentClickListener(it.code, ContentType.valueOf(it.type), view)
+                listener?.onContentClickListener(it.code, ContentType.valueOf(it.type), view, it.title)
             }
         }
     }

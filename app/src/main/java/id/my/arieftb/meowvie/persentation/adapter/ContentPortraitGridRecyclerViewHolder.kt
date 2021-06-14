@@ -101,7 +101,7 @@ class ContentPortraitGridRecyclerAdapter(
             }
 
             binding.root.setOnClickListener { view ->
-                listener?.onContentClickListener(it.id, it.type, view)
+                listener?.onContentClickListener(it.id, it.type, view, it.title)
             }
         }
     }
