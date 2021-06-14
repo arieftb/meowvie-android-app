@@ -84,7 +84,9 @@ class WatchListRecyclerAdapter(
                         layoutParams = it
                     }
                 }
-                else -> {}
+                else -> {
+                    // NOT A RECYCLER ITEM
+                }
             }
         }
 
