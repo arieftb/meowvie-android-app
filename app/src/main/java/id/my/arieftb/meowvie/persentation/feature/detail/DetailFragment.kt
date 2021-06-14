@@ -22,7 +22,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private var id: Long = -1
     private var type: ContentType = ContentType.MOVIE
-    private var title: String? = null
     private var isSaved: Boolean = false
     private var contentDetail: ContentDetail? = null
     private val viewModel: DetailViewModelImpl by viewModels()
@@ -44,7 +43,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         arguments?.let {
             id = it.getLong("id")
             type = it.get("type") as ContentType
-            title = it.getString("title")
         }
     }
 
