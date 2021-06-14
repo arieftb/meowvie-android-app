@@ -4,27 +4,16 @@
     android:id="@+id/scrollHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:animateLayoutChanges="true">
+    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_16sdp">
-
-        <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
-            android:id="@+id/sectionHomeWatchlist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:section_titleText="@string/section_watchlist"
-            app:section_contentShimmer="@layout/shimmer_item_content_banner"/>
-
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeNewMovie"
@@ -33,9 +22,9 @@
             android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sectionHomeWatchlist"
-            app:section_titleText="@string/section_new_movie"
-            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:section_contentShimmer="@layout/shimmer_item_content_default"
+            app:section_titleText="@string/section_new_movie" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeNewTvShow"
@@ -45,8 +34,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionHomeNewMovie"
-            app:section_titleText="@string/section_new_tv_show"
-            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
+            app:section_contentShimmer="@layout/shimmer_item_content_default"
+            app:section_titleText="@string/section_new_tv_show" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeComingSoonMovie"
@@ -56,8 +45,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionHomeNewTvShow"
-            app:section_titleText="@string/section_coming_soon_movie"
-            app:section_contentShimmer="@layout/shimmer_item_content_banner"/>
+            app:section_contentShimmer="@layout/shimmer_item_content_banner"
+            app:section_titleText="@string/section_coming_soon_movie" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomeComingSoonTvShow"
@@ -67,8 +56,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionHomeComingSoonMovie"
-            app:section_titleText="@string/section_coming_soon_tv_show"
-            app:section_contentShimmer="@layout/shimmer_item_content_banner"/>
+            app:section_contentShimmer="@layout/shimmer_item_content_banner"
+            app:section_titleText="@string/section_coming_soon_tv_show" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomePopularMovie"
@@ -78,8 +67,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionHomeComingSoonTvShow"
-            app:section_titleText="@string/section_popular_movie"
-            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
+            app:section_contentShimmer="@layout/shimmer_item_content_default"
+            app:section_titleText="@string/section_popular_movie" />
 
         <id.my.arieftb.meowvie.utils.layout.content_section.ContentSectionDefaultView
             android:id="@+id/sectionHomePopularTvShow"
@@ -89,8 +78,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionHomePopularMovie"
-            app:section_titleText="@string/section_popular_tv_show"
-            app:section_contentShimmer="@layout/shimmer_item_content_default"/>
+            app:section_contentShimmer="@layout/shimmer_item_content_default"
+            app:section_titleText="@string/section_popular_tv_show" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
