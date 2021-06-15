@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.data.local.date.DateLocalDataSource
 import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSource
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
+import id.my.arieftb.meowvie.data.remote.content.ContentRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.tv_show.TvShowRemoteDataSource
 import id.my.arieftb.meowvie.data.repo.*
@@ -45,4 +46,10 @@ object RepositoryModule {
     fun provideWatchListRepository(
         local: WatchListLocalDataSource
     ): WatchListRepository = WatchListRepositoryImpl(local)
+
+    @Provides
+    @Singleton
+    fun provideContentRepository(
+        remote: ContentRemoteDataSource
+    ): ContentRepository = ContentRepositoryImpl(remote)
 }

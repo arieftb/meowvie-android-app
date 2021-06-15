@@ -2,6 +2,7 @@ package id.my.arieftb.meowvie.domain.model.base
 
 import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.data.model.response.contents.search.ContentResult
 import id.my.arieftb.meowvie.data.model.response.movies.MovieResult
 import id.my.arieftb.meowvie.data.model.response.tv_shows.TvShowResult
 
@@ -11,7 +12,7 @@ open class Content(
     var bannerPath: String? = null,
     var posterPath: String? = null,
     var type: ContentType? = ContentType.MOVIE
-) : ContentMovieMapper, ContentTvShowMapper {
+) : ContentMovieMapper, ContentTvShowMapper, ContentSearchMapper {
     override fun mapFromMovieResult(response: MovieResult): Content {
         return Content().apply {
             this.id = response.id
@@ -36,6 +37,22 @@ open class Content(
         }
     }
 
+    override fun mapFromSearchResult(response: ContentResult): Content {
+        return Content().apply {
+            this.id = response.id
+            this.title = response.originalName
+            this.bannerPath = if (response.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
+            this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
+            this.type = if (response.mediaType.equals("tv")) {
+                ContentType.TV_SHOW
+            } else {
+                ContentType.MOVIE
+            }
+        }
+    }
+
 }
 
 interface ContentMovieMapper {
@@ -44,4 +61,8 @@ interface ContentMovieMapper {
 
 interface ContentTvShowMapper {
     fun mapFromTvShowResult(response: TvShowResult): Content
+}
+
+interface ContentSearchMapper {
+    fun mapFromSearchResult(response: ContentResult): Content
 }

@@ -4,6 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import id.my.arieftb.meowvie.data.remote.content.ContentApiService
+import id.my.arieftb.meowvie.data.remote.content.ContentRemoteDataSource
+import id.my.arieftb.meowvie.data.remote.content.ContentRemoteDataSourceImpl
 import id.my.arieftb.meowvie.data.remote.movie.MovieApiService
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSourceImpl
@@ -25,4 +28,9 @@ object RemoteDataSourceModule {
     @Singleton
     fun provideTvShowRemoteDataSource(apiService: TvShowApiService): TvShowRemoteDataSource =
         TvShowRemoteDataSourceImpl(apiService)
+
+    @Provides
+    @Singleton
+    fun provideContentRemoteDataSource(apiService: ContentApiService): ContentRemoteDataSource =
+        ContentRemoteDataSourceImpl(apiService)
 }

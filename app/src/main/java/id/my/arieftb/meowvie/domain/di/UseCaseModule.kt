@@ -5,10 +5,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.meowvie.domain.repo.*
+import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCase
+import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.date.*
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.movies.*
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
+import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
@@ -21,7 +24,8 @@ import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHig
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCaseImpl
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.*
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
+import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCaseImpl
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
@@ -201,4 +205,11 @@ object UseCaseModule {
     fun provideGetWatchListAllUseCase(
         repository: WatchListRepository
     ): GetWatchListAllUseCase = GetWatchListAllUseCaseImpl(repository)
+
+    @Provides
+    @Singleton
+    fun provideSearchContentsUseCase(
+        repository: ContentRepository,
+        getLanguageUseCase: GetLanguageUseCase
+    ): SearchContentsUseCase = SearchContentsUseCaseImpl(repository, getLanguageUseCase)
 }
