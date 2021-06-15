@@ -30,12 +30,16 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
     override fun getViewBinding(): FragmentSectionBinding =
         FragmentSectionBinding.inflate(layoutInflater)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initArgs()
+        viewModel.getContents(page, type)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initArgs()
-        initView()
         getContents()
+        initView()
     }
 
     private fun initArgs() {
@@ -82,8 +86,6 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
                 else -> setLoadingView()
             }
         })
-
-        viewModel.getContents(page, type)
     }
 
     private fun setSuccessView(data: List<Content>?) {
@@ -91,7 +93,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
             with(binding) {
                 shimmerSectionDefault.hide()
                 textSectionErrorMessage.hide()
-                listSection.show()
+//                listSection.show()
                 adapter?.addAll(data)
             }
             isPaginationEnable = true
