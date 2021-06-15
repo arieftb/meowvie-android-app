@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.FragmentExploreBinding
@@ -20,6 +21,8 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private val viewModel: ExploreViewModelImpl by viewModels()
     private var adapter: ContentPortraitGridRecyclerAdapter? = null
     private var page: Int = 1
+    private var searchKey: String? = null
+    private var isPaginationEnable: Boolean = false
 
     override fun getViewBinding(): FragmentExploreBinding =
         FragmentExploreBinding.inflate(layoutInflater)
@@ -33,6 +36,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun initView() {
         initContentList()
+        initRecyclerScroll()
         initSearchView()
     }
 
@@ -42,6 +46,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
                     viewModel.search(page, query)
+                    searchKey = query
                 }
                 return false
             }
@@ -64,6 +69,25 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
     }
 
+    private fun initRecyclerScroll() {
+        binding.listExplore.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!binding.listExplore.canScrollVertically(1)
+                    && isPaginationEnable
+                    && newState == RecyclerView.SCROLL_STATE_IDLE
+                ) {
+                    isPaginationEnable = false
+                    page += 1
+                    if (!searchKey.isNullOrEmpty()) {
+                        viewModel.search(page, searchKey!!)
+                    }
+                }
+            }
+        })
+    }
+
     private fun getContents() {
         viewModel.searchData.observe(viewLifecycleOwner, {
             when (it.status) {
@@ -82,7 +106,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
                 listExplore.show()
                 adapter?.replaceAll(data)
             }
-//            isPaginationEnable = true
+            isPaginationEnable = true
         } else {
             setErrorView(getString(R.string.error_message_list_empty))
         }
@@ -104,6 +128,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     private fun setLoadingView() {
         if (page == 1) {
             binding.listExplore.hide()
+            binding.textExploreErrorMessage.hide()
             binding.shimmerExploreDefault.show()
         }
     }
