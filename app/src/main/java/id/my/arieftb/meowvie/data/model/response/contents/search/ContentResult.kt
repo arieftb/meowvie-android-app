@@ -31,7 +31,7 @@ data class ContentResult(
     @SerializedName("video")
     val video: Boolean? = null,
     @SerializedName("vote_average")
-    val voteAverage: Int? = null,
+    val voteAverage: Double? = null,
     @SerializedName("vote_count")
     val voteCount: Long? = null,
     @SerializedName("first_air_date")
