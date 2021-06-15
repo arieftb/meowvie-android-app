@@ -17,7 +17,7 @@ open class ContentDetail(
     override fun mapFromMovieDetailResponse(response: MovieDetailResponse?): ContentDetail {
         return ContentDetail().apply {
             this.id = response?.id
-            this.title = response?.title
+            this.title = response?.originalTitle
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + response?.posterPath
             this.bannerPath = if (response?.backdropPath != null) {
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
@@ -34,7 +34,7 @@ open class ContentDetail(
     override fun mapFromTvShowDetailResponse(response: TvShowDetailResponse?): ContentDetail {
         return ContentDetail().apply {
             this.id = response?.id
-            this.title = response?.name
+            this.title = response?.originalName
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + response?.posterPath
             this.releaseDate = response?.firstAirDate
             this.overview = response?.overview
