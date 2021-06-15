@@ -25,6 +25,13 @@
         <item name="labelVisibilityMode">labeled</item>
     </style>
 
+    <style name="Widget.MeowView.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@color/grey_272727</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/grey_979797</item>
+    </style>
+
     <style name="ThemeOverlay.MeowVie.BottomNavigationView" parent="">
         <item name="colorPrimary">@color/grey_2e2e2e</item>
         <item name="colorOnPrimary">@color/white</item>
