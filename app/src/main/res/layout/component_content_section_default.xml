@@ -41,6 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/_8sdp"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toBottomOf="@id/textContentSectionTitle"
         tools:listitem="@layout/item_content_default"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
