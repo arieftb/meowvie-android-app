@@ -94,7 +94,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
                 shimmerSectionDefault.hide()
                 textSectionErrorMessage.hide()
 //                listSection.show()
-                adapter?.addAll(data)
+                adapter?.replaceAll(data)
             }
             isPaginationEnable = true
         } else {

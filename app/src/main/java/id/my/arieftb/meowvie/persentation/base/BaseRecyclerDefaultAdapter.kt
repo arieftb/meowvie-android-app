@@ -12,7 +12,15 @@ abstract class BaseRecyclerDefaultAdapter<D, VH: RecyclerView.ViewHolder> : Recy
     override fun getItemCount(): Int = contents.size
 
     fun addAll(contents: List<D>?) {
-        if (contents != null) {
+        if (!contents.isNullOrEmpty()) {
+            this.contents.addAll(contents)
+            notifyDataSetChanged()
+        }
+    }
+
+    fun replaceAll(contents: List<D>?) {
+        if (!contents.isNullOrEmpty()) {
+            this.contents.clear()
             this.contents.addAll(contents)
             notifyDataSetChanged()
         }

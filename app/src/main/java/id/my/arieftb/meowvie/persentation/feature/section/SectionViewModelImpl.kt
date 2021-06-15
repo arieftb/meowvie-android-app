@@ -28,6 +28,8 @@ class SectionViewModelImpl @Inject constructor(
     private val getMoviesPopularUseCase: GetMoviesPopularUseCase,
     private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase
 ) : ViewModel(), SectionViewModel {
+    private val listData = mutableListOf<Content>()
+
     override val contentData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
     override fun getContents(page: Int, type: SectionType) {
@@ -52,12 +54,8 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -69,12 +67,8 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowsUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -86,12 +80,8 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesUpcomingUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -103,12 +93,8 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowsUpcomingUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -120,12 +106,8 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesPopularUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -137,13 +119,14 @@ class SectionViewModelImpl @Inject constructor(
             contentData.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowsPopularUseCase.invoke(page = page)) {
-                is Result.Success -> {
-                    contentData.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
-                }
+                is Result.Success -> setValueSuccess(result.data)
+                is Result.Failure -> contentData.value = Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
+    }
+
+    private fun setValueSuccess(list: List<Content>) {
+        listData.addAll(list)
+        contentData.value = Data(Status.SUCCESS, listData)
     }
 }
