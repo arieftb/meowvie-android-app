@@ -14,6 +14,8 @@
     <string name="label_overview">Deskripsi</string>
     <string name="label_release_date">Tanggal Tayang : %s</string>
 
+    <string name="hint_search_here">Cari di sini …</string>
+
 <!--    TODO : 04/05/2021 - Translate THIS-->
     <string name="section_watchlist">Daftar Tontonan</string>
     <string name="section_new_movie">Film Terbaru di Meowvie</string>
