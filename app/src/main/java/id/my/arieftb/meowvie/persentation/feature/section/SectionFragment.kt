@@ -38,8 +38,8 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getContents()
         initView()
+        getContents()
     }
 
     private fun initArgs() {

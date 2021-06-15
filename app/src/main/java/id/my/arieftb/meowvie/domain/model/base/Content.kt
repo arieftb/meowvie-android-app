@@ -40,7 +40,7 @@ open class Content(
     override fun mapFromSearchResult(response: ContentResult): Content {
         return Content().apply {
             this.id = response.id
-            this.title = response.originalName
+            this.title = response.originalName ?: response.originalTitle
             this.bannerPath = if (response.backdropPath != null) {
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath

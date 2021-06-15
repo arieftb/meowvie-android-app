@@ -21,6 +21,10 @@ class ExploreViewModelImpl @Inject constructor(
     override val searchData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
     override fun search(page: Int, keyword: String) {
+        if (page == 1) {
+            listData.clear()
+        }
+
         searchData.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
