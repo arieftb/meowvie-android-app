@@ -21,6 +21,8 @@ class ContentBannerRecyclerAdapter(val context: Context) :
 
     inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
+    override fun getItemViewType(position: Int): Int = getContent(position).id?.toInt() ?: -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =
             ItemContentBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)

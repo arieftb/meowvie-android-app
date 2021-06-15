@@ -19,6 +19,8 @@ class ContentPortraitRecyclerAdapter(val context: Context) :
 
     lateinit var binding: ItemContentDefaultBinding
 
+    override fun getItemViewType(position: Int): Int = getContent(position).id?.toInt() ?: -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =
             ItemContentDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
