@@ -28,6 +28,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
 
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        with(viewModel) {
+            getMovies()
+            getTvShowsHighlight()
+            getMoviesUpcomingHighlight()
+            getTvShowsUpcomingHighlight()
+            getMoviesPopularHighlight()
+            getTvShowsPopularHighlight()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -166,8 +178,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 else -> binding.sectionHomeNewMovie.status = it.status
             }
         })
-
-        viewModel.getMovies()
     }
 
     private fun getTvShowsHighlight() {
@@ -186,7 +196,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         })
 
-        viewModel.getTvShowsHighlight()
+
     }
 
     private fun getMoviesUpcomingHighlight() {
@@ -205,7 +215,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         })
 
-        viewModel.getMoviesUpcomingHighlight()
+
     }
 
     private fun getTvShowsUpcomingHighlight() {
@@ -224,7 +234,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
             }
         })
 
-        viewModel.getTvShowsUpcomingHighlight()
     }
 
     private fun getMoviesPopularHighlight() {
@@ -242,8 +251,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 else -> binding.sectionHomePopularMovie.status = it.status
             }
         })
-
-        viewModel.getMoviesPopularHighlight()
     }
 
     private fun getTvShowsPopularHighlight() {
@@ -261,8 +268,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 else -> binding.sectionHomePopularTvShow.status = it.status
             }
         })
-
-        viewModel.getTvShowsPopularHighlight()
     }
 
     private fun navigateToSection(view: View, type: SectionType, title: String) {
