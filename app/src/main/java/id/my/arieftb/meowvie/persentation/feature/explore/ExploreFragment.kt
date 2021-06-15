@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentExploreBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.adapter.ContentPortraitGridRecyclerAdapter
+import id.my.arieftb.meowvie.persentation.adapter.ContentRecyclerListener
 import id.my.arieftb.meowvie.persentation.base.BaseFragment
 import id.my.arieftb.meowvie.persentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 
 @AndroidEntryPoint
-class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
+class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerListener {
     private val viewModel: ExploreViewModelImpl by viewModels()
     private var adapter: ContentPortraitGridRecyclerAdapter? = null
     private var page: Int = 1
@@ -60,7 +63,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     private fun initContentList() {
         adapter = ContentPortraitGridRecyclerAdapter(requireContext()).apply {
-
+            listener = this@ExploreFragment
         }.also {
             with(binding.listExplore) {
                 layoutManager = GridLayoutManager(requireContext(), 2)
@@ -130,6 +133,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             binding.listExplore.hide()
             binding.textExploreErrorMessage.hide()
             binding.shimmerExploreDefault.show()
+        }
+    }
+
+    override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
+        ExploreFragmentDirections.actionExploreToDetail(id!!, type!!, title).also {
+            view.findNavController().navigate(it)
         }
     }
 }

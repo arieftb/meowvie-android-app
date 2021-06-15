@@ -28,7 +28,16 @@
     <fragment
         android:id="@+id/exploreFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.explore.ExploreFragment"
-        android:label="@string/menu_explore" />
+        android:label="@string/menu_explore" >
+        <action
+            android:id="@+id/actionExploreToDetail"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/favoriteFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="id.my.arieftb.meowvie.persentation.feature.favorite.FavoriteFragment"
