@@ -42,7 +42,7 @@ class WatchListRecyclerAdapter(
     var listener: ContentRecyclerListener? = null
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return getItem(position)?.id ?: 0
     }
 
     override fun onBindViewHolder(holder: WatchListRecyclerViewHolder, position: Int) {
@@ -107,6 +107,11 @@ class WatchListRecyclerAdapter(
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.image_not_found)
                 }
+            }
+
+            when(it.type) {
+                ContentType.TV.toString() -> binding.imageContentType.setImageResource(R.drawable.ic_content_tv)
+                else -> binding.imageContentType.setImageResource(R.drawable.ic_content_movie)
             }
 
             binding.root.setOnClickListener { view ->

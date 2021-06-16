@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.persentation.base.BaseRecyclerDefaultAdapter
@@ -75,6 +76,11 @@ class ContentPortraitRecyclerAdapter(val context: Context) :
                     placeholder(R.drawable.background_image_default)
                     error(R.drawable.image_not_found)
                 }
+            }
+
+            when(it.type) {
+                ContentType.TV -> binding.imageContentDefaultType.setImageResource(R.drawable.ic_content_tv)
+                else -> binding.imageContentDefaultType.setImageResource(R.drawable.ic_content_movie)
             }
 
             binding.root.setOnClickListener { view ->

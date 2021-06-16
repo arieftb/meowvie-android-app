@@ -10,11 +10,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/background_image_default"
         app:layout_constraintDimensionRatio="H, 2:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/background_image_default" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageContentDefaultType"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:background="@color/white"
+        android:padding="@dimen/_4sdp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="@id/imageContentDefaultPoster"
+        app:layout_constraintTop_toTopOf="@id/imageContentDefaultPoster"
+        app:tint="@color/grey_979797"
+        tools:srcCompat="@drawable/ic_content_movie" />
 
     <TextView
         android:id="@+id/textContentDefaultTitle"

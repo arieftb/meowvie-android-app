@@ -9,12 +9,24 @@
         android:id="@+id/imageContentBanner"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="H, 12:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
         tools:src="@drawable/background_image_default" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageContentType"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:background="@color/white"
+        android:padding="@dimen/_4sdp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="@id/imageContentBanner"
+        app:layout_constraintTop_toTopOf="@id/imageContentBanner"
+        app:tint="@color/grey_979797"
+        tools:srcCompat="@drawable/ic_content_movie" />
 
     <View
         android:layout_width="0dp"
