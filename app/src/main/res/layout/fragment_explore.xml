@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryBackground="@color/grey_2e2e2e"
-        app:queryHint="Search here ..." />
+        app:queryHint="@string/hint_search_here" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listExplore"

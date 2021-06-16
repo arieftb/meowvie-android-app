@@ -5,7 +5,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.home.HomeFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.home.HomeFragment"
         android:label="@string/app_name">
         <action
             android:id="@+id/actionHomeToDetail"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.explore.ExploreFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.explore.ExploreFragment"
         android:label="@string/menu_explore" >
         <action
             android:id="@+id/actionExploreToDetail"
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.favorite.FavoriteFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.favorite.FavoriteFragment"
         android:label="@string/menu_watchlist">
         <action
             android:id="@+id/actionFavoriteToDetail"
@@ -53,11 +53,11 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.account.AccountFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.account.AccountFragment"
         android:label="@string/menu_account" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.detail.DetailFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.detail.DetailFragment"
         android:label="{title}">
         <argument
             android:name="id"
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/sectionFragment"
-        android:name="id.my.arieftb.meowvie.persentation.feature.section.SectionFragment"
+        android:name="id.my.arieftb.meowvie.presentation.feature.section.SectionFragment"
         android:label="{title}">
         <argument
             android:name="type"

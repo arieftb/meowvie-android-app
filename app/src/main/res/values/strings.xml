@@ -15,7 +15,6 @@
 
     <string name="hint_search_here">Search here …</string>
 
-    <string name="section_watchlist">Watchlist</string>
     <string name="section_new_movie">New Movie in Meowvie</string>
     <string name="section_new_tv_show">New TV Show in Meowvie</string>
     <string name="section_coming_soon_movie">Upcoming Movie</string>

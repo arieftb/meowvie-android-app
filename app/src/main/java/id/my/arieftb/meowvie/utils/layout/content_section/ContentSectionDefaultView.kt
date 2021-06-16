@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.databinding.ComponentContentSectionDefaultBinding
-import id.my.arieftb.meowvie.persentation.model.Status
+import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 

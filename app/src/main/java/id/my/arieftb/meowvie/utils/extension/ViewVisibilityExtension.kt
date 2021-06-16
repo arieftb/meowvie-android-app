@@ -11,7 +11,7 @@ fun View?.show() {
             visibility = View.VISIBLE
             animate().alpha(1f).setDuration(500).setListener(null)
         }
-    } else Log.w("MeowVie-TAG", "show: no view attached", )
+    } else Log.w("MeowVie-TAG", "show: no view attached")
 }
 
 fun View?.hide() {
@@ -22,6 +22,6 @@ fun View?.hide() {
             this.visibility = View.GONE
         }
     } else {
-        Log.w("MeowVie-TAG", "hide: no view attached", )
+        Log.w("MeowVie-TAG", "hide: no view attached")
     }
 }

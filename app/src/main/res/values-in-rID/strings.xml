@@ -17,7 +17,6 @@
     <string name="hint_search_here">Cari di sini …</string>
 
 <!--    TODO : 04/05/2021 - Translate THIS-->
-    <string name="section_watchlist">Daftar Tontonan</string>
     <string name="section_new_movie">Film Terbaru di Meowvie</string>
     <string name="section_new_tv_show">Acara TV Terbaru di Meowvie</string>
     <string name="section_coming_soon_movie">Film Akan Datang</string>
