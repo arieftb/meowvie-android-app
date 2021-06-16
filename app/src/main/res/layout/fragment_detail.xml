@@ -51,6 +51,18 @@
             app:layout_constraintStart_toStartOf="@id/imageDetailPoster"
             app:layout_constraintVertical_bias="1.0" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageDetailType"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:background="@color/white"
+            android:padding="@dimen/_4sdp"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="@id/imageDetailPoster"
+            app:layout_constraintTop_toTopOf="@id/imageDetailPoster"
+            app:tint="@color/grey_979797"
+            tools:srcCompat="@drawable/ic_content_movie" />
+
         <TextView
             android:id="@+id/textDetailTitle"
             android:layout_width="0dp"

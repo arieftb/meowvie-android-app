@@ -48,8 +48,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun initView() {
+        initTypeView()
         initButtonFavorite()
         initButtonShare()
+    }
+
+    private fun initTypeView() {
+        when(type) {
+            ContentType.TV -> binding.imageDetailType.setImageResource(R.drawable.ic_content_tv)
+            else -> binding.imageDetailType.setImageResource(R.drawable.ic_content_movie)
+        }
     }
 
     private fun initButtonFavorite() {
