@@ -34,7 +34,7 @@ class DetailViewModelImpl @Inject constructor(
 
     override fun getDetail(id: Long, type: ContentType) {
         when (type) {
-            ContentType.TV_SHOW -> getTvShowDetail(id)
+            ContentType.TV -> getTvShowDetail(id)
             else -> getMovieDetail(id)
         }
     }

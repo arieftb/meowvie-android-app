@@ -33,7 +33,7 @@ open class Content(
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.backdropPath
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
-            this.type = ContentType.TV_SHOW
+            this.type = ContentType.TV
         }
     }
 
@@ -46,7 +46,7 @@ open class Content(
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.type = if (response.mediaType.equals("tv")) {
-                ContentType.TV_SHOW
+                ContentType.TV
             } else {
                 ContentType.MOVIE
             }
