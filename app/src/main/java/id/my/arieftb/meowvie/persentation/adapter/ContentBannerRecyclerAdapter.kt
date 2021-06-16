@@ -37,25 +37,33 @@ class ContentBannerRecyclerAdapter(val context: Context) :
 
     override fun onBindViewHolder(holder: MoviesRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
-            (layoutParams as RecyclerView.LayoutParams).apply {
-                val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
-                val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
-                when (position) {
-                    0 -> {
-                        marginStart = startMargin
-                        marginEnd = endMargin
-                    }
-                    getContents().lastIndex -> {
-                        marginEnd = startMargin
-                        marginStart = endMargin
-                    }
-                    else -> {
-                        marginStart = endMargin
-                        marginEnd = endMargin
+            when(layoutParams) {
+                is RecyclerView.LayoutParams -> {
+                    (layoutParams as RecyclerView.LayoutParams).apply {
+                        val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
+                        val endMargin = context.resources.getDimensionPixelSize(R.dimen._4sdp)
+                        when (position) {
+                            0 -> {
+                                marginStart = startMargin
+                                marginEnd = endMargin
+                            }
+                            getContents().lastIndex -> {
+                                marginEnd = startMargin
+                                marginStart = endMargin
+                            }
+                            else -> {
+                                marginStart = endMargin
+                                marginEnd = endMargin
+                            }
+                        }
+                    }.also {
+                        layoutParams = it
                     }
                 }
-            }.also {
-                layoutParams = it
+
+                else -> {
+                    // * NOT A RECYCLER ITEM
+                }
             }
         }
 
