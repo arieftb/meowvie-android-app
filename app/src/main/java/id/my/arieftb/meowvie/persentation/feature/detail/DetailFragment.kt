@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.persentation.feature.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -47,6 +48,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun initView() {
+        initButtonFavorite()
+        initButtonShare()
+    }
+
+    private fun initButtonFavorite() {
         binding.buttonDetailFavorite.setOnClickListener {
             if (!isSaved && contentDetail != null) {
                 viewModel.saveWatchList(Content().apply {
@@ -57,6 +63,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     this.type = this@DetailFragment.type
                 })
             } else viewModel.removeContent(id, type)
+        }
+    }
+
+    private fun initButtonShare() {
+        binding.buttonDetailShare.setOnClickListener {
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, binding.textDetailTitle.text)
+                putExtra(Intent.EXTRA_TEXT,  "${binding.textDetailTitle.text} \n\n ${binding.textDetailOverview.text}")
+            }.also {
+                startActivity(Intent.createChooser(it, "Share using"))
+            }
         }
     }
 
