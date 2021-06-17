@@ -15,6 +15,8 @@ object TestHelper {
         } else {
             null
         }
+
+        println("MeowViewTag : response -> ${Gson().toJson(dummyResponse)}")
         return Response.success(dummyResponse)
     }
 

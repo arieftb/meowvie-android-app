@@ -18,10 +18,10 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Content>> {
         val response = remote.fetchAll(request)
         if (response.isSuccessful) {
-            if (response.body()?.movieResults != null) {
+            if (response.body() != null) {
                 return Result.Success(data = response.body()?.movieResults?.map {
                     data.mapFromMovieResult(it)
-                }?.toList()!!)
+                }?.toList() ?: emptyList())
             }
             return Result.Failure(Exception("Something went wrong"))
         }
