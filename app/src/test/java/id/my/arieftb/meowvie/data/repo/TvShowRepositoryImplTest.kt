@@ -81,7 +81,10 @@ class TvShowRepositoryImplTest : Spek({
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetchAll.name} return response with code 200 but null result item"
         ) {
             val dummyResponse =
-                TestHelper.createDummyResponse("tv/get-tv-shows-result-null-response.json", TvShowsResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "tv/get-tv-shows-result-null-response.json",
+                    TvShowsResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequestParam)
@@ -105,7 +108,10 @@ class TvShowRepositoryImplTest : Spek({
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetchAll.name} return response with code 200 but empty result item"
         ) {
             val dummyResponse =
-                TestHelper.createDummyResponse("tv/get-tv-shows-result-empty-response.json", TvShowsResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "tv/get-tv-shows-result-empty-response.json",
+                    TvShowsResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequestParam)
@@ -129,7 +135,10 @@ class TvShowRepositoryImplTest : Spek({
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetchAll.name} return response with code 200 with result items"
         ) {
             val dummyResponse =
-                TestHelper.createDummyResponse("tv/get-tv-shows-result-success-response.json", TvShowsResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "tv/get-tv-shows-result-success-response.json",
+                    TvShowsResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequestParam)
@@ -158,7 +167,8 @@ class TvShowRepositoryImplTest : Spek({
         context(
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetch.name} return response with code not 200"
         ) {
-            val responseDummy = TestHelper.createDummyResponse(null, 500, TvShowDetailResponse::class.java)
+            val responseDummy =
+                TestHelper.createDummyResponse(null, 500, TvShowDetailResponse::class.java)
             beforeEachGroup {
                 coEvery {
                     remote.fetch(detailRequestParamDummy)
@@ -181,7 +191,8 @@ class TvShowRepositoryImplTest : Spek({
         context(
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetch.name} return response with code 200 with null body"
         ) {
-            val responseDummy = TestHelper.createDummyResponse(null, TvShowDetailResponse::class.java)
+            val responseDummy =
+                TestHelper.createDummyResponse(null, TvShowDetailResponse::class.java)
             beforeEachGroup {
                 coEvery {
                     remote.fetch(detailRequestParamDummy)
@@ -195,6 +206,32 @@ class TvShowRepositoryImplTest : Spek({
                     val result = repository.fetch(detailRequestParamDummy, dataParamDummy)
                     assertThat(result is Result.Failure).isTrue()
                     assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(detailRequestParamDummy)
+                }
+            }
+        }
+        context(
+            "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetch.name} return response with code 200 with result"
+        ) {
+            val responseDummy = TestHelper.createDummyResponse(
+                "tv/get-tv-show-success-response.json",
+                TvShowDetailResponse::class.java
+            )
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(detailRequestParamDummy)
+                } returns responseDummy
+            }
+
+            it(
+                "${TvShowRepositoryImpl::class.java.simpleName}.${TvShowRepositoryImpl::fetch.name} should return Result Success"
+            ) {
+                runBlocking {
+                    val result = repository.fetch(detailRequestParamDummy, dataParamDummy)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isNotNull()
                 }
                 coVerify {
                     remote.fetch(detailRequestParamDummy)

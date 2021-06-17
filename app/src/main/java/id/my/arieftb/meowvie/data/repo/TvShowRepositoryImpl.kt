@@ -28,13 +28,10 @@ class TvShowRepositoryImpl @Inject constructor(
 
     override suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail> {
         val response = remote.fetch(request)
-        if (response.isSuccessful) {
-            if (response.body() != null) {
-                return Result.Success(
-                    data = data.mapFromTvShowDetailResponse(response.body())
-                )
-            }
-            return Result.Failure(Exception("Something went wrong"))
+        if (response.isSuccessful && response.body() != null) {
+            return Result.Success(
+                data = data.mapFromTvShowDetailResponse(response.body())
+            )
         }
         return Result.Failure(Exception("Something went wrong"))
     }
