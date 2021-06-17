@@ -25,7 +25,7 @@ class WatchListRepositoryImpl @Inject constructor(
 
     override suspend fun checkWatchList(code: Long, type: ContentType): Result<Boolean> {
         val response = local.checkWatchList(code, type)
-        if (response != null) {
+        if (response != null && response.code == code) {
             return Result.Success(data = true)
         }
 
