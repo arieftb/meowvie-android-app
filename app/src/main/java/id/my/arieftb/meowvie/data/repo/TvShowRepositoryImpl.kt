@@ -20,7 +20,7 @@ class TvShowRepositoryImpl @Inject constructor(
             return Result.Success(
                 data = response.body()?.tvShowResults?.map {
                     data.mapFromTvShowResult(it)
-                }?.toList()!!
+                }?.toList() ?: emptyList()
             )
         }
         return Result.Failure(Exception("Something went wrong"))
