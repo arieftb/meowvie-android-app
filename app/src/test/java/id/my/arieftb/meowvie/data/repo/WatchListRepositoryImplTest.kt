@@ -125,5 +125,34 @@ class WatchListRepositoryImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${WatchListLocalDataSource::class.java.simpleName}.${WatchListLocalDataSource::checkWatchList.name} return wrong type data"
+        ) {
+            val responseDummy = WatchListEntity(
+                id = 2,
+                code = 1111,
+                title = "Dummy",
+                type = ContentType.TV.toString()
+            )
+            beforeEachGroup {
+                coEvery {
+                    local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                } returns responseDummy
+            }
+            it(
+                "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with false"
+            ) {
+                runBlocking {
+                    val response = local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isFalse()
+                    assertThat(response?.type).isNotEqualTo(typeRequestParamDummy.toString())
+                }
+                coVerify {
+                    local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                }
+            }
+        }
     }
 })
