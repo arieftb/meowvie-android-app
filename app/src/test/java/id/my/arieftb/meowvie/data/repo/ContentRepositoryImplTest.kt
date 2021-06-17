@@ -16,7 +16,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 
-object ContentRepositoryImplTest : Spek({
+class ContentRepositoryImplTest : Spek({
 
     @MockK
     lateinit var remote: ContentRemoteDataSource
