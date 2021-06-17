@@ -101,5 +101,31 @@ object ContentRepositoryImplTest : Spek({
                 }
             }
         }
+
+        context("when ${ContentRemoteDataSource::class.java.simpleName}.${ContentRemoteDataSource::search.name} return response that 200 but result items empty") {
+            val dummyResponse =
+                TestHelper.createDummyResponse("content/get-content-result-empty-response.json", ContentSearchResponse::class.java)
+            remote = mockk(relaxed = true)
+
+            val dummyRequest = ContentSearchRequest("", 1, "")
+
+            beforeEachGroup {
+                coEvery {
+                    remote.search(dummyRequest)
+                } returns dummyResponse
+            }
+
+
+            it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} return result success with empty data") {
+                runBlocking {
+                    val result = repository.search(dummyRequest, Content())
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isEmpty()
+                }
+                coVerify {
+                    remote.search(dummyRequest)
+                }
+            }
+        }
     }
 })
