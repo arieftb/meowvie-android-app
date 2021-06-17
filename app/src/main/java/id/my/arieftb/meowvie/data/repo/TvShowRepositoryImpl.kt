@@ -16,18 +16,12 @@ class TvShowRepositoryImpl @Inject constructor(
 ) : TvShowRepository {
     override suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>> {
         val response = remote.fetchAll(request)
-        if (response.isSuccessful) {
-            if (response.code() == 200) {
-                if (response.body()?.tvShowResults != null) {
-                    return Result.Success(
-                        data = response.body()?.tvShowResults?.map {
-                            data.mapFromTvShowResult(it)
-                        }?.toList()!!
-                    )
-                }
-                return Result.Failure(Exception("Something went wrong"))
-            }
-            return Result.Failure(Exception("Something went wrong"))
+        if (response.isSuccessful && response.body()?.tvShowResults != null) {
+            return Result.Success(
+                data = response.body()?.tvShowResults?.map {
+                    data.mapFromTvShowResult(it)
+                }?.toList()!!
+            )
         }
         return Result.Failure(Exception("Something went wrong"))
     }
