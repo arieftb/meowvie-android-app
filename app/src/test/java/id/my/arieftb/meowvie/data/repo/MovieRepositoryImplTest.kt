@@ -159,4 +159,30 @@ class MovieRepositoryImplTest : Spek({
             }
         }
     }
+
+    describe("#${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name}") {
+        val dummyRequestParam : DetailRequest = mockk()
+        val dummyDataParam : MovieDetail = mockk()
+
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 but null body") {
+            val dummyResponse = TestHelper.createDummyResponse(null, MovieDetailResponse::class.java)
+
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(dummyRequestParam)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
+                runBlocking {
+                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(dummyRequestParam)
+                }
+            }
+        }
+    }
 })
