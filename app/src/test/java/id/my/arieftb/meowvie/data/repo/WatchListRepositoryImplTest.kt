@@ -114,9 +114,11 @@ class WatchListRepositoryImplTest : Spek({
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with false"
             ) {
                 runBlocking {
+                    val response = local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     assertThat(result is Result.Success).isTrue()
                     assertThat((result as Result.Success).data).isFalse()
+                    assertThat(response?.code).isNotEqualTo(codeRequestParamDummy)
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
