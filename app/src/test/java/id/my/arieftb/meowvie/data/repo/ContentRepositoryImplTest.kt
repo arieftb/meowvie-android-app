@@ -78,7 +78,7 @@ object ContentRepositoryImplTest : Spek({
 
         context("when ${ContentRemoteDataSource::class.java.simpleName}.${ContentRemoteDataSource::search.name} return response that 200 but result items null") {
             val dummyResponse =
-                TestHelper.createDummyResponse("content/get-content-result-null-response.json", ContentSearchResponse::class.java)
+                TestHelper.createDummyResponse("content/search-content-result-null-response.json", ContentSearchResponse::class.java)
             remote = mockk(relaxed = true)
 
             val dummyRequest = ContentSearchRequest("", 1, "")
@@ -104,7 +104,7 @@ object ContentRepositoryImplTest : Spek({
 
         context("when ${ContentRemoteDataSource::class.java.simpleName}.${ContentRemoteDataSource::search.name} return response that 200 but result items empty") {
             val dummyResponse =
-                TestHelper.createDummyResponse("content/get-content-result-empty-response.json", ContentSearchResponse::class.java)
+                TestHelper.createDummyResponse("content/search-content-result-empty-response.json", ContentSearchResponse::class.java)
             remote = mockk(relaxed = true)
 
             val dummyRequest = ContentSearchRequest("", 1, "")
@@ -121,6 +121,32 @@ object ContentRepositoryImplTest : Spek({
                     val result = repository.search(dummyRequest, Content())
                     assertThat(result is Result.Success).isTrue()
                     assertThat((result as Result.Success).data).isEmpty()
+                }
+                coVerify {
+                    remote.search(dummyRequest)
+                }
+            }
+        }
+
+        context("when ${ContentRemoteDataSource::class.java.simpleName}.${ContentRemoteDataSource::search.name} return response that 200 with results") {
+            val dummyResponse =
+                TestHelper.createDummyResponse("content/search-content-result-success-response.json", ContentSearchResponse::class.java)
+            remote = mockk(relaxed = true)
+
+            val dummyRequest = ContentSearchRequest("", 1, "")
+
+            beforeEachGroup {
+                coEvery {
+                    remote.search(dummyRequest)
+                } returns dummyResponse
+            }
+
+
+            it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} return result success with data") {
+                runBlocking {
+                    val result = repository.search(dummyRequest, Content())
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isNotEmpty()
                 }
                 coVerify {
                     remote.search(dummyRequest)

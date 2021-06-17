@@ -1,0 +1,419 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/yFuKvT4Vm3sKHdFY4eG6I4ldAnn.jpg",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "id": 1771,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Captain America: The First Avenger",
+      "overview": "During World War II, Steve Rogers is a sickly man from Brooklyn who's transformed into super-soldier Captain America to aid in the war effort. Rogers must stop the Red Skull – Adolf Hitler's ruthless head of weaponry, and the leader of an organization that intends to use a mysterious device of untold powers for world domination.",
+      "popularity": 31.727,
+      "poster_path": "/vSNxAJTlD0r02V9sPYpOjqDZXUK.jpg",
+      "release_date": "2011-07-22",
+      "title": "Captain America: The First Avenger",
+      "video": false,
+      "vote_average": 7,
+      "vote_count": 16908
+    },
+    {
+      "backdrop_path": null,
+      "first_air_date": "2003-10-01",
+      "genre_ids": [
+        10765,
+        16,
+        10759,
+        18
+      ],
+      "id": 21277,
+      "media_type": "tv",
+      "name": "Avenger",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_name": "Avenger",
+      "overview": "Avenger is an anime series, produced by Bandai Visual, Bee Train and Xebec, and directed by Koichi Mashimo. It is set on post-apocalyptic colonized Mars. The series premiered across Japan between 1 October 2003 and 24 December 2003 on the TV Tokyo network. It was later licensed for North American distribution by Bandai's distributive unit across the region, Bandai Entertainment.",
+      "popularity": 4.756,
+      "poster_path": "/8XIFRGmB552O23GZGTNKAoe9tYo.jpg",
+      "vote_average": 2,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/iU9MO6cRewA6NqMrDTHdqUA6Ubn.jpg",
+      "genre_ids": [
+        878,
+        28,
+        35,
+        27
+      ],
+      "id": 15239,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Toxic Avenger",
+      "overview": "Tromaville has a monstrous new hero. The Toxic Avenger is born when mop boy Melvin Junko falls into a vat of toxic waste. Now evildoers will have a lot to lose.",
+      "popularity": 8.022,
+      "poster_path": "/qRbAr8yilTnXssmk52po7RyqZSH.jpg",
+      "release_date": "1984-05-01",
+      "title": "The Toxic Avenger",
+      "video": false,
+      "vote_average": 6.4,
+      "vote_count": 326
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mQZ0jXbTfY4RAfPPp3iuH6vtKcX.jpg",
+      "genre_ids": [
+        10770,
+        28,
+        53
+      ],
+      "id": 47369,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Avenger",
+      "overview": "After his own daughter was killed in Panama in 1994, former CIA agent Calvin Dexter became a private 'specialist' in cases which wouldn't reach justice trough the regular legal channels. Two years later he accepts to find Richard 'Ricky' Edmunds for his pa, influential rich businessman Stephen Edmonds. Ricky for a private Canadian war victims charity in Bosnia and went missing. Dexter discovers Ricky was beaten to pulp and drowned for no other crime then helping street boys from the other side by Zoran Zilic and his Serbian paramilitary 'order'. He offers Steven to 'finish the job' as such war criminals don't go to trial. But deputy CIA director Paul Devereaux cares only for a nuclear arms project he wants to use Zilic for. So CIA troubleshooter Frank McBride is ordered to protect him and handle Dexter.",
+      "popularity": 2.762,
+      "poster_path": "/cEI5aazuAVJ3PcWeNM8gxYiNjmq.jpg",
+      "release_date": "2006-04-09",
+      "title": "Avenger",
+      "video": false,
+      "vote_average": 5.8,
+      "vote_count": 18
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/3W8njbc5ntgv8IYjtgl2pluC0Ss.jpg",
+      "genre_ids": [
+        35,
+        27
+      ],
+      "id": 27601,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Citizen Toxie: The Toxic Avenger IV",
+      "overview": "When the notorious Diaper Mafia take hostage the Tromaville School for the Very Special, only the Toxic Avenger and his morbidly obese sidekick Lardass can save Tromaville.",
+      "popularity": 9.33,
+      "poster_path": "/wR4VvqrRd2r9M4GYXPnoV02aUNG.jpg",
+      "release_date": "2001-11-01",
+      "title": "Citizen Toxie: The Toxic Avenger IV",
+      "video": false,
+      "vote_average": 6.6,
+      "vote_count": 79
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fO1RIDcnKg78WPX2hw6IklFatd7.jpg",
+      "genre_ids": [
+        35,
+        27,
+        28
+      ],
+      "id": 28165,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Toxic Avenger Part II",
+      "overview": "The Toxic Avenger is lured to Tokyo, Japan by the evil corporation Apocalypse Inc. So while the Toxic Avenger is fighting crime in Tokyo, Apocalypse Inc. spread evil in Tromaville.",
+      "popularity": 4.929,
+      "poster_path": "/m5o7B3VSAjvinjtSYxXD38senvb.jpg",
+      "release_date": "1989-02-24",
+      "title": "The Toxic Avenger Part II",
+      "video": false,
+      "vote_average": 5.6,
+      "vote_count": 93
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/pluw6svD5pmtOZg7GGx6NnpuvBn.jpg",
+      "genre_ids": [
+        28,
+        18
+      ],
+      "id": 275663,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Lama Avenger",
+      "overview": "When two acrobats are fired for fighting with punks in the audience, they go to live with an aunt who's being pressured to sell her house for a real estate development. The developer's nasty son, Lee Fu, decides to muscle the sale, and soon he's at war with the acrobats, plus their unlikely ally, an American named John who used to be Lee Fu's friend. The acrobats open a kung fu school, the scene of several battles with Lee Fu's thugs. A fight to the death, jail time, auntie's surprise decision, a budding acting career, a possessive girlfriend, a debilitating injury, a friendship that needs recalibrating, and Lee Fu's avenger are all in the mix before the end.",
+      "popularity": 2.398,
+      "poster_path": "/rQlQIqWVQcOBUYWvCVFSl8pHO8A.jpg",
+      "release_date": "1979-03-15",
+      "title": "The Lama Avenger",
+      "video": false,
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/phSfZMHoBVBUUyBw4uqBzKQNRFn.jpg",
+      "genre_ids": [
+        37,
+        12
+      ],
+      "id": 348313,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Zorro, the Avenger",
+      "overview": "Masked crusader Zorro and his father, Don Alejandro, face off against mysterious despot The Eagle in a fight for control of old Spanish California.",
+      "popularity": 2.838,
+      "poster_path": "/swlXRRHxrswmrgkTo3TQ715kM83.jpg",
+      "release_date": "1959-09-10",
+      "title": "Zorro, the Avenger",
+      "video": false,
+      "vote_average": 8.5,
+      "vote_count": 4
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nNmJRkg8wWnRmzQDe2FwKbPIsJV.jpg",
+      "genre_ids": [
+        878,
+        28,
+        12
+      ],
+      "id": 24428,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Avengers",
+      "overview": "When an unexpected enemy emerges and threatens global safety and security, Nick Fury, director of the international peacekeeping agency known as S.H.I.E.L.D., finds himself in need of a team to pull the world back from the brink of disaster. Spanning the globe, a daring recruitment effort begins!",
+      "popularity": 97.84,
+      "poster_path": "/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
+      "release_date": "2012-04-25",
+      "title": "The Avengers",
+      "video": false,
+      "vote_average": 7.7,
+      "vote_count": 24822
+    },
+    {
+      "backdrop_path": "/a2Gm7WE9NgoH6msHN1q2ClRdVMY.jpg",
+      "first_air_date": "1993-09-22",
+      "genre_ids": [
+        16,
+        35
+      ],
+      "id": 13707,
+      "media_type": "tv",
+      "name": "Avenger Penguins",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_name": "Avenger Penguins",
+      "overview": "Avenger Penguins was an animated series produced by Cosgrove Hall Films in 1993. It was animated by Alfonso Productions, a Spanish based animation studio also responsible for bringing Cosgrove Hall's previous show Fantomcat to life. It aired largely on Children's ITV and was originally to be called \"Hell's Penguins\". It has the distinction of being the last Cosgrove Hall cartoon to be animated using hand painted animation cels, as all 2D animated series from the studio thereafter would use computers for the ink and paint process; with the animation drawings scanned and then digitally coloured.\n\nThe story revolves around three bike riding Penguins that inhabit Big City, uniting to protect it and its citizens from the evil Caractacus P. Doom, an insane and reclusive criminal scientist. The Penguins attempt to prevent Doom's schemes but find themselves often hampered by their own miscommunicating and occasional scraps with other biker gangs infesting Big City, such as The Stink Brothers, a canine squad of Hell's Angels. As with most Cosgrove Hall cartoons, the series poked fun at the popular concepts of having creatures performing inhuman action feats and stunts in an animated medium, made popular by the then enormously successful Teenage Mutant Ninja Turtles franchise. The core the show's themes is heavily and coincidently similar to Biker Mice from Mars, although with the two shows being aired at exactly the same time, and from two different parts of the world that hadn't any connections whatsoever with each other, it is completely difficult to determine who ripped off who.",
+      "popularity": 1.4,
+      "poster_path": null,
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        28,
+        35,
+        27
+      ],
+      "id": 338969,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Toxic Avenger",
+      "overview": "A mild-mannered janitor at a health club is chased out a second story window by bullies and lands in a drum of toxic waste. The chemicals cause him to transform into the Toxic Avenger, who has superhuman size and strength and stands up to bullies and corruption.",
+      "popularity": 1.646,
+      "poster_path": null,
+      "title": "The Toxic Avenger",
+      "video": false,
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7Ybj8ndRmkVabSW3NRupyWKfSOK.jpg",
+      "genre_ids": [
+        16
+      ],
+      "id": 623011,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Avenger Dogs",
+      "overview": "When the universe's highest-flying dogs warp into outer space, Skyfetcher and Spaceslobber get a call from canine headquarters! It seems an unknown force is attacking unsuspecting planets, and it's up to them to root out the source of the trouble!",
+      "popularity": 1.201,
+      "poster_path": "/uodK7t5xwafCy4CzHIppwZkC4LN.jpg",
+      "release_date": "2019-01-10",
+      "title": "Avenger Dogs",
+      "video": false,
+      "vote_average": 4.7,
+      "vote_count": 7
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        35,
+        27,
+        878
+      ],
+      "id": 87302,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Alien Space Avenger",
+      "overview": "In 1939 a spaceship carrying four alien escaped prisoners crash-lands on Earth and the aliens take over the bodies of four locals. Fifty years later the aliens find out that an artist has written a comic book called \"Space Avenger,\" which they believe is about them. They go to New York to try to kill the artist.",
+      "popularity": 1.594,
+      "poster_path": "/wQHY06KYBYSjuf1OukgZWCVEjX1.jpg",
+      "release_date": "1989-08-01",
+      "title": "Alien Space Avenger",
+      "video": false,
+      "vote_average": 4.1,
+      "vote_count": 9
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8CUpTaQfoG8wYqQU2fBRf0UzcrO.jpg",
+      "genre_ids": [
+        35,
+        27,
+        28,
+        878
+      ],
+      "id": 28169,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Toxic Avenger Part III: The Last Temptation of Toxie",
+      "overview": "Toxie finds he has nothing to do as a superhero, as he has ridden his city of evil. So he decides to go to work for a major corporation, which he discovers may be the evilest of all his adversaries.",
+      "popularity": 4.833,
+      "poster_path": "/yEOliKp5hZIBR0lDr9L3mJLijT0.jpg",
+      "release_date": "1989-11-24",
+      "title": "The Toxic Avenger Part III: The Last Temptation of Toxie",
+      "video": false,
+      "vote_average": 5.1,
+      "vote_count": 70
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/qg2mdKbAe3ynSKFtXdW4XLuRImA.jpg",
+      "genre_ids": [
+        12,
+        28
+      ],
+      "id": 75796,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Dark Avenger",
+      "overview": "Edward, Prince of Wales, son and heir to his father King Edward III of England, leads an English army to the French province of Aquitaine to protect the inhabitant from the ravages of the French. After defeating the French in battle, the defeated French plot to kill the prince. Failing in this, they kidnap his lady, the lovely Lady Joan Holland. Of course Prince Edward has to ride to the rescue, adopting numerous guises to save his paramour, which ultimately end in him leading his men into one final climactic battle against the French. (Also known as \"The Warriors\" and \"The Black Prince\").",
+      "popularity": 1.539,
+      "poster_path": "/m61oQUkd8RzUqQUxqwlYnmGcFT2.jpg",
+      "release_date": "1955-09-11",
+      "title": "The Dark Avenger",
+      "video": false,
+      "vote_average": 8.5,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+      "genre_ids": [
+        12,
+        878,
+        28
+      ],
+      "id": 299534,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Avengers: Endgame",
+      "overview": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+      "popularity": 159.97,
+      "poster_path": "/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+      "release_date": "2019-04-24",
+      "title": "Avengers: Endgame",
+      "video": false,
+      "vote_average": 8.3,
+      "vote_count": 18330
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/lmZFxXgJE3vgrciwuDib0N8CfQo.jpg",
+      "genre_ids": [
+        12,
+        28,
+        878
+      ],
+      "id": 299536,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Avengers: Infinity War",
+      "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+      "popularity": 204.064,
+      "poster_path": "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+      "release_date": "2018-04-25",
+      "title": "Avengers: Infinity War",
+      "video": false,
+      "vote_average": 8.3,
+      "vote_count": 21989
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        37,
+        10749
+      ],
+      "id": 305597,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "The Avenger",
+      "overview": "Goss, Mason, and Kelly force Joaquin Murieta to watch as they hang his brother Juan for a crime he did not commit. To exact his revenge on the three, Joaquin becomes the notorious Black Shadow.",
+      "popularity": 0.913,
+      "poster_path": null,
+      "release_date": "1931-03-06",
+      "title": "The Avenger",
+      "video": false,
+      "vote_average": 6.5,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+
+      ],
+      "id": 826013,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "avenger",
+      "overview": "avenger is created by marvel",
+      "popularity": 0.6,
+      "poster_path": null,
+      "release_date": "",
+      "title": "avenger",
+      "video": false,
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+
+      ],
+      "id": 58935,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Zorrita: Passion's Avenger",
+      "overview": "The virginal Bella has taken on a job as a maid for Lord Joffrey, who runs the small village where Bella and her mother live. Things quickly turn bad for Bella, however, as both Joffrey and his head maid treat her cruelly. Hope comes for the young woman when she discovers a book about the legend of Zorrita, a masked woman who would avenge injustices and seduce any man she wanted. Drawing inspiration from her fictional hero, Bella grabs a sword and a costume and sets out to start avenging and seducing.",
+      "popularity": 0.991,
+      "poster_path": "/tM6SZtyNfUHMzIIQN4Wf3MCX7M6.jpg",
+      "release_date": "2000-04-25",
+      "title": "Zorrita: Passion's Avenger",
+      "video": false,
+      "vote_average": 5.2,
+      "vote_count": 3
+    }
+  ],
+  "total_pages": 9,
+  "total_results": 173
+}

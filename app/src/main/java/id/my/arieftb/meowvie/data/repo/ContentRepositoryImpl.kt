@@ -16,16 +16,13 @@ class ContentRepositoryImpl @Inject constructor(
     ): Result<List<Content>> {
         val response = remote.search(request)
         if (response.isSuccessful) {
-            if (response.code() == 200) {
-                if (response.body()?.contentResults != null) {
-                    return Result.Success(data = response.body()?.contentResults?.map {
-                        data.mapFromSearchResult(it)
-                    }?.toList()!!)
-                }
-                return Result.Failure(Exception("404"))
+            if (response.body() != null) {
+                return Result.Success(data = response.body()?.contentResults?.map {
+                    data.mapFromSearchResult(it)
+                }?.toList() ?: emptyList())
             }
-            return Result.Failure(Exception("${response.code()}"))
+            return Result.Failure(Exception("Something went wrong"))
         }
-        return Result.Failure(Exception("${response.code()}"))
+        return Result.Failure(Exception("Something went wrong"))
     }
 }
