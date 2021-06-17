@@ -25,11 +25,11 @@ class TvShowRepositoryImpl @Inject constructor(
                         }?.toList()!!
                     )
                 }
-                return Result.Failure(Exception("404"))
+                return Result.Failure(Exception("Something went wrong"))
             }
-            return Result.Failure(Exception("${response.code()}"))
+            return Result.Failure(Exception("Something went wrong"))
         }
-        return Result.Failure(Exception("${response.code()}"))
+        return Result.Failure(Exception("Something went wrong"))
     }
 
     override suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail> {
