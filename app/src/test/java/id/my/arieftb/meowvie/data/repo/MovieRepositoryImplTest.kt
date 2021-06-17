@@ -45,5 +45,26 @@ class MovieRepositoryImplTest : Spek({
                 }
             }
         }
+
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetchAll.name} return response that 200 but null body") {
+            val dummyResponse =
+                TestHelper.createDummyResponse(null, MoviesResponse::class.java)
+            beforeEachGroup {
+                coEvery {
+                    remote.fetchAll(dummyRequest)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result failure") {
+                runBlocking {
+                    val result = repository.fetchAll(dummyRequest, Movie())
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetchAll(dummyRequest)
+                }
+            }
+        }
     }
 })
