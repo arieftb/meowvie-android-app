@@ -122,5 +122,29 @@ class TvShowRepositoryImplTest : Spek({
                 }
             }
         }
+        context(
+            "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetchAll.name} return response with code 200 with result items"
+        ) {
+            val dummyResponse =
+                TestHelper.createDummyResponse("tv/get-tv-shows-result-success-response.json", TvShowsResponse::class.java)
+            beforeEachGroup {
+                coEvery {
+                    remote.fetchAll(dummyRequestParam)
+                } returns dummyResponse
+            }
+
+            it(
+                "${TvShowRepositoryImpl::class.java.simpleName}.${TvShowRepositoryImpl::fetchAll.name} should return Result Success with data"
+            ) {
+                runBlocking {
+                    val result = repository.fetchAll(dummyRequestParam, dummyDataParam)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isNotEmpty()
+                }
+                coVerify {
+                    remote.fetchAll(dummyRequestParam)
+                }
+            }
+        }
     }
 })
