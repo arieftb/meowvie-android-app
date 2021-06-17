@@ -7,6 +7,7 @@ import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
 import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.base.ContentMovieDetailMapper
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 import id.my.arieftb.meowvie.helper.TestHelper
@@ -136,7 +137,7 @@ class MovieRepositoryImplTest : Spek({
 
     describe("#${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name}") {
         val dummyRequestParam : DetailRequest = mockk()
-        val dummyDataParam : MovieDetail = mockk()
+        val dummyDataParam : MovieDetail = mockk(relaxed = true)
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that not 200") {
             val dummyResponse = TestHelper.createDummyResponse(null, 500, MovieDetailResponse::class.java)
@@ -158,11 +159,6 @@ class MovieRepositoryImplTest : Spek({
                 }
             }
         }
-    }
-
-    describe("#${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name}") {
-        val dummyRequestParam : DetailRequest = mockk()
-        val dummyDataParam : MovieDetail = mockk()
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 but null body") {
             val dummyResponse = TestHelper.createDummyResponse(null, MovieDetailResponse::class.java)
@@ -178,6 +174,27 @@ class MovieRepositoryImplTest : Spek({
                     val result = repository.fetch(dummyRequestParam, dummyDataParam)
                     assertThat(result is Result.Failure).isTrue()
                     assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(dummyRequestParam)
+                }
+            }
+        }
+
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 with data") {
+            val dummyResponse = TestHelper.createDummyResponse("movie/get-movie-success-response.json", MovieDetailResponse::class.java)
+
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(dummyRequestParam)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result success") {
+                runBlocking {
+                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isNotNull()
                 }
                 coVerify {
                     remote.fetch(dummyRequestParam)
