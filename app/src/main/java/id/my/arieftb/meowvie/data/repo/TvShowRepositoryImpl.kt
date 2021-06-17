@@ -35,11 +35,11 @@ class TvShowRepositoryImpl @Inject constructor(
                         data = data.mapFromTvShowDetailResponse(response.body())
                     )
                 }
-                return Result.Failure(Exception("404"))
+                return Result.Failure(Exception("Something went wrong"))
             }
-            return Result.Failure(Exception("${response.code()}"))
+            return Result.Failure(Exception("Something went wrong"))
         }
-        return Result.Failure(Exception("${response.code()}"))
+        return Result.Failure(Exception("Something went wrong"))
     }
 
 }
