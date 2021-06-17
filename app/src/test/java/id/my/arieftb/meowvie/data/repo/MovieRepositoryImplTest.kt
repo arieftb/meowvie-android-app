@@ -87,5 +87,26 @@ class MovieRepositoryImplTest : Spek({
                 }
             }
         }
+
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetchAll.name} return response that 200 but empty result") {
+            val dummyResponse =
+                TestHelper.createDummyResponse("movie/get-movies-result-empty-response.json", MoviesResponse::class.java)
+            beforeEachGroup {
+                coEvery {
+                    remote.fetchAll(dummyRequest)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with empty data") {
+                runBlocking {
+                    val result = repository.fetchAll(dummyRequest, Movie())
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isEmpty()
+                }
+                coVerify {
+                    remote.fetchAll(dummyRequest)
+                }
+            }
+        }
     }
 })
