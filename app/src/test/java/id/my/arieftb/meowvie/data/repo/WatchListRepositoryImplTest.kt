@@ -44,5 +44,27 @@ class WatchListRepositoryImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${WatchListLocalDataSource::class.java.simpleName}.${WatchListLocalDataSource::saveWatchList.name} return not -1"
+        ) {
+            val responseDummy = 0L
+            beforeEachGroup {
+                coEvery {
+                    local.saveWatchList(contentSaveRequestDummyData)
+                } returns responseDummy
+            }
+            it(
+                "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::saveWatchList.name} should return Result Success with true"
+            ) {
+                runBlocking {
+                    val result = repository.saveWatchList(contentSaveRequestDummyData)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isTrue()
+                }
+                coVerify {
+                    local.saveWatchList(contentSaveRequestDummyData)
+                }
+            }
+        }
     }
 })
