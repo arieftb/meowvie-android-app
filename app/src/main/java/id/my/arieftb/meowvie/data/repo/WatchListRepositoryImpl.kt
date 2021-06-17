@@ -20,7 +20,7 @@ class WatchListRepositoryImpl @Inject constructor(
             return Result.Success(data = true)
         }
 
-        return Result.Failure(exception = Exception("400"))
+        return Result.Failure(exception = Exception("Something went wrong"))
     }
 
     override suspend fun checkWatchList(code: Long, type: ContentType): Result<Boolean> {
@@ -38,7 +38,7 @@ class WatchListRepositoryImpl @Inject constructor(
             return Result.Success(data = false)
         }
 
-        return Result.Failure(exception = Exception("400"))
+        return Result.Failure(exception = Exception("Something went wrong"))
     }
 
     override fun fetchAllWatchList(limit: Int): LiveData<PagedList<WatchListEntity>> {
