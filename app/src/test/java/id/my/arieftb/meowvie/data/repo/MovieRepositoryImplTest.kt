@@ -1,11 +1,14 @@
 package id.my.arieftb.meowvie.data.repo
 
 import com.google.common.truth.Truth.assertThat
+import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
+import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
+import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 import id.my.arieftb.meowvie.helper.TestHelper
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -126,6 +129,32 @@ class MovieRepositoryImplTest : Spek({
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
+                }
+            }
+        }
+    }
+
+    describe("#${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name}") {
+        val dummyRequestParam : DetailRequest = mockk()
+        val dummyDataParam : MovieDetail = mockk()
+
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that not 200") {
+            val dummyResponse = TestHelper.createDummyResponse(null, 500, MovieDetailResponse::class.java)
+
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(dummyRequestParam)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
+                runBlocking {
+                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(dummyRequestParam)
                 }
             }
         }
