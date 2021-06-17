@@ -31,9 +31,37 @@ object ContentRepositoryImplTest : Spek({
 
             val dummyRequest = ContentSearchRequest("", 1, "")
 
-            coEvery {
-                remote.search(dummyRequest)
-            } returns dummyResponse
+            beforeEachGroup {
+                coEvery {
+                    remote.search(dummyRequest)
+                } returns dummyResponse
+            }
+
+
+            it("should return result failure with exception") {
+                runBlocking {
+                    val result = repository.search(dummyRequest, Content())
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.search(dummyRequest)
+                }
+            }
+        }
+
+        context("when ${ContentRemoteDataSource::class.java.simpleName}.${ContentRemoteDataSource::search.name} return response that 200 but body null") {
+            val dummyResponse =
+                TestHelper.createDummyResponse(null, ContentSearchResponse::class.java)
+            remote = mockk(relaxed = true)
+
+            val dummyRequest = ContentSearchRequest("", 1, "")
+
+             beforeEachGroup {
+                 coEvery {
+                     remote.search(dummyRequest)
+                 } returns dummyResponse
+             }
 
 
             it("should return result failure with exception") {
