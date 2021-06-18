@@ -8,7 +8,6 @@ import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.spekframework.spek2.Spek

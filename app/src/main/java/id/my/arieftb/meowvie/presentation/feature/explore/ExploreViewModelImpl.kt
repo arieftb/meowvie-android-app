@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.presentation.feature.explore
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,24 +19,25 @@ class ExploreViewModelImpl @Inject constructor(
     private val searchContentsUseCase: SearchContentsUseCase
 ) : ViewModel(), ExploreViewModel {
     private var listData = mutableListOf<Content>()
-    override val searchData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    private val searchDataValue: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val searchData : LiveData<Data<List<Content>>> = searchDataValue
 
     override fun search(page: Int, keyword: String) {
         if (page == 1) {
             listData.clear()
         }
 
-        searchData.value = Data(Status.LOADING)
+        searchDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            searchData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            searchDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = searchContentsUseCase.invoke(page = page, keyword)) {
                 is Result.Success -> {
                     listData.addAll(result.data)
-                    searchData.value = Data(Status.SUCCESS, listData)
+                    searchDataValue.value = Data(Status.SUCCESS, listData)
                 }
-                is Result.Failure -> searchData.value =
+                is Result.Failure -> searchDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
