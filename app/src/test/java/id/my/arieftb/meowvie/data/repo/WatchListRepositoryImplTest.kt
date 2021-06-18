@@ -15,7 +15,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 class WatchListRepositoryImplTest : Spek({
-    var local: WatchListLocalDataSource = mockk(relaxed = true)
+    val local: WatchListLocalDataSource = mockk(relaxed = true)
     val repository by memoized { WatchListRepositoryImpl(local) }
 
     describe(
