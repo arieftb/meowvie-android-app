@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,7 +29,8 @@ class DetailViewModelImpl @Inject constructor(
     private val removeWatchListUseCase: RemoveWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
-    override var detailData: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
+    private val detailDataValue: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
+    override var detailData: LiveData<Data<ContentDetail>> = detailDataValue
     override val isSaved: MutableLiveData<Data<Boolean>> = MutableLiveData()
     override val isAvailable: MutableLiveData<Data<Boolean>> = MutableLiveData()
 
@@ -40,28 +42,28 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun getMovieDetail(id: Long) {
-        detailData.value = Data(Status.LOADING)
+        detailDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            detailData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMovieDetailUseCase.invoke(id)) {
-                is Result.Success -> detailData.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> detailData.value =
+                is Result.Success -> detailDataValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> detailDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
 
     override fun getTvShowDetail(id: Long) {
-        detailData.value = Data(Status.LOADING)
+        detailDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            detailData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowDetailUseCase.invoke(id)) {
-                is Result.Success -> detailData.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> detailData.value =
+                is Result.Success -> detailDataValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> detailDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
