@@ -212,5 +212,29 @@ class WatchListRepositoryImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${WatchListLocalDataSource::class.java.simpleName}.${WatchListLocalDataSource::deleteWatchList.name} return more that 0"
+        ) {
+            val responseDummy = 1
+            beforeEachGroup {
+                coEvery {
+                    local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                } returns responseDummy
+            }
+            it(
+                "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::removeWatchList.name} should return Result Success with false"
+            ) {
+                runBlocking {
+                    val response = local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    val result = repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    assertThat(result is Result.Success).isTrue()
+                    assertThat((result as Result.Success).data).isFalse()
+                    assertThat(response).isGreaterThan(0)
+                }
+                coVerify {
+                    local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                }
+            }
+        }
     }
 })
