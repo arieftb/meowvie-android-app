@@ -83,8 +83,8 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.3.0'
     androidTestImplementation 'androidx.room:room-testing:2.3.0'
 
-    implementation 'androidx.paging:paging-runtime-ktx:3.0.0'
-    testImplementation 'androidx.paging:paging-common-ktx:3.0.0'
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    testImplementation 'androidx.paging:paging-common-ktx:2.1.2'
 
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
     testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek_version"
