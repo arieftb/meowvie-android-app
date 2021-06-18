@@ -21,7 +21,7 @@
     <string name="section_new_tv_show">Acara TV Terbaru di Meowvie</string>
     <string name="section_coming_soon_movie">Film Akan Datang</string>
     <string name="section_coming_soon_tv_show">Acara TV Akan Datang</string>
-    <string name="section_popular_movie">Film Teropuler</string>
+    <string name="section_popular_movie">Film Terpopuler</string>
     <string name="section_popular_tv_show">Acara TV Terpopuler</string>
 
     <string name="error_message_something_went_wrong">Terjadi kesalahan, silahkan coba lagi nanti.</string>
