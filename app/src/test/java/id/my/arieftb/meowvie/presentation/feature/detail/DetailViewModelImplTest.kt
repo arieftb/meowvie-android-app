@@ -68,5 +68,35 @@ class DetailViewModelImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${GetMovieDetailUseCase::class.java.simpleName}.${GetMovieDetailUseCase::invoke.name} return Result Success"
+        ) {
+            val contentDetailDummy = ContentDetail()
+            val resultDummy = Result.Success(data = contentDetailDummy)
+            beforeEachGroup {
+                coEvery {
+                    getMovieDetailUseCase.invoke(idParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Success sequentially"
+            ) {
+                val observer: Observer<Data<ContentDetail>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.detailData.observeForever(observer)
+                viewModel.getMovieDetail(idParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
+                }
+
+                coVerify {
+                    getMovieDetailUseCase.invoke(idParamDummy)
+                }
+            }
+        }
     }
 })
