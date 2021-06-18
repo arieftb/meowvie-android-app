@@ -7,8 +7,10 @@ import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.repo.WatchListRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class WatchListRepositoryImpl @Inject constructor(
@@ -41,19 +43,19 @@ class WatchListRepositoryImpl @Inject constructor(
         return Result.Failure(exception = Exception("Something went wrong"))
     }
 
-    override fun fetchAllWatchList(limit: Int): Flow<PagingData<WatchListEntity>> {
-//        val config = PagedList.Config.Builder()
-//            .setEnablePlaceholders(false)
-//            .setInitialLoadSizeHint(limit)
-//            .setPageSize(limit)
-//            .build()
+    override fun fetchAllWatchList(limit: Int, data: Content): Flow<PagingData<Content>> {
         return Pager(
             PagingConfig(
                 pageSize = limit,
+                initialLoadSize = limit,
                 enablePlaceholders = true
             )
         ) {
             local.fetchAllWatchList()
-        }.flow
+        }.flow.map {
+            it.map { entity ->
+                data.mapFromWatchlistResult(entity)
+            }
+        }
     }
 }

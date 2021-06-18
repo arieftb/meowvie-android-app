@@ -3,7 +3,6 @@ package id.my.arieftb.meowvie.presentation.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,30 +10,30 @@ import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.constant.ContentType
-import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
+import id.my.arieftb.meowvie.domain.model.base.Content
 
 class WatchListRecyclerAdapter(
     private val context: Context
 ) :
-    PagingDataAdapter<WatchListEntity, WatchListRecyclerAdapter.WatchListRecyclerViewHolder>(
+    PagingDataAdapter<Content, WatchListRecyclerAdapter.WatchListRecyclerViewHolder>(
         DIFF_CALLBACK
     ) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<WatchListEntity>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Content>() {
             override fun areItemsTheSame(
-                oldItem: WatchListEntity,
-                newItem: WatchListEntity
+                oldItem: Content,
+                newItem: Content
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: WatchListEntity,
-                newItem: WatchListEntity
+                oldItem: Content,
+                newItem: Content
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id && oldItem.title == newItem.title && oldItem.type == newItem.type
             }
         }
     }
@@ -43,12 +42,12 @@ class WatchListRecyclerAdapter(
     var listener: ContentRecyclerListener? = null
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position)?.id ?: 0
+        return getItem(position)?.id?.toInt() ?: 0
     }
 
     override fun onBindViewHolder(holder: WatchListRecyclerViewHolder, position: Int) {
         with(binding.root.rootView) {
-            when(layoutParams) {
+            when (layoutParams) {
                 is RecyclerView.LayoutParams -> {
                     (layoutParams as RecyclerView.LayoutParams).apply {
                         val startMargin = context.resources.getDimensionPixelSize(R.dimen._16sdp)
@@ -60,7 +59,7 @@ class WatchListRecyclerAdapter(
                                     bottomMargin = endMargin
                                     marginEnd = endMargin
                                     marginStart = startMargin
-                                } else  {
+                                } else {
                                     topMargin = endMargin
                                     bottomMargin = endMargin
                                     marginEnd = endMargin
@@ -110,13 +109,13 @@ class WatchListRecyclerAdapter(
                 }
             }
 
-            when(it.type) {
-                ContentType.TV.toString() -> binding.imageContentType.setImageResource(R.drawable.ic_content_tv)
+            when (it.type) {
+                ContentType.TV -> binding.imageContentType.setImageResource(R.drawable.ic_content_tv)
                 else -> binding.imageContentType.setImageResource(R.drawable.ic_content_movie)
             }
 
             binding.root.setOnClickListener { view ->
-                listener?.onContentClickListener(it.code, ContentType.valueOf(it.type), view, it.title)
+                listener?.onContentClickListener(it.id, it.type, view, it.title)
             }
         }
     }
