@@ -350,4 +350,97 @@ class DetailViewModelImplTest : Spek({
             }
         }
     }
+    describe(
+        "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name}"
+    ) {
+        val idParamDummy = 1L
+        val typeParamDummy = ContentType.MOVIE
+        context(
+            "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Failure sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.removeContent(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                }
+
+                coVerify {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
+        context(
+            "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Success True"
+        ) {
+            val resultDummy = Result.Success(true)
+            beforeEachGroup {
+                coEvery {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success True sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.removeContent(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = true))
+                }
+
+                coVerify {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
+        context(
+            "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Success False"
+        ) {
+            val resultDummy = Result.Success(false)
+            beforeEachGroup {
+                coEvery {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success False sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.removeContent(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = false))
+                }
+
+                coVerify {
+                    removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
+    }
 })
