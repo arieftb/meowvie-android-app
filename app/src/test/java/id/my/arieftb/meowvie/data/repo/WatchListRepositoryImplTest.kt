@@ -15,15 +15,13 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 class WatchListRepositoryImplTest : Spek({
-    @MockK
-    lateinit var local: WatchListLocalDataSource
+    var local: WatchListLocalDataSource = mockk(relaxed = true)
     val repository by memoized { WatchListRepositoryImpl(local) }
 
     describe(
         "#${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::saveWatchList.name}"
     ) {
         val contentSaveRequestDummyData: ContentSaveRequest = mockk()
-        local = mockk(relaxed = true)
         context(
             "when ${WatchListLocalDataSource::class.java.simpleName}.${WatchListLocalDataSource::saveWatchList.name} return -1"
         ) {
@@ -181,6 +179,36 @@ class WatchListRepositoryImplTest : Spek({
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                }
+            }
+        }
+    }
+    describe(
+        "#${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::removeWatchList.name}"
+    ) {
+        val codeRequestParamDummy = 1111L
+        val typeRequestParamDummy = ContentType.MOVIE
+        context(
+            "when ${WatchListLocalDataSource::class.java.simpleName}.${WatchListLocalDataSource::deleteWatchList.name} return 0"
+        ) {
+            val responseDummy = 0
+            beforeEachGroup {
+                coEvery {
+                    local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                } returns responseDummy
+            }
+            it(
+                "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::removeWatchList.name} should return Result Failure"
+            ) {
+                runBlocking {
+                    val response = local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    val result = repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    assertThat(response).isEqualTo(0)
+                }
+                coVerify {
+                    local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
                 }
             }
         }
