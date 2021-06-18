@@ -55,10 +55,10 @@
             android:id="@+id/imageDetailType"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
-            android:background="@color/white"
+            android:background="@color/grey_272727"
             android:padding="@dimen/_4sdp"
             android:scaleType="centerInside"
-            app:layout_constraintEnd_toEndOf="@id/imageDetailPoster"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imageDetailPoster"
             app:tint="@color/grey_979797"
             tools:srcCompat="@drawable/ic_content_movie" />

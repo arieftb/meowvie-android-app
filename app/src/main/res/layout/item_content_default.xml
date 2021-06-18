@@ -20,7 +20,7 @@
         android:id="@+id/imageContentDefaultType"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:background="@color/white"
+        android:background="@color/black"
         android:padding="@dimen/_4sdp"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="@id/imageContentDefaultPoster"
