@@ -291,5 +291,63 @@ class DetailViewModelImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Success True"
+        ) {
+            val resultDummy = Result.Success(true)
+            beforeEachGroup {
+                coEvery {
+                    saveWatchListUseCase.invoke(contentParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success True sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.saveWatchList(contentParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = true))
+                }
+
+                coVerify {
+                    saveWatchListUseCase.invoke(contentParamDummy)
+                }
+            }
+        }
+        context(
+            "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Success False"
+        ) {
+            val resultDummy = Result.Success(false)
+            beforeEachGroup {
+                coEvery {
+                    saveWatchListUseCase.invoke(contentParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success False sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.saveWatchList(contentParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = false))
+                }
+
+                coVerify {
+                    saveWatchListUseCase.invoke(contentParamDummy)
+                }
+            }
+        }
     }
 })
