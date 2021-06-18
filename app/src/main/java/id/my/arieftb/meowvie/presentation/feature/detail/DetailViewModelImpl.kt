@@ -31,7 +31,8 @@ class DetailViewModelImpl @Inject constructor(
     ViewModel(), DetailViewModel {
     private val detailDataValue: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
     override var detailData: LiveData<Data<ContentDetail>> = detailDataValue
-    override val isSaved: MutableLiveData<Data<Boolean>> = MutableLiveData()
+    private val isSavedValue: MutableLiveData<Data<Boolean>> = MutableLiveData()
+    override val isSaved: LiveData<Data<Boolean>> = isSavedValue
     private val isAvailableValue: MutableLiveData<Data<Boolean>> = MutableLiveData()
     override val isAvailable: LiveData<Data<Boolean>> = isAvailableValue
 
@@ -49,7 +50,8 @@ class DetailViewModelImpl @Inject constructor(
             detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMovieDetailUseCase.invoke(id)) {
-                is Result.Success -> detailDataValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Success -> detailDataValue.value =
+                    Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> detailDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -63,7 +65,8 @@ class DetailViewModelImpl @Inject constructor(
             detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getTvShowDetailUseCase.invoke(id)) {
-                is Result.Success -> detailDataValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Success -> detailDataValue.value =
+                    Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> detailDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -77,7 +80,8 @@ class DetailViewModelImpl @Inject constructor(
             isAvailableValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = checkWatchListUseCase.invoke(code, type)) {
-                is Result.Success -> isAvailableValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Success -> isAvailableValue.value =
+                    Data(Status.SUCCESS, data = result.data)
                 is Result.Failure -> isAvailableValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -85,28 +89,28 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun saveWatchList(content: Content) {
-        isSaved.value = Data(Status.LOADING)
+        isSavedValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
+            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = saveWatchListUseCase.invoke(content)) {
-                is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isSaved.value =
+                is Result.Success -> isSavedValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isSavedValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
 
     override fun removeContent(code: Long, type: ContentType) {
-        isSaved.value = Data(Status.LOADING)
+        isSavedValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            isSaved.value = Data(Status.ERROR, errorMessage = throwable.message)
+            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = removeWatchListUseCase.invoke(code, type)) {
-                is Result.Success -> isSaved.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isSaved.value =
+                is Result.Success -> isSavedValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isSavedValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }

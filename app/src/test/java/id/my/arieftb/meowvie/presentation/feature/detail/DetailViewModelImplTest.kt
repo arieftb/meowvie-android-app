@@ -3,6 +3,7 @@ package id.my.arieftb.meowvie.presentation.feature.detail
 import androidx.lifecycle.Observer
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
@@ -253,6 +254,40 @@ class DetailViewModelImplTest : Spek({
 
                 coVerify {
                     checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
+    }
+    describe(
+        "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name}"
+    ) {
+        val contentParamDummy = Content()
+        context(
+            "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    saveWatchListUseCase.invoke(contentParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Failure sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isSaved.observeForever(observer)
+                viewModel.saveWatchList(contentParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                }
+
+                coVerify {
+                    saveWatchListUseCase.invoke(contentParamDummy)
                 }
             }
         }

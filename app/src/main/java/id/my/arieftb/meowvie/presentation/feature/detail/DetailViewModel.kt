@@ -1,7 +1,6 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
@@ -9,7 +8,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 
 interface DetailViewModel {
     val detailData: LiveData<Data<ContentDetail>>
-    val isSaved: MutableLiveData<Data<Boolean>>
+    val isSaved: LiveData<Data<Boolean>>
     val isAvailable: LiveData<Data<Boolean>>
 
     fun getDetail(id: Long, type: ContentType)
