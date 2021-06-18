@@ -198,5 +198,63 @@ class DetailViewModelImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Success true"
+        ) {
+            val resultDummy = Result.Success(true)
+            beforeEachGroup {
+                coEvery {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success True sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isAvailable.observeForever(observer)
+                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = true))
+                }
+
+                coVerify {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
+        context(
+            "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Success false"
+        ) {
+            val resultDummy = Result.Success(false)
+            beforeEachGroup {
+                coEvery {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success false sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isAvailable.observeForever(observer)
+                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = false))
+                }
+
+                coVerify {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                }
+            }
+        }
     }
 })
