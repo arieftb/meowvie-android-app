@@ -56,5 +56,34 @@ class ExploreViewModelImplTest : Spek({
                 }
             }
         }
+        context(
+            "when ${SearchContentsUseCase::class.java.simpleName}.${SearchContentsUseCase::invoke.name} return Result Success"
+        ) {
+            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            beforeEachGroup {
+                coEvery {
+                    searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::searchData.name} should has Data Status Loading and Success sequentially"
+            ) {
+                val observer: Observer<Data<List<Content>>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.searchData.observeForever(observer)
+                viewModel.search(pageParamDummy, keywordParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, emptyList()))
+                }
+
+                coVerify {
+                    searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                }
+            }
+        }
     }
 })
