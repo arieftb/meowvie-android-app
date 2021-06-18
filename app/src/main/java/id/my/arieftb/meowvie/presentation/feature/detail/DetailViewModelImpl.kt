@@ -32,7 +32,8 @@ class DetailViewModelImpl @Inject constructor(
     private val detailDataValue: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
     override var detailData: LiveData<Data<ContentDetail>> = detailDataValue
     override val isSaved: MutableLiveData<Data<Boolean>> = MutableLiveData()
-    override val isAvailable: MutableLiveData<Data<Boolean>> = MutableLiveData()
+    private val isAvailableValue: MutableLiveData<Data<Boolean>> = MutableLiveData()
+    override val isAvailable: LiveData<Data<Boolean>> = isAvailableValue
 
     override fun getDetail(id: Long, type: ContentType) {
         when (type) {
@@ -70,14 +71,14 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun checkWatchList(code: Long, type: ContentType) {
-        isAvailable.value = Data(Status.LOADING)
+        isAvailableValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            isAvailable.value = Data(Status.ERROR, errorMessage = throwable.message)
+            isAvailableValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = checkWatchListUseCase.invoke(code, type)) {
-                is Result.Success -> isAvailable.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isAvailable.value =
+                is Result.Success -> isAvailableValue.value = Data(Status.SUCCESS, data = result.data)
+                is Result.Failure -> isAvailableValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }

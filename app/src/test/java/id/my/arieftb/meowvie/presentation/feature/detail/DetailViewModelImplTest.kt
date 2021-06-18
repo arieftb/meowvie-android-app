@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.Observer
+import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
@@ -159,6 +160,41 @@ class DetailViewModelImplTest : Spek({
 
                 coVerify {
                     getTvShowDetailUseCase.invoke(idParamDummy)
+                }
+            }
+        }
+    }
+    describe(
+        "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name}"
+    ) {
+        val idParamDummy = 1L
+        val typeParamDummy = ContentType.MOVIE
+        context(
+            "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Failure sequentially"
+            ) {
+                val observer: Observer<Data<Boolean>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.isAvailable.observeForever(observer)
+                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                }
+
+                coVerify {
+                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
                 }
             }
         }
