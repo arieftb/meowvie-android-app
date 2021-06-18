@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.data.local.watch_list
 
 import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -20,5 +21,5 @@ interface WatchListDao {
     suspend fun deleteByCode(code: Long, type: String): Int
 
     @Query("SELECT * FROM ${DataConstant.WATCH_LIST_TABLE_NAME}")
-    fun fetchAll(): DataSource.Factory<Int, WatchListEntity>
+    fun fetchAll(): PagingSource<Int, WatchListEntity>
 }

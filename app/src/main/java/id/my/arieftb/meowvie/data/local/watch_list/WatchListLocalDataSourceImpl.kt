@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.data.local.watch_list
 
 import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
@@ -30,7 +31,7 @@ class WatchListLocalDataSourceImpl @Inject constructor(
         return dao.deleteByCode(code, type.toString())
     }
 
-    override fun fetchAllWatchList(): DataSource.Factory<Int, WatchListEntity> {
+    override fun fetchAllWatchList(): PagingSource<Int, WatchListEntity> {
         return dao.fetchAll()
     }
 

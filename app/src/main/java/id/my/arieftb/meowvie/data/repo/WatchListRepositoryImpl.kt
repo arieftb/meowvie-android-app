@@ -1,14 +1,14 @@
 package id.my.arieftb.meowvie.data.repo
 
 import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.paging.*
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.repo.WatchListRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WatchListRepositoryImpl @Inject constructor(
@@ -41,12 +41,19 @@ class WatchListRepositoryImpl @Inject constructor(
         return Result.Failure(exception = Exception("Something went wrong"))
     }
 
-    override fun fetchAllWatchList(limit: Int): LiveData<PagedList<WatchListEntity>> {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(limit)
-            .setPageSize(limit)
-            .build()
-        return LivePagedListBuilder(local.fetchAllWatchList(), config).build()
+    override fun fetchAllWatchList(limit: Int): Flow<PagingData<WatchListEntity>> {
+//        val config = PagedList.Config.Builder()
+//            .setEnablePlaceholders(false)
+//            .setInitialLoadSizeHint(limit)
+//            .setPageSize(limit)
+//            .build()
+        return Pager(
+            PagingConfig(
+                pageSize = limit,
+                enablePlaceholders = true
+            )
+        ) {
+            local.fetchAllWatchList()
+        }.flow
     }
 }

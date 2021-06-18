@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -16,7 +17,7 @@ import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
 class WatchListRecyclerAdapter(
     private val context: Context
 ) :
-    PagedListAdapter<WatchListEntity, WatchListRecyclerAdapter.WatchListRecyclerViewHolder>(
+    PagingDataAdapter<WatchListEntity, WatchListRecyclerAdapter.WatchListRecyclerViewHolder>(
         DIFF_CALLBACK
     ) {
 

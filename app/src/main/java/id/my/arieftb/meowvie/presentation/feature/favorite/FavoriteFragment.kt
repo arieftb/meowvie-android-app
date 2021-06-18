@@ -1,8 +1,10 @@
 package id.my.arieftb.meowvie.presentation.feature.favorite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,6 +16,8 @@ import id.my.arieftb.meowvie.presentation.adapter.WatchListRecyclerAdapter
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecyclerListener {
@@ -43,14 +47,21 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
     }
 
     private fun getWatchListAll() {
-        viewModel.getWatchListAll().observe(viewLifecycleOwner, {
-            if (it.isNullOrEmpty()) {
-                setWatchListEmpty()
-            } else {
-                watchListAdapter.submitList(it)
-                setWatchListAvailable()
+        lifecycleScope.launch {
+            viewModel.getWatchListAll().collectLatest {
+                watchListAdapter.submitData(it)
             }
-        })
+        }
+
+        watchListAdapter.addLoadStateListener {
+            if (it.append.endOfPaginationReached) {
+                if (watchListAdapter.itemCount < 1) {
+                    setWatchListEmpty()
+                } else {
+                    setWatchListAvailable()
+                }
+            }
+        }
     }
 
     private fun setWatchListAvailable() {
@@ -69,7 +80,11 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
     }
 
     override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
-        FavoriteFragmentDirections.actionFavoriteToDetail(id ?: -1, type ?: ContentType.MOVIE, title)
+        FavoriteFragmentDirections.actionFavoriteToDetail(
+            id ?: -1,
+            type ?: ContentType.MOVIE,
+            title
+        )
             .also {
                 view.findNavController().navigate(it)
             }
