@@ -99,4 +99,68 @@ class DetailViewModelImplTest : Spek({
             }
         }
     }
+    describe(
+        "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name}"
+    ) {
+        val idParamDummy = 1L
+        context(
+            "when ${GetTvShowDetailUseCase::class.java.simpleName}.${GetTvShowDetailUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<ContentDetail>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    getTvShowDetailUseCase.invoke(idParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Error sequentially"
+            ) {
+                val observer: Observer<Data<ContentDetail>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.detailData.observeForever(observer)
+                viewModel.getTvShowDetail(idParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                }
+
+                coVerify {
+                    getTvShowDetailUseCase.invoke(idParamDummy)
+                }
+            }
+        }
+        context(
+            "when ${GetTvShowDetailUseCase::class.java.simpleName}.${GetTvShowDetailUseCase::invoke.name} return Result Success"
+        ) {
+            val contentDetailDummy = ContentDetail()
+            val resultDummy = Result.Success(data = contentDetailDummy)
+            beforeEachGroup {
+                coEvery {
+                    getTvShowDetailUseCase.invoke(idParamDummy)
+                } returns resultDummy
+            }
+            it(
+                "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Success sequentially"
+            ) {
+                val observer: Observer<Data<ContentDetail>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+
+                viewModel.detailData.observeForever(observer)
+                viewModel.getTvShowDetail(idParamDummy)
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
+                }
+
+                coVerify {
+                    getTvShowDetailUseCase.invoke(idParamDummy)
+                }
+            }
+        }
+    }
 })
