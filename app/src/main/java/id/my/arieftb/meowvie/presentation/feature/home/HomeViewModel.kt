@@ -10,7 +10,7 @@ interface HomeViewModel {
     val moviesUpcomingData: LiveData<Data<List<Content>>>
     val moviesPopularData: MutableLiveData<Data<List<Content>>>
     val tvShowsData: LiveData<Data<List<Content>>>
-    val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>>
+    val tvShowsUpcomingData: LiveData<Data<List<Content>>>
     val tvShowsPopularData: MutableLiveData<Data<List<Content>>>
 
     fun getMoviesHighlight()
