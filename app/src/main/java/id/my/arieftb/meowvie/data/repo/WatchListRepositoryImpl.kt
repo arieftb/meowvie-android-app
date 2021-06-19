@@ -1,10 +1,11 @@
 package id.my.arieftb.meowvie.data.repo
 
-import androidx.lifecycle.LiveData
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
-import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content

@@ -7,7 +7,6 @@ import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
 import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
 import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.ContentMovieDetailMapper
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 import id.my.arieftb.meowvie.helper.TestHelper
