@@ -161,4 +161,64 @@ class HomeViewModelImplTest : Spek({
             }
         }
     }
+    describe(
+        "#${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::getMoviesUpcomingHighlight.name}"
+    ) {
+        context(
+            "when ${GetMoviesUpcomingHighlightUseCase::class.java.simpleName}.${GetMoviesUpcomingHighlightUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    getMoviesUpcomingUseCase.invoke()
+                } returns resultDummy
+            }
+            it(
+                "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesUpcomingData.name} should has Data Status Loading and Error sequentially"
+            ) {
+                val observer: Observer<Data<List<Content>>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+                viewModel.moviesUpcomingData.observeForever(observer)
+                viewModel.getMoviesUpcomingHighlight()
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                }
+
+                coVerify {
+                    getMoviesUpcomingUseCase.invoke()
+                }
+            }
+        }
+        context(
+            "when ${GetMoviesUpcomingHighlightUseCase::class.java.simpleName}.${GetMoviesUpcomingHighlightUseCase::invoke.name} return Result Success"
+        ) {
+            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            beforeEachGroup {
+                coEvery {
+                    getMoviesUpcomingUseCase.invoke()
+                } returns resultDummy
+            }
+            it(
+                "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesUpcomingData.name} should has Data Status Loading and Success sequentially"
+            ) {
+                val observer: Observer<Data<List<Content>>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+                viewModel.moviesUpcomingData.observeForever(observer)
+                viewModel.getMoviesUpcomingHighlight()
+
+                verifySequence {
+                    observer.onChanged(Data(Status.LOADING))
+                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                }
+
+                coVerify {
+                    getMoviesUpcomingUseCase.invoke()
+                }
+            }
+        }
+    }
 })

@@ -7,7 +7,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 
 interface HomeViewModel {
     val moviesData: LiveData<Data<List<Content>>>
-    val moviesUpcomingData: MutableLiveData<Data<List<Content>>>
+    val moviesUpcomingData: LiveData<Data<List<Content>>>
     val moviesPopularData: MutableLiveData<Data<List<Content>>>
     val tvShowsData: LiveData<Data<List<Content>>>
     val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>>

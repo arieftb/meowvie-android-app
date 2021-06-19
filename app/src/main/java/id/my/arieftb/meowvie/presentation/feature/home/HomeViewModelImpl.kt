@@ -31,8 +31,9 @@ class HomeViewModelImpl @Inject constructor(
     ViewModel(),
     HomeViewModel {
     private val moviesDataValue: MutableLiveData<Data<List<Content>>> = MutableLiveData()
-    override var moviesData: LiveData<Data<List<Content>>> = moviesDataValue
-    override val moviesUpcomingData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val moviesData: LiveData<Data<List<Content>>> = moviesDataValue
+    private val moviesUpcomingDataValue: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override val moviesUpcomingData: LiveData<Data<List<Content>>> = moviesUpcomingDataValue
     override val moviesPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
     private val tvShowsDataValue: MutableLiveData<Data<List<Content>>> = MutableLiveData()
     override val tvShowsData: LiveData<Data<List<Content>>> = tvShowsDataValue
@@ -71,14 +72,14 @@ class HomeViewModelImpl @Inject constructor(
     }
 
     override fun getMoviesUpcomingHighlight() {
-        moviesUpcomingData.value = Data(Status.LOADING)
+        moviesUpcomingDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            moviesUpcomingData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            moviesUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesUpcomingUseCase.invoke()) {
-                is Result.Success -> moviesUpcomingData.value = Data(Status.SUCCESS, result.data)
-                is Result.Failure -> moviesUpcomingData.value =
+                is Result.Success -> moviesUpcomingDataValue.value = Data(Status.SUCCESS, result.data)
+                is Result.Failure -> moviesUpcomingDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
