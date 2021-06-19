@@ -1,5 +1,6 @@
 package id.my.arieftb.meowvie.presentation.feature.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,7 +30,8 @@ class HomeViewModelImpl @Inject constructor(
 ) :
     ViewModel(),
     HomeViewModel {
-    override var moviesData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    private val moviesDataValue: MutableLiveData<Data<List<Content>>> = MutableLiveData()
+    override var moviesData: LiveData<Data<List<Content>>> = moviesDataValue
     override val moviesUpcomingData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
     override val moviesPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
     override val tvShowsData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
@@ -37,17 +39,17 @@ class HomeViewModelImpl @Inject constructor(
     override val tvShowsPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
     override fun getMovies() {
-        moviesData.value = Data(Status.LOADING)
+        moviesDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
-            moviesData.value = Data(Status.ERROR, errorMessage = throwable.message)
+            moviesDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
             when (val result = getMoviesHighlightUseCase.invoke()) {
                 is Result.Success -> {
-                    moviesData.value = Data(Status.SUCCESS, result.data)
+                    moviesDataValue.value = Data(Status.SUCCESS, result.data)
                 }
                 is Result.Failure -> {
-                    moviesData.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                    moviesDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
                 }
             }
         }
