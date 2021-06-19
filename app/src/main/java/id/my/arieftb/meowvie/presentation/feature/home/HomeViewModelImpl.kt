@@ -38,7 +38,7 @@ class HomeViewModelImpl @Inject constructor(
     override val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
     override val tvShowsPopularData: MutableLiveData<Data<List<Content>>> = MutableLiveData()
 
-    override fun getMovies() {
+    override fun getMoviesHighlight() {
         moviesDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()

@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(viewModel) {
-            getMovies()
+            getMoviesHighlight()
             getTvShowsHighlight()
             getMoviesUpcomingHighlight()
             getTvShowsUpcomingHighlight()

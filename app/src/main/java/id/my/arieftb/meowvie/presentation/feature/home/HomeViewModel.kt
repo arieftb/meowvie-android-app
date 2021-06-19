@@ -13,7 +13,7 @@ interface HomeViewModel {
     val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>>
     val tvShowsPopularData: MutableLiveData<Data<List<Content>>>
 
-    fun getMovies()
+    fun getMoviesHighlight()
     fun getTvShowsHighlight()
     fun getMoviesUpcomingHighlight()
     fun getTvShowsUpcomingHighlight()

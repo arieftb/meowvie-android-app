@@ -42,7 +42,7 @@ class HomeViewModelImplTest : Spek({
     }
 
     describe(
-        "#${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::getMovies.name}"
+        "#${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::getMoviesHighlight.name}"
     ) {
         context(
             "when ${GetMoviesHighlightUseCase::class.java.simpleName}.${GetMoviesHighlightUseCase::invoke.name} return Result Failure"
@@ -60,7 +60,7 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesData.observeForever(observer)
-                viewModel.getMovies()
+                viewModel.getMoviesHighlight()
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -88,7 +88,7 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesData.observeForever(observer)
-                viewModel.getMovies()
+                viewModel.getMoviesHighlight()
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
