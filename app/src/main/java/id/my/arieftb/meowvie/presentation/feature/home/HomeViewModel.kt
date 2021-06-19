@@ -9,7 +9,7 @@ interface HomeViewModel {
     val moviesData: LiveData<Data<List<Content>>>
     val moviesUpcomingData: MutableLiveData<Data<List<Content>>>
     val moviesPopularData: MutableLiveData<Data<List<Content>>>
-    val tvShowsData: MutableLiveData<Data<List<Content>>>
+    val tvShowsData: LiveData<Data<List<Content>>>
     val tvShowsUpcomingData: MutableLiveData<Data<List<Content>>>
     val tvShowsPopularData: MutableLiveData<Data<List<Content>>>
 
