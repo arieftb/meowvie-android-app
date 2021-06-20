@@ -13,7 +13,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.helper.IdlingResourceHelper
+import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
 class MainActivityTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-    
+
     @Before
     fun setup() {
         ActivityScenario.launch(MainActivity::class.java)

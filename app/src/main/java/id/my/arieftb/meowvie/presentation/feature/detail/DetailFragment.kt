@@ -17,6 +17,7 @@ import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 import id.my.arieftb.meowvie.utils.helper.date.DateHelper
+import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
@@ -54,9 +55,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun initTypeView() {
-        when(type) {
-            ContentType.TV -> binding.imageDetailType.setImageResource(R.drawable.ic_content_tv)
-            else -> binding.imageDetailType.setImageResource(R.drawable.ic_content_movie)
+        when (type) {
+            ContentType.TV -> binding.imageDetailType.apply {
+                tag = R.drawable.ic_content_tv
+                setImageResource(R.drawable.ic_content_tv)
+            }
+            else -> binding.imageDetailType.apply {
+                tag = R.drawable.ic_content_movie
+                setImageResource(R.drawable.ic_content_movie)
+            }
         }
     }
 
@@ -79,7 +86,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_SUBJECT, binding.textDetailTitle.text)
-                putExtra(Intent.EXTRA_TEXT,  "${binding.textDetailTitle.text} \n\n ${binding.textDetailOverview.text}")
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "${binding.textDetailTitle.text} \n\n ${binding.textDetailOverview.text}"
+                )
             }.also {
                 startActivity(Intent.createChooser(it, "Share using"))
             }
@@ -96,6 +106,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
         })
 
+        IdlingResourceHelper.increment()
         viewModel.getDetail(id, type)
     }
 
@@ -163,6 +174,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             show()
             text = getString(R.string.error_message_something_went_wrong)
         }
+        IdlingResourceHelper.decrement()
     }
 
     private fun setSuccessDetailView(data: ContentDetail?) {
@@ -193,5 +205,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             )
             binding.ratingDetailVote.rating = it.rating?.toFloat() ?: 0.0f
         }
+        IdlingResourceHelper.decrement()
     }
 }

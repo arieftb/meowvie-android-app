@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.helper
+package id.my.arieftb.meowvie.utils.helper.test
 
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.idling.CountingIdlingResource
