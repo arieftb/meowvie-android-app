@@ -65,5 +65,11 @@ data class TvShowDetailResponse(
     @SerializedName("vote_average")
     val voteAverage: Double? = null,
     @SerializedName("vote_count")
-    val voteCount: Long? = null
+    val voteCount: Long? = null,
+    @SerializedName("success")
+    val success: Boolean? = true,
+    @SerializedName("status_code")
+    val statusCode: Long? = 0L,
+    @SerializedName("status_message")
+    val statusMessage: String? = null
 )

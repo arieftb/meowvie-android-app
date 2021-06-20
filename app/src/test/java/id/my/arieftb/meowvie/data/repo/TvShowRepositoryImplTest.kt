@@ -213,6 +213,30 @@ class TvShowRepositoryImplTest : Spek({
             }
         }
         context(
+            "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetch.name} return response with code 200 with not success"
+        ) {
+            val responseDummy =
+                TestHelper.createDummyResponse("tv/get-tv-show-not-success-response.json", TvShowDetailResponse::class.java)
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(detailRequestParamDummy)
+                } returns responseDummy
+            }
+
+            it(
+                "${TvShowRepositoryImpl::class.java.simpleName}.${TvShowRepositoryImpl::fetch.name} should return Result Failure"
+            ) {
+                runBlocking {
+                    val result = repository.fetch(detailRequestParamDummy, dataParamDummy)
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(detailRequestParamDummy)
+                }
+            }
+        }
+        context(
             "${TvShowRemoteDataSource::class.java.simpleName}.${TvShowRemoteDataSource::fetch.name} return response with code 200 with result"
         ) {
             val responseDummy = TestHelper.createDummyResponse(
