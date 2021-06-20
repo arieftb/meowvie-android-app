@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.core.os.bundleOf
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -71,6 +72,9 @@ class DetailFragmentTest {
         onView(withId(R.id.textDetailOverviewLabel)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.textDetailOverview)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.imageDetailType)).check(matches(withTagValue(equalTo(R.drawable.ic_content_movie))))
+        Thread.sleep(2000)
+        onView(withId(R.id.scrollDetail)).perform(swipeUp())
+        Thread.sleep(2000)
     }
 
     @Test
@@ -91,5 +95,8 @@ class DetailFragmentTest {
         onView(withId(R.id.textDetailOverviewLabel)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.textDetailOverview)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.imageDetailType)).check(matches(withTagValue(equalTo(R.drawable.ic_content_tv))))
+        Thread.sleep(2000)
+        onView(withId(R.id.scrollDetail)).perform(swipeUp())
+        Thread.sleep(2000)
     }
 }
