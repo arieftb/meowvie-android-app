@@ -10,16 +10,23 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.helper.IdlingResourceHelper
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+    
     @Before
     fun setup() {
         ActivityScenario.launch(MainActivity::class.java)
