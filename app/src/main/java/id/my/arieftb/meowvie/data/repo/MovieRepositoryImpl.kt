@@ -32,7 +32,10 @@ class MovieRepositoryImpl @Inject constructor(
         val response = remote.fetch(request)
         if (response.isSuccessful) {
             if (response.body() != null) {
-                return Result.Success(data = data.mapFromMovieDetailResponse(response.body()))
+                if (response.body()?.success == true) {
+                    return Result.Success(data = data.mapFromMovieDetailResponse(response.body()))
+                }
+                return Result.Failure(Exception("Something went wrong"))
             }
             return Result.Failure(Exception("Something went wrong"))
         }

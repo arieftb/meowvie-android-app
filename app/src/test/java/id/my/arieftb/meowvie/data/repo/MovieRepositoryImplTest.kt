@@ -180,6 +180,27 @@ class MovieRepositoryImplTest : Spek({
             }
         }
 
+        context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 but status success false") {
+            val dummyResponse = TestHelper.createDummyResponse("movie/get-movie-not-success-response.json", MovieDetailResponse::class.java)
+
+            beforeEachGroup {
+                coEvery {
+                    remote.fetch(dummyRequestParam)
+                } returns dummyResponse
+            }
+
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
+                runBlocking {
+                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
+                    assertThat(result is Result.Failure).isTrue()
+                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                }
+                coVerify {
+                    remote.fetch(dummyRequestParam)
+                }
+            }
+        }
+
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 with data") {
             val dummyResponse = TestHelper.createDummyResponse("movie/get-movie-success-response.json", MovieDetailResponse::class.java)
 
