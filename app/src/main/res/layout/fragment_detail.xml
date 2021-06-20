@@ -25,7 +25,8 @@
             textDetailOverviewLabel,
             textDetailOverview,
             buttonDetailFavorite,
-            buttonDetailShare"
+            buttonDetailShare,
+            imageDetailType"
             tools:visibility="visible" />
 
         <ImageView
