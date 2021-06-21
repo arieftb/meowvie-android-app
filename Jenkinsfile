@@ -17,7 +17,7 @@ pipeline {
         sh './gradlew testDebugUnitTest'
 
         // Analyse the test results and update the build result as appropriate
-//         junit '**/TEST-*.xml'
+        junit '**/TEST-*.xml'
       }
     }
     stage('Build APK') {
