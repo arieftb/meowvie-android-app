@@ -14,10 +14,12 @@ import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import java.lang.Exception
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelImplTest : Spek({
     applyTestDispatcher()
     applyInstantTaskExecutor()
@@ -60,15 +62,22 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesData.observeForever(observer)
-                viewModel.getMoviesHighlight()
+                runBlockingTest {
+                    viewModel.getMoviesHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
 
-                coVerify {
-                    getMoviesHighlightUseCase.invoke()
+                    coVerify {
+                        getMoviesHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -88,15 +97,17 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesData.observeForever(observer)
-                viewModel.getMoviesHighlight()
+                runBlockingTest {
+                    viewModel.getMoviesHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
 
-                coVerify {
-                    getMoviesHighlightUseCase.invoke()
+                    coVerify {
+                        getMoviesHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -120,15 +131,22 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsData.observeForever(observer)
-                viewModel.getTvShowsHighlight()
+                runBlockingTest {
+                    viewModel.getTvShowsHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
 
-                coVerify {
-                    getTvShowsHighlightUseCase.invoke()
+                    coVerify {
+                        getTvShowsHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -148,15 +166,17 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsData.observeForever(observer)
-                viewModel.getTvShowsHighlight()
+                runBlockingTest {
+                    viewModel.getTvShowsHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
 
-                coVerify {
-                    getTvShowsHighlightUseCase.invoke()
+                    coVerify {
+                        getTvShowsHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -180,15 +200,22 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesUpcomingData.observeForever(observer)
-                viewModel.getMoviesUpcomingHighlight()
+                runBlockingTest {
+                    viewModel.getMoviesUpcomingHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
 
-                coVerify {
-                    getMoviesUpcomingUseCase.invoke()
+                    coVerify {
+                        getMoviesUpcomingUseCase.invoke()
+                    }
                 }
             }
         }
@@ -208,15 +235,17 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesUpcomingData.observeForever(observer)
-                viewModel.getMoviesUpcomingHighlight()
+                runBlockingTest {
+                    viewModel.getMoviesUpcomingHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
 
-                coVerify {
-                    getMoviesUpcomingUseCase.invoke()
+                    coVerify {
+                        getMoviesUpcomingUseCase.invoke()
+                    }
                 }
             }
         }
@@ -240,15 +269,22 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsUpcomingData.observeForever(observer)
-                viewModel.getTvShowsUpcomingHighlight()
+                runBlockingTest {
+                    viewModel.getTvShowsUpcomingHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
 
-                coVerify {
-                    getTvShowsUpcomingHighlightUseCase.invoke()
+                    coVerify {
+                        getTvShowsUpcomingHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -268,15 +304,18 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsUpcomingData.observeForever(observer)
-                viewModel.getTvShowsUpcomingHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                runBlockingTest {
+                    viewModel.getTvShowsUpcomingHighlight()
 
-                coVerify {
-                    getTvShowsUpcomingHighlightUseCase.invoke()
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
+
+                    coVerify {
+                        getTvShowsUpcomingHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -300,15 +339,23 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesPopularData.observeForever(observer)
-                viewModel.getMoviesPopularHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                runBlockingTest {
+                    viewModel.getMoviesPopularHighlight()
 
-                coVerify {
-                    getMoviesPopularHighlightUseCase.invoke()
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
+
+                    coVerify {
+                        getMoviesPopularHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -328,15 +375,18 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.moviesPopularData.observeForever(observer)
-                viewModel.getMoviesPopularHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                runBlockingTest {
+                    viewModel.getMoviesPopularHighlight()
 
-                coVerify {
-                    getMoviesPopularHighlightUseCase.invoke()
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
+
+                    coVerify {
+                        getMoviesPopularHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -360,15 +410,23 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsPopularData.observeForever(observer)
-                viewModel.getTvShowsPopularHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                runBlockingTest {
+                    viewModel.getTvShowsPopularHighlight()
 
-                coVerify {
-                    getTvShowsPopularHighlightUseCase.invoke()
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
+
+                    coVerify {
+                        getTvShowsPopularHighlightUseCase.invoke()
+                    }
                 }
             }
         }
@@ -388,15 +446,18 @@ class HomeViewModelImplTest : Spek({
                     every { onChanged(any()) } just Runs
                 }
                 viewModel.tvShowsPopularData.observeForever(observer)
-                viewModel.getTvShowsPopularHighlight()
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
-                }
+                runBlockingTest {
+                    viewModel.getTvShowsPopularHighlight()
 
-                coVerify {
-                    getTvShowsPopularHighlightUseCase.invoke()
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = emptyList()))
+                    }
+
+                    coVerify {
+                        getTvShowsPopularHighlightUseCase.invoke()
+                    }
                 }
             }
         }
