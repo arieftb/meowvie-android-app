@@ -16,7 +16,9 @@ import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcoming
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,12 +51,15 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getMoviesHighlightUseCase.invoke()) {
+            when (val result = withContext(Dispatchers.IO) {
+                getMoviesHighlightUseCase.invoke()
+            }) {
                 is Result.Success -> {
                     moviesDataValue.value = Data(Status.SUCCESS, result.data)
                 }
                 is Result.Failure -> {
-                    moviesDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                    moviesDataValue.value =
+                        Data(Status.ERROR, errorMessage = result.exception.message)
                 }
             }
         }
@@ -66,7 +71,9 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getTvShowsHighlightUseCase.invoke()) {
+            when (val result = withContext(Dispatchers.IO) {
+                getTvShowsHighlightUseCase.invoke()
+            }) {
                 is Result.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, result.data)
                 is Result.Failure -> tvShowsDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
@@ -80,8 +87,11 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getMoviesUpcomingUseCase.invoke()) {
-                is Result.Success -> moviesUpcomingDataValue.value = Data(Status.SUCCESS, result.data)
+            when (val result = withContext(Dispatchers.IO) {
+                getMoviesUpcomingUseCase.invoke()
+            }) {
+                is Result.Success -> moviesUpcomingDataValue.value =
+                    Data(Status.SUCCESS, result.data)
                 is Result.Failure -> moviesUpcomingDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -94,8 +104,11 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getTvShowsUpcomingHighlightUseCase.invoke()) {
-                is Result.Success -> tvShowsUpcomingDataValue.value = Data(Status.SUCCESS, result.data)
+            when (val result = withContext(Dispatchers.IO) {
+                getTvShowsUpcomingHighlightUseCase.invoke()
+            }) {
+                is Result.Success -> tvShowsUpcomingDataValue.value =
+                    Data(Status.SUCCESS, result.data)
                 is Result.Failure -> tvShowsUpcomingDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -108,8 +121,11 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getMoviesPopularHighlightUseCase.invoke()) {
-                is Result.Success -> moviesPopularDataValue.value = Data(Status.SUCCESS, result.data)
+            when (val result = withContext(Dispatchers.IO) {
+                getMoviesPopularHighlightUseCase.invoke()
+            }) {
+                is Result.Success -> moviesPopularDataValue.value =
+                    Data(Status.SUCCESS, result.data)
                 is Result.Failure -> moviesPopularDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
@@ -122,8 +138,11 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = getTvShowsPopularHighlightUseCase.invoke()) {
-                is Result.Success -> tvShowsPopularDataValue.value = Data(Status.SUCCESS, result.data)
+            when (val result = withContext(Dispatchers.IO) {
+                getTvShowsPopularHighlightUseCase.invoke()
+            }) {
+                is Result.Success -> tvShowsPopularDataValue.value =
+                    Data(Status.SUCCESS, result.data)
                 is Result.Failure -> tvShowsPopularDataValue.value =
                     Data(Status.ERROR, errorMessage = result.exception.message)
             }
