@@ -14,9 +14,6 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'de.mannodermaus.android-junit5'
 
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -30,7 +27,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "API_KEY", "\"" + localProperties['API_KEY'] + "\"")
+        buildConfigField("String", "API_KEY", "\"" + rootProject.API_KEY + "\"")
         buildConfigField("String", "BASE_URL", "\""+ "https://api.themoviedb.org/3/" + "\"")
         buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT", "\""+ "https://www.themoviedb.org/t/p/w220_and_h330_face/" + "\"")
         buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT_BIG", "\""+ "https://www.themoviedb.org/t/p/w440_and_h660_face/" + "\"")
