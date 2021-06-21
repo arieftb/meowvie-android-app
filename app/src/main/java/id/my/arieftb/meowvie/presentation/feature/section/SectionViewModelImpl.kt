@@ -94,7 +94,6 @@ class SectionViewModelImpl @Inject constructor(
     }
 
     override fun getUpComingTvShows(page: Int) {
-        contentDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
@@ -109,7 +108,6 @@ class SectionViewModelImpl @Inject constructor(
     }
 
     override fun getPopularMovies(page: Int) {
-        contentDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
