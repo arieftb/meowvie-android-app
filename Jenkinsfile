@@ -1,40 +1,39 @@
 pipeline {
-  agent any
-  options {
-    // Stop the build early in case of compile or test failures
-    skipStagesAfterUnstable()
-  }
-  stages {
-    stage('Compile') {
-      steps {
-        // Compile the app and its dependencies
-        sh './gradlew compileDebugSources'
-      }
+    agent any
+    environment {
+        APP_NAME = "MeowVie-Android"
     }
-    stage('Unit test') {
-      steps {
-        // Compile and run the unit tests for the app and its dependencies
-        sh './gradlew clean testDebugUnitTest'
-
-        // Analyse the test results and update the build result as appropriate
-        junit '**/TEST-*.xml'
-      }
+    options {
+        skipStagesAfterUnstable()
     }
-    stage('Build APK') {
-      steps {
-        // Finish building and packaging the APK
-        sh './gradlew clean assembleDebug'
-
-        // Archive the APKs so that they can be downloaded from Jenkins
-        archiveArtifacts '**/*.apk'
-      }
+    stages {
+        stage('Build Type Detection') {
+            steps {
+                script {
+                    env.BUILD_TYPE = 'Debug'
+                }
+            }
+        }
+        stage('Code Compiling') {
+            steps {
+                // Compile Code Command
+                sh './gradlew clean compile${BUILD_TYPE}Source'
+            }
+        }
+        stage('Code Unit Testing') {
+            steps {
+                sh './gradlew clean test${BUILD_TYPE}UnitTest'
+            }
+        }
+        stage('Apk Building') {
+            steps {
+                sh './gradlew clean assemble${BUILD_TYPE}'
+            }
+        }
+        stage('Aok Storing') {
+            steps {
+                archiveArtifacts "**/${APP_NAME}-${BUILD_TYPE}-${TAG_TIMESTAMP}.apk"
+            }
+        }
     }
-    stage('Static analysis') {
-      steps {
-        // Run Lint and analyse the results
-        sh './gradlew lintDebug'
-        androidLint pattern: '**/lint-results-*.xml'
-      }
-    }
-  }
 }
