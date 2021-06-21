@@ -69,6 +69,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun initButtonFavorite() {
         binding.buttonDetailFavorite.setOnClickListener {
+            IdlingResourceHelper.increment()
             if (!isSaved && contentDetail != null) {
                 viewModel.saveWatchList(Content().apply {
                     this.id = contentDetail?.id
@@ -151,6 +152,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 else -> {
                 }
             }
+            IdlingResourceHelper.decrement()
         })
     }
 

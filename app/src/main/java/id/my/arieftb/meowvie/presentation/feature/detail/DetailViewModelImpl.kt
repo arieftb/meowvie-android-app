@@ -17,7 +17,9 @@ import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -75,43 +77,63 @@ class DetailViewModelImpl @Inject constructor(
 
     override fun checkWatchList(code: Long, type: ContentType) {
         isAvailableValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isAvailableValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = checkWatchListUseCase.invoke(code, type)) {
-                is Result.Success -> isAvailableValue.value =
-                    Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isAvailableValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = checkWatchListUseCase.invoke(code, type)
+                withContext(Dispatchers.Main) {
+                    when (result) {
+                        is Result.Success -> isAvailableValue.value =
+                            Data(Status.SUCCESS, data = result.data)
+                        is Result.Failure -> isAvailableValue.value =
+                            Data(Status.ERROR, errorMessage = result.exception.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                isAvailableValue.value =
+                    Data(Status.ERROR, errorMessage = e.message)
             }
         }
     }
 
     override fun saveWatchList(content: Content) {
         isSavedValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = saveWatchListUseCase.invoke(content)) {
-                is Result.Success -> isSavedValue.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isSavedValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = saveWatchListUseCase.invoke(content)
+                withContext(Dispatchers.Main) {
+                    when (result) {
+                        is Result.Success -> isSavedValue.value =
+                            Data(Status.SUCCESS, data = result.data)
+                        is Result.Failure -> isSavedValue.value =
+                            Data(Status.ERROR, errorMessage = result.exception.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                isSavedValue.value =
+                    Data(Status.ERROR, errorMessage = e.message)
             }
         }
     }
 
     override fun removeContent(code: Long, type: ContentType) {
         isSavedValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = removeWatchListUseCase.invoke(code, type)) {
-                is Result.Success -> isSavedValue.value = Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> isSavedValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = removeWatchListUseCase.invoke(code, type)
+                withContext(Dispatchers.Main) {
+                    when (result) {
+                        is Result.Success -> isSavedValue.value =
+                            Data(Status.SUCCESS, data = result.data)
+                        is Result.Failure -> isSavedValue.value =
+                            Data(Status.ERROR, errorMessage = result.exception.message)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                isSavedValue.value =
+                    Data(Status.ERROR, errorMessage = e.message)
             }
         }
     }
