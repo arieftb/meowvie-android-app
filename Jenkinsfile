@@ -32,6 +32,7 @@ pipeline {
         }
         stage('Apk Storing') {
             steps {
+                sh './gradlew clean assemble${BUILD_TYPE}'
                 archiveArtifacts "**/${APP_NAME}-${BUILD_TYPE}.apk"
             }
         }
