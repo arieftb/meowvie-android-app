@@ -56,12 +56,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<ContentDetail>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.detailData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<ContentDetail>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.detailData.observeForever(observer)
+
                     viewModel.getMovieDetail(idParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -92,12 +93,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Success sequentially"
             ) {
-                val observer: Observer<Data<ContentDetail>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.detailData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<ContentDetail>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.detailData.observeForever(observer)
+
                     viewModel.getMovieDetail(idParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -127,12 +129,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<ContentDetail>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.detailData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<ContentDetail>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.detailData.observeForever(observer)
+
                     viewModel.getTvShowDetail(idParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -163,12 +166,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Success sequentially"
             ) {
-                val observer: Observer<Data<ContentDetail>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.detailData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<ContentDetail>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.detailData.observeForever(observer)
+
                     viewModel.getTvShowDetail(idParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -199,12 +203,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Failure sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isAvailable.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isAvailable.observeForever(observer)
+
                     viewModel.checkWatchList(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -234,12 +239,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success True sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isAvailable.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isAvailable.observeForever(observer)
+
                     viewModel.checkWatchList(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -264,12 +270,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success false sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isAvailable.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isAvailable.observeForever(observer)
+
                     viewModel.checkWatchList(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -299,12 +306,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Failure sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.saveWatchList(contentParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -334,12 +342,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success True sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.saveWatchList(contentParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -364,12 +373,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success False sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.saveWatchList(contentParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -400,12 +410,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Failure sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.removeContent(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -435,12 +446,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success True sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.removeContent(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
@@ -465,12 +477,13 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success False sequentially"
             ) {
-                val observer: Observer<Data<Boolean>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-
-                viewModel.isSaved.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<Boolean>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+
+                    viewModel.isSaved.observeForever(observer)
+
                     viewModel.removeContent(idParamDummy, typeParamDummy)
                     verifySequence {
                         observer.onChanged(Data(Status.LOADING))
