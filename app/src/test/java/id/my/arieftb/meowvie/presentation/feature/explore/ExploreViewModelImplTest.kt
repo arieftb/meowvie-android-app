@@ -10,6 +10,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -44,15 +45,17 @@ class ExploreViewModelImplTest : Spek({
                 }
 
                 viewModel.searchData.observeForever(observer)
-                viewModel.search(pageParamDummy, keywordParamDummy)
+                runBlockingTest {
+                    viewModel.search(pageParamDummy, keywordParamDummy)
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                    }
 
-                coVerify {
-                    searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                    coVerify {
+                        searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                    }
                 }
             }
         }
@@ -73,15 +76,17 @@ class ExploreViewModelImplTest : Spek({
                 }
 
                 viewModel.searchData.observeForever(observer)
-                viewModel.search(pageParamDummy, keywordParamDummy)
+                runBlockingTest {
+                    viewModel.search(pageParamDummy, keywordParamDummy)
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, emptyList()))
-                }
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, emptyList()))
+                    }
 
-                coVerify {
-                    searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                    coVerify {
+                        searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
+                    }
                 }
             }
         }
