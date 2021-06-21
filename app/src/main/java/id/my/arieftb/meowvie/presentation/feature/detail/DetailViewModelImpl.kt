@@ -16,7 +16,6 @@ import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,94 +45,140 @@ class DetailViewModelImpl @Inject constructor(
     }
 
     override fun getMovieDetail(id: Long) {
-        detailDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = getMovieDetailUseCase.invoke(id)) {
-                is Result.Success -> detailDataValue.value =
-                    Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> detailDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        detailDataValue.postValue(Data(Status.LOADING))
+        viewModelScope.launch {
+            try {
+                when (val result = withContext(Dispatchers.IO) {
+                    getMovieDetailUseCase.invoke(id)
+                }) {
+                    is Result.Success -> {
+                        detailDataValue.postValue(
+                            Data(
+                                Status.SUCCESS,
+                                data = result.data
+                            )
+                        )
+                    }
+                    is Result.Failure -> {
+                        detailDataValue.postValue(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = result.exception.message
+                            )
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                detailDataValue.postValue(Data(Status.ERROR, errorMessage = e.message))
             }
         }
     }
 
     override fun getTvShowDetail(id: Long) {
-        detailDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = getTvShowDetailUseCase.invoke(id)) {
-                is Result.Success -> detailDataValue.value =
-                    Data(Status.SUCCESS, data = result.data)
-                is Result.Failure -> detailDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        detailDataValue.postValue(Data(Status.LOADING))
+        viewModelScope.launch {
+            try {
+                when (val result = withContext(Dispatchers.IO) {
+                    getTvShowDetailUseCase.invoke(id)
+                }) {
+                    is Result.Success -> detailDataValue.postValue(
+                        Data(
+                            Status.SUCCESS,
+                            data = result.data
+                        )
+                    )
+                    is Result.Failure -> detailDataValue.postValue(
+                        Data(
+                            Status.ERROR,
+                            errorMessage = result.exception.message
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                detailDataValue.postValue(Data(Status.ERROR, errorMessage = e.message))
             }
         }
     }
 
     override fun checkWatchList(code: Long, type: ContentType) {
-        isAvailableValue.value = Data(Status.LOADING)
-        viewModelScope.launch(Dispatchers.IO) {
+        isAvailableValue.postValue(Data(Status.LOADING))
+        viewModelScope.launch {
             try {
-                val result = checkWatchListUseCase.invoke(code, type)
-                withContext(Dispatchers.Main) {
-                    when (result) {
-                        is Result.Success -> isAvailableValue.value =
-                            Data(Status.SUCCESS, data = result.data)
-                        is Result.Failure -> isAvailableValue.value =
-                            Data(Status.ERROR, errorMessage = result.exception.message)
-                    }
+                when (val result = withContext(Dispatchers.IO) {
+                    checkWatchListUseCase.invoke(code, type)
+                }) {
+                    is Result.Success -> isAvailableValue.postValue(
+                        Data(
+                            Status.SUCCESS,
+                            data = result.data
+                        )
+                    )
+                    is Result.Failure -> isAvailableValue.postValue(
+                        Data(
+                            Status.ERROR,
+                            errorMessage = result.exception.message
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                isAvailableValue.value =
-                    Data(Status.ERROR, errorMessage = e.message)
+                isAvailableValue.postValue(Data(Status.ERROR, errorMessage = e.message))
             }
         }
     }
 
     override fun saveWatchList(content: Content) {
-        isSavedValue.value = Data(Status.LOADING)
-        viewModelScope.launch(Dispatchers.IO) {
+        isSavedValue.postValue(Data(Status.LOADING))
+        viewModelScope.launch {
             try {
-                val result = saveWatchListUseCase.invoke(content)
-                withContext(Dispatchers.Main) {
-                    when (result) {
-                        is Result.Success -> isSavedValue.value =
-                            Data(Status.SUCCESS, data = result.data)
-                        is Result.Failure -> isSavedValue.value =
-                            Data(Status.ERROR, errorMessage = result.exception.message)
-                    }
+                when (val result = withContext(Dispatchers.IO) {
+                    saveWatchListUseCase.invoke(content)
+                }) {
+                    is Result.Success -> isSavedValue.postValue(
+                        Data(
+                            Status.SUCCESS,
+                            data = result.data
+                        )
+                    )
+                    is Result.Failure -> isSavedValue.postValue(
+                        Data(
+                            Status.ERROR,
+                            errorMessage = result.exception.message
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                isSavedValue.value =
-                    Data(Status.ERROR, errorMessage = e.message)
+                isSavedValue.postValue(Data(Status.ERROR, errorMessage = e.message))
             }
         }
     }
 
     override fun removeContent(code: Long, type: ContentType) {
         isSavedValue.value = Data(Status.LOADING)
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
-                val result = removeWatchListUseCase.invoke(code, type)
-                withContext(Dispatchers.Main) {
-                    when (result) {
-                        is Result.Success -> isSavedValue.value =
-                            Data(Status.SUCCESS, data = result.data)
-                        is Result.Failure -> isSavedValue.value =
-                            Data(Status.ERROR, errorMessage = result.exception.message)
-                    }
+                when (val result = withContext(Dispatchers.IO) {
+                    removeWatchListUseCase.invoke(code, type)
+                }) {
+                    is Result.Success -> isSavedValue.postValue(
+                        Data(
+                            Status.SUCCESS,
+                            data = result.data
+                        )
+                    )
+                    is Result.Failure -> isSavedValue.postValue(
+                        Data(
+                            Status.ERROR,
+                            errorMessage = result.exception.message
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                isSavedValue.value =
-                    Data(Status.ERROR, errorMessage = e.message)
+                isSavedValue.postValue(Data(Status.ERROR, errorMessage = e.message))
             }
         }
     }
