@@ -30,9 +30,9 @@ pipeline {
                 sh './gradlew clean assemble${BUILD_TYPE}'
             }
         }
-        stage('Aok Storing') {
+        stage('Apk Storing') {
             steps {
-                archiveArtifacts "**/${APP_NAME}-${BUILD_TYPE}-${TAG_TIMESTAMP}.apk"
+                archiveArtifacts "**/${APP_NAME}-${BUILD_TYPE}.apk"
             }
         }
     }
