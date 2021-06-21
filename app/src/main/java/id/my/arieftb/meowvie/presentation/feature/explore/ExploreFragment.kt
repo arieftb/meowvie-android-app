@@ -19,6 +19,7 @@ import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
+import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 
 @AndroidEntryPoint
@@ -50,6 +51,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
             buttonExploreSearch.setOnClickListener {
                 if (formExploreSearch.text.toString().isNotEmpty()) {
                     formExploreSearch.text.toString().let {
+                        IdlingResourceHelper.increment()
                         viewModel.search(page, it)
                         searchKey = it
                     }
@@ -100,6 +102,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     }
 
     private fun setSuccessView(data: List<Content>?) {
+        IdlingResourceHelper.decrement()
         if (!data.isNullOrEmpty()) {
             with(binding) {
                 shimmerExploreDefault.hide()
