@@ -15,9 +15,12 @@ import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class DetailViewModelImplTest : Spek({
     applyTestDispatcher()
     applyInstantTaskExecutor()
@@ -58,15 +61,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.detailData.observeForever(observer)
-                viewModel.getMovieDetail(idParamDummy)
+                runBlockingTest {
+                    viewModel.getMovieDetail(idParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
-
-                coVerify {
-                    getMovieDetailUseCase.invoke(idParamDummy)
+                    coVerify {
+                        getMovieDetailUseCase.invoke(idParamDummy)
+                    }
                 }
             }
         }
@@ -88,15 +92,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.detailData.observeForever(observer)
-                viewModel.getMovieDetail(idParamDummy)
+                runBlockingTest {
+                    viewModel.getMovieDetail(idParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
-                }
-
-                coVerify {
-                    getMovieDetailUseCase.invoke(idParamDummy)
+                    coVerify {
+                        getMovieDetailUseCase.invoke(idParamDummy)
+                    }
                 }
             }
         }
@@ -122,15 +127,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.detailData.observeForever(observer)
-                viewModel.getTvShowDetail(idParamDummy)
+                runBlockingTest {
+                    viewModel.getTvShowDetail(idParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
-
-                coVerify {
-                    getTvShowDetailUseCase.invoke(idParamDummy)
+                    coVerify {
+                        getTvShowDetailUseCase.invoke(idParamDummy)
+                    }
                 }
             }
         }
@@ -152,15 +158,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.detailData.observeForever(observer)
-                viewModel.getTvShowDetail(idParamDummy)
+                runBlockingTest {
+                    viewModel.getTvShowDetail(idParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = contentDetailDummy))
-                }
-
-                coVerify {
-                    getTvShowDetailUseCase.invoke(idParamDummy)
+                    coVerify {
+                        getTvShowDetailUseCase.invoke(idParamDummy)
+                    }
                 }
             }
         }
@@ -187,15 +194,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isAvailable.observeForever(observer)
-                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
-                }
-
-                coVerify {
-                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                    coVerify {
+                        checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                    }
                 }
             }
         }
@@ -216,15 +224,16 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isAvailable.observeForever(observer)
-                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                    verifySequence {
+                        observer.onChanged(Data(Status.LOADING))
+                        observer.onChanged(Data(Status.SUCCESS, data = true))
+                    }
 
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = true))
-                }
-
-                coVerify {
-                    checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                    coVerify {
+                        checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
+                    }
                 }
             }
         }
@@ -245,7 +254,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isAvailable.observeForever(observer)
-                viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.checkWatchList(idParamDummy, typeParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -279,7 +290,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.saveWatchList(contentParamDummy)
+                runBlockingTest {
+                    viewModel.saveWatchList(contentParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -308,7 +321,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.saveWatchList(contentParamDummy)
+                runBlockingTest {
+                    viewModel.saveWatchList(contentParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -337,15 +352,8 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.saveWatchList(contentParamDummy)
-
-                verifySequence {
-                    observer.onChanged(Data(Status.LOADING))
-                    observer.onChanged(Data(Status.SUCCESS, data = false))
-                }
-
-                coVerify {
-                    saveWatchListUseCase.invoke(contentParamDummy)
+                runBlockingTest {
+                    viewModel.saveWatchList(contentParamDummy)
                 }
             }
         }
@@ -372,7 +380,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.removeContent(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.removeContent(idParamDummy, typeParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -401,7 +411,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.removeContent(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.removeContent(idParamDummy, typeParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
@@ -430,7 +442,9 @@ class DetailViewModelImplTest : Spek({
                 }
 
                 viewModel.isSaved.observeForever(observer)
-                viewModel.removeContent(idParamDummy, typeParamDummy)
+                runBlockingTest {
+                    viewModel.removeContent(idParamDummy, typeParamDummy)
+                }
 
                 verifySequence {
                     observer.onChanged(Data(Status.LOADING))
