@@ -57,11 +57,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getMovies()
 
                     verifySequence {
@@ -92,11 +93,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getMovies()
 
                     verifySequence {
@@ -132,11 +134,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getTvShows()
 
                     verifySequence {
@@ -167,11 +170,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getTvShows()
 
                     verifySequence {
@@ -207,11 +211,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getUpComingMovies()
 
                     verifySequence {
@@ -242,11 +247,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getUpComingMovies()
 
                     verifySequence {
@@ -282,11 +288,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getUpComingTvShows()
 
                     verifySequence {
@@ -317,11 +324,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getUpComingMovies()
 
                     verifySequence {
@@ -356,11 +364,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getPopularMovies()
 
                     verifySequence {
@@ -391,11 +400,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getPopularMovies()
 
                     verifySequence {
@@ -430,11 +440,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getPopularTvShows()
 
                     verifySequence {
@@ -465,11 +476,12 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                val observer: Observer<Data<List<Content>>> = mockk {
-                    every { onChanged(any()) } just Runs
-                }
-                viewModel.contentData.observeForever(observer)
                 runBlockingTest {
+                    val observer: Observer<Data<List<Content>>> = mockk {
+                        every { onChanged(any()) } just Runs
+                    }
+                    viewModel.contentData.observeForever(observer)
+
                     viewModel.getPopularTvShows()
 
                     verifySequence {
