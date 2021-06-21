@@ -64,18 +64,18 @@ pipeline {
         // Upload the APK to Google Play
         androidApkUpload googleCredentialsId: 'Google Play', apkFilesPattern: '**/*-release.apk', trackName: 'beta'
       }
-      post {
-        success {
-          // Notify if the upload succeeded
-          mail to: 'beta-testers@example.com', subject: 'New build available!', body: 'Check it out!'
-        }
-      }
+//       post {
+//         success {
+//           // Notify if the upload succeeded
+//           mail to: 'beta-testers@example.com', subject: 'New build available!', body: 'Check it out!'
+//         }
+//       }
     }
   }
-  post {
-    failure {
-      // Notify developer team of the failure
-      mail to: 'android-devs@example.com', subject: 'Oops!', body: "Build ${env.BUILD_NUMBER} failed; ${env.BUILD_URL}"
-    }
-  }
+//   post {
+//     failure {
+//       // Notify developer team of the failure
+//       mail to: 'android-devs@example.com', subject: 'Oops!', body: "Build ${env.BUILD_NUMBER} failed; ${env.BUILD_URL}"
+//     }
+//   }
 }
