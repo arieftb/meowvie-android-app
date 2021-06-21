@@ -11,7 +11,9 @@ import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCase
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +34,9 @@ class ExploreViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             searchDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = searchContentsUseCase.invoke(page = page, keyword)) {
+            when (val result = withContext(Dispatchers.IO) {
+                searchContentsUseCase.invoke(page = page, keyword)
+            }) {
                 is Result.Success -> {
                     listData.addAll(result.data)
                     searchDataValue.value = Data(Status.SUCCESS, listData)
