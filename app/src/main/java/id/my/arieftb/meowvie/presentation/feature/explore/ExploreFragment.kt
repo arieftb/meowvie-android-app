@@ -1,8 +1,9 @@
 package id.my.arieftb.meowvie.presentation.feature.explore
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
+
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerListener {
@@ -44,21 +46,16 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     }
 
     private fun initSearchView() {
-        binding.searchExplore.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    viewModel.search(page, query)
-                    searchKey = query
+        with(binding) {
+            buttonExploreSearch.setOnClickListener {
+                if (formExploreSearch.text.toString().isNotEmpty()) {
+                    formExploreSearch.text.toString().let {
+                        viewModel.search(page, it)
+                        searchKey = it
+                    }
                 }
-                return false
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                page = 1
-                return false
-            }
-        })
+        }
     }
 
     private fun initContentList() {
@@ -93,6 +90,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
 
     private fun getContents() {
         viewModel.searchData.observe(viewLifecycleOwner, {
+            hideKeyBoard()
             when (it.status) {
                 Status.SUCCESS -> setSuccessView(it.data)
                 Status.ERROR -> setErrorView()
@@ -134,6 +132,16 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
             binding.textExploreErrorMessage.hide()
             binding.shimmerExploreDefault.show()
         }
+    }
+
+    private fun hideKeyBoard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity?.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onContentClickListener(id: Long?, type: ContentType?, view: View, title: String?) {
