@@ -122,7 +122,6 @@ class SectionViewModelImpl @Inject constructor(
     }
 
     override fun getPopularTvShows(page: Int) {
-        contentDataValue.value = Data(Status.LOADING)
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)

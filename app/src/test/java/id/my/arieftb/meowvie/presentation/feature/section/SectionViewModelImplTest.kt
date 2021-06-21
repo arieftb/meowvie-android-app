@@ -415,4 +415,78 @@ class SectionViewModelImplTest : Spek({
             }
         }
     }
+    describe(
+        "#${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::getPopularTvShows.name}"
+    ) {
+        context(
+            "when ${GetTvShowsPopularUseCase::class.java.simpleName}.${GetTvShowsPopularUseCase::invoke.name} return Result Failure"
+        ) {
+            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            beforeEachGroup {
+                coEvery {
+                    getTvShowsPopularUseCase.invoke()
+                } returns resultDummy
+            }
+            it(
+                "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
+            ) {
+                val observer: Observer<Data<List<Content>>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+                viewModel.contentData.observeForever(observer)
+                runBlockingTest {
+                    viewModel.getPopularTvShows()
+
+                    verifySequence {
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
+                    }
+
+                    coVerify {
+                        getTvShowsPopularUseCase
+                            .invoke()
+                    }
+                }
+            }
+        }
+        context(
+            "when ${GetTvShowsPopularUseCase::class.java.simpleName}.${GetTvShowsPopularUseCase::invoke.name} return Result Success"
+        ) {
+            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            beforeEachGroup {
+                coEvery {
+                    getTvShowsPopularUseCase.invoke()
+                } returns resultDummy
+            }
+            it(
+                "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
+            ) {
+                val observer: Observer<Data<List<Content>>> = mockk {
+                    every { onChanged(any()) } just Runs
+                }
+                viewModel.contentData.observeForever(observer)
+                runBlockingTest {
+                    viewModel.getPopularTvShows()
+
+                    verifySequence {
+                        observer.onChanged(
+                            Data(
+                                Status.SUCCESS,
+                                data = emptyList()
+                            )
+                        )
+                    }
+
+                    coVerify {
+                        getTvShowsPopularUseCase
+                            .invoke()
+                    }
+                }
+            }
+        }
+    }
 })
