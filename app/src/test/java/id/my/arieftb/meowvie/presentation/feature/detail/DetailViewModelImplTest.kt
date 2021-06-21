@@ -15,15 +15,19 @@ import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailViewModelImplTest : Spek({
-    applyTestDispatcher()
     applyInstantTaskExecutor()
+//    applyTestDispatcher()
 
     val getMovieDetailUseCase: GetMovieDetailUseCase = mockk(relaxed = true)
     val getTvShowDetailUseCase: GetTvShowDetailUseCase = mockk(relaxed = true)
@@ -38,6 +42,17 @@ class DetailViewModelImplTest : Spek({
             checkWatchListUseCase,
             removeWatchListUseCase
         )
+    }
+
+    val testCoroutineDispatcher = TestCoroutineDispatcher()
+
+    beforeEachTest {
+        Dispatchers.setMain(testCoroutineDispatcher)
+    }
+
+    afterEachTest {
+        Dispatchers.resetMain()
+        testCoroutineDispatcher.cleanupTestCoroutines()
     }
 
     describe(
@@ -56,7 +71,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<ContentDetail>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -93,7 +108,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Success sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<ContentDetail>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -129,7 +144,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<ContentDetail>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -166,7 +181,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Success sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<ContentDetail>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -203,7 +218,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Failure sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -239,7 +254,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success True sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -270,7 +285,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success false sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -306,7 +321,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Failure sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -342,7 +357,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success True sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -373,7 +388,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success False sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -410,7 +425,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Failure sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -446,7 +461,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success True sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -477,7 +492,7 @@ class DetailViewModelImplTest : Spek({
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success False sequentially"
             ) {
-                runBlockingTest {
+                testCoroutineDispatcher.runBlockingTest {
                     val observer: Observer<Data<Boolean>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
