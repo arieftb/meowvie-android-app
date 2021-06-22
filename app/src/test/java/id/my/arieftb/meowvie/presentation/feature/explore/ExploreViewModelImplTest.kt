@@ -10,6 +10,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -20,8 +21,9 @@ class ExploreViewModelImplTest : Spek({
     applyTestDispatcher()
     applyInstantTaskExecutor()
 
+    val testDispatcher = TestCoroutineDispatcher()
     val searchContentUseCase: SearchContentsUseCase = mockk(relaxed = true)
-    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase) }
+    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase, testDispatcher) }
 
     describe(
         "#${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::search.name}"
@@ -47,7 +49,7 @@ class ExploreViewModelImplTest : Spek({
                 viewModel.searchData.observeForever(observer)
                 runBlockingTest {
                     viewModel.search(pageParamDummy, keywordParamDummy)
-                    
+
                     coVerify {
                         observer.onChanged(Data(Status.LOADING))
                     }
