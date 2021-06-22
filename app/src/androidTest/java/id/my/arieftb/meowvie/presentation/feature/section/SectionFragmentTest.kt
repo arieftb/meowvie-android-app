@@ -51,7 +51,7 @@ class SectionFragmentTest {
         onView(withId(R.id.textSectionErrorMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
         onView(withId(R.id.shimmerSectionDefault)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.listSection)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        Thread.sleep(5000)
+        Thread.sleep(3000)
     }
 
     @Test
@@ -67,7 +67,7 @@ class SectionFragmentTest {
         onView(withId(R.id.listSection)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.listSection)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
-        Thread.sleep(5000)
+        Thread.sleep(3000)
     }
 
     @Test
@@ -82,6 +82,6 @@ class SectionFragmentTest {
         onView(withId(R.id.shimmerSectionDefault)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
         onView(withId(R.id.listSection)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
-        Thread.sleep(5000)
+        Thread.sleep(3000)
     }
 }
