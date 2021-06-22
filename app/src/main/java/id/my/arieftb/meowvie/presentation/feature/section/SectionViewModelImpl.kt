@@ -14,12 +14,10 @@ import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUse
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
+import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +27,8 @@ class SectionViewModelImpl @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
     private val getTvShowsUpcomingUseCase: GetTvShowsUpcomingUseCase,
     private val getMoviesPopularUseCase: GetMoviesPopularUseCase,
-    private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase
+    private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel(), SectionViewModel {
     private val listData = mutableListOf<Content>()
 
@@ -56,11 +55,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -70,11 +70,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -84,11 +85,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesUpcomingUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -98,11 +100,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsUpcomingUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -112,11 +115,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesPopularUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
@@ -126,11 +130,12 @@ class SectionViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsPopularUseCase.invoke(page = page)
             }) {
                 is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value = Data(Status.ERROR, errorMessage = result.exception.message)
+                is Result.Failure -> contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = result.exception.message)
             }
         }
     }
