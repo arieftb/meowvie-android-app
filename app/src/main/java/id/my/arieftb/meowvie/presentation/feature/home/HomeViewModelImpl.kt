@@ -13,12 +13,10 @@ import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHig
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
+import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +26,8 @@ class HomeViewModelImpl @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingHighlightUseCase,
     private val getTvShowsUpcomingHighlightUseCase: GetTvShowsUpcomingHighlightUseCase,
     private val getMoviesPopularHighlightUseCase: GetMoviesPopularHighlightUseCase,
-    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase
+    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) :
     ViewModel(),
     HomeViewModel {
@@ -51,7 +50,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesHighlightUseCase.invoke()
             }) {
                 is Result.Success -> {
@@ -71,7 +70,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsHighlightUseCase.invoke()
             }) {
                 is Result.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, result.data)
@@ -87,7 +86,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesUpcomingUseCase.invoke()
             }) {
                 is Result.Success -> moviesUpcomingDataValue.value =
@@ -104,7 +103,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsUpcomingHighlightUseCase.invoke()
             }) {
                 is Result.Success -> tvShowsUpcomingDataValue.value =
@@ -121,7 +120,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             moviesPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMoviesPopularHighlightUseCase.invoke()
             }) {
                 is Result.Success -> moviesPopularDataValue.value =
@@ -138,7 +137,7 @@ class HomeViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             tvShowsPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowsPopularHighlightUseCase.invoke()
             }) {
                 is Result.Success -> tvShowsPopularDataValue.value =
