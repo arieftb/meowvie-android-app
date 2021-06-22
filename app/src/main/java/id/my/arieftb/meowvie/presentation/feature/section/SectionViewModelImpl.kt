@@ -36,7 +36,7 @@ class SectionViewModelImpl @Inject constructor(
     override val contentData: LiveData<Data<List<Content>>> = contentDataValue
 
     override fun getContents(page: Int, type: SectionType) {
-        if (page == 0) {
+        if (page == 1) {
             contentDataValue.value = Data(Status.LOADING)
         }
 
