@@ -18,10 +18,11 @@ import org.spekframework.spek2.style.specification.describe
 @OptIn(ExperimentalCoroutinesApi::class)
 class ExploreViewModelImplTest : Spek({
 
-    applyTestDispatcher()
+    val testDispatcher = TestCoroutineDispatcher()
+    applyTestDispatcher(testDispatcher)
     applyInstantTaskExecutor()
 
-    val testDispatcher = TestCoroutineDispatcher()
+
     val searchContentUseCase: SearchContentsUseCase = mockk(relaxed = true)
     val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase, testDispatcher) }
 
@@ -47,13 +48,11 @@ class ExploreViewModelImplTest : Spek({
                 }
 
                 viewModel.searchData.observeForever(observer)
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     viewModel.search(pageParamDummy, keywordParamDummy)
 
-                    coVerify {
+                    verifySequence {
                         observer.onChanged(Data(Status.LOADING))
-                    }
-                    coVerify {
                         observer.onChanged(
                             Data(
                                 Status.ERROR,
@@ -87,14 +86,11 @@ class ExploreViewModelImplTest : Spek({
                 }
 
                 viewModel.searchData.observeForever(observer)
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     viewModel.search(pageParamDummy, keywordParamDummy)
 
-                    coVerify {
+                    verifySequence {
                         observer.onChanged(Data(Status.LOADING))
-                    }
-
-                    coVerify {
                         observer.onChanged(Data(Status.SUCCESS, emptyList()))
                     }
 
