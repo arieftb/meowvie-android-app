@@ -15,16 +15,17 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.meta.Ignore
 import org.spekframework.spek2.style.specification.describe
 
-@Ignore
 @OptIn(ExperimentalCoroutinesApi::class)
 class SectionViewModelImplTest : Spek({
+    val testDispatcher = TestCoroutineDispatcher()
+    applyTestDispatcher(testDispatcher)
     applyInstantTaskExecutor()
-    applyTestDispatcher()
 
     val getMoviesUseCase: GetMoviesUseCase = mockk(relaxed = true)
     val getTvShowsUseCase: GetTvShowsUseCase = mockk(relaxed = true)
@@ -40,7 +41,8 @@ class SectionViewModelImplTest : Spek({
             getMoviesUpcomingUseCase,
             getTvShowsUpcomingUseCase,
             getMoviesPopularUseCase,
-            getTvShowsPopularUseCase
+            getTvShowsPopularUseCase,
+            testDispatcher
         )
     }
 
@@ -59,7 +61,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -95,7 +97,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -136,7 +138,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -172,7 +174,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -213,7 +215,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -249,7 +251,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -290,7 +292,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -326,7 +328,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -366,7 +368,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -402,7 +404,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -442,7 +444,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
@@ -478,7 +480,7 @@ class SectionViewModelImplTest : Spek({
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
             ) {
-                runBlockingTest {
+                testDispatcher.runBlockingTest {
                     val observer: Observer<Data<List<Content>>> = mockk {
                         every { onChanged(any()) } just Runs
                     }
