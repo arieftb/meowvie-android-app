@@ -13,6 +13,7 @@ import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.presentation.adapter.*
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
+import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListener {
@@ -24,13 +25,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
     private lateinit var moviePopularAdapter: ContentPortraitRecyclerAdapter
     private lateinit var tvShowPopularAdapter: ContentPortraitRecyclerAdapter
 
-    private val viewModel: HomeViewModelImpl by viewModels()
+    val viewModel: HomeViewModelImpl by viewModels()
 
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(viewModel) {
+            IdlingResourceHelper.increment()
             getMoviesHighlight()
             getTvShowsHighlight()
             getMoviesUpcomingHighlight()
@@ -169,6 +171,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 Status.SUCCESS -> {
                     binding.sectionHomeNewMovie.status = it.status
                     movieAdapter.addAll(it.data)
+                    IdlingResourceHelper.decrement()
                 }
                 Status.ERROR -> {
                     binding.sectionHomeNewMovie.status = it.status
