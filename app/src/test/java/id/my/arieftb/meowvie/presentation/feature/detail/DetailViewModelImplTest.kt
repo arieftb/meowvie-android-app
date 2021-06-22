@@ -11,6 +11,7 @@ import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
+import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
@@ -24,11 +25,11 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.meta.Ignore
 import org.spekframework.spek2.style.specification.describe
 
-@Ignore
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailViewModelImplTest : Spek({
+    val testCoroutineDispatcher = TestCoroutineDispatcher()
+    applyTestDispatcher(testCoroutineDispatcher)
     applyInstantTaskExecutor()
-//    applyTestDispatcher()
 
     val getMovieDetailUseCase: GetMovieDetailUseCase = mockk(relaxed = true)
     val getTvShowDetailUseCase: GetTvShowDetailUseCase = mockk(relaxed = true)
@@ -41,20 +42,11 @@ class DetailViewModelImplTest : Spek({
             getTvShowDetailUseCase,
             saveWatchListUseCase,
             checkWatchListUseCase,
-            removeWatchListUseCase
+            removeWatchListUseCase,
+            testCoroutineDispatcher
         )
     }
 
-    val testCoroutineDispatcher = TestCoroutineDispatcher()
-
-    beforeEachTest {
-        Dispatchers.setMain(testCoroutineDispatcher)
-    }
-
-    afterEachTest {
-        Dispatchers.resetMain()
-        testCoroutineDispatcher.cleanupTestCoroutines()
-    }
 
     describe(
         "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name}"
@@ -80,7 +72,7 @@ class DetailViewModelImplTest : Spek({
                     viewModel.detailData.observeForever(observer)
 
                     viewModel.getMovieDetail(idParamDummy)
-                    verifyAll {
+                    verifySequence {
                         observer.onChanged(Data(Status.LOADING))
                         observer.onChanged(
                             Data(
