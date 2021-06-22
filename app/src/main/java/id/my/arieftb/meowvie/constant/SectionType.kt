@@ -6,5 +6,6 @@ enum class SectionType {
     UPCOMING_MOVIE,
     UPCOMING_TV,
     POPULAR_MOVIE,
-    POPULAR_TV
+    POPULAR_TV,
+    UNKNOWN
 }

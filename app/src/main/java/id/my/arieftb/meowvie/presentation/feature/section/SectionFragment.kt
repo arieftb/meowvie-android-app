@@ -2,6 +2,7 @@ package id.my.arieftb.meowvie.presentation.feature.section
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
+import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint
 class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerListener {
@@ -32,6 +34,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        IdlingResourceHelper.increment()
         initArgs()
         viewModel.getContents(page, type)
     }
@@ -91,15 +94,17 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
     private fun setSuccessView(data: List<Content>?) {
         if (!data.isNullOrEmpty()) {
             with(binding) {
+                if (!listSection.isVisible) listSection.show()
                 shimmerSectionDefault.hide()
                 textSectionErrorMessage.hide()
-//                listSection.show()
                 adapter?.replaceAll(data)
             }
             isPaginationEnable = true
+            IdlingResourceHelper.decrement()
         } else {
             setErrorView(getString(R.string.error_message_list_empty))
         }
+        IdlingResourceHelper.decrement()
     }
 
     private fun setErrorView(errorMessage: String? = getString(R.string.error_message_something_went_wrong)) {

@@ -44,12 +44,13 @@ class SectionViewModelImpl @Inject constructor(
         }
 
         when (type) {
+            SectionType.NEW_MOVIE -> getMovies(page)
             SectionType.NEW_TV -> getTvShows(page)
             SectionType.UPCOMING_MOVIE -> getUpComingMovies(page)
             SectionType.UPCOMING_TV -> getUpComingTvShows(page)
             SectionType.POPULAR_MOVIE -> getPopularMovies(page)
             SectionType.POPULAR_TV -> getPopularTvShows(page)
-            else -> getMovies(page)
+            else -> contentDataValue.value = Data(Status.SUCCESS, emptyList())
         }
     }
 
