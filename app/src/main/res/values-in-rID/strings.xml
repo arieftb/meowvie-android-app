@@ -16,7 +16,6 @@
 
     <string name="hint_search_here">Cari di sini …</string>
 
-<!--    TODO : 04/05/2021 - Translate THIS-->
     <string name="section_new_movie">Film Terbaru di Meowvie</string>
     <string name="section_new_tv_show">Acara TV Terbaru di Meowvie</string>
     <string name="section_coming_soon_movie">Film Akan Datang</string>
@@ -27,4 +26,6 @@
     <string name="error_message_something_went_wrong">Terjadi kesalahan, silahkan coba lagi nanti.</string>
     <string name="error_message_watch_list_empty">Anda belum memiliki daftar tontonan.</string>
     <string name="error_message_list_empty">Konten yang anda minta kosong, silahkan coba lagi nanti.</string>
+
+    <string name="warning_message_coming_soon">Segera Hadir</string>
 </resources>
