@@ -18,7 +18,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
-import org.spekframework.spek2.meta.Ignore
 import org.spekframework.spek2.style.specification.describe
 
 @OptIn(ExperimentalCoroutinesApi::class)
