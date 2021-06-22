@@ -14,10 +14,11 @@ import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCa
 import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
+import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -28,7 +29,8 @@ class DetailViewModelImpl @Inject constructor(
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
     private val saveWatchListUseCase: SaveWatchListUseCase,
     private val checkWatchListUseCase: CheckWatchListUseCase,
-    private val removeWatchListUseCase: RemoveWatchListUseCase
+    private val removeWatchListUseCase: RemoveWatchListUseCase,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) :
     ViewModel(), DetailViewModel {
     private val detailDataValue: MutableLiveData<Data<ContentDetail>> = MutableLiveData()
@@ -51,7 +53,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getMovieDetailUseCase.invoke(id)
             }) {
                 is Result.Success -> {
@@ -78,7 +80,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 getTvShowDetailUseCase.invoke(id)
             }) {
                 is Result.Success -> detailDataValue.value =
@@ -101,7 +103,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isAvailableValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 checkWatchListUseCase.invoke(code, type)
             }) {
                 is Result.Success -> isAvailableValue.value =
@@ -124,7 +126,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 saveWatchListUseCase.invoke(content)
             }) {
                 is Result.Success -> isSavedValue.value =
@@ -147,7 +149,7 @@ class DetailViewModelImpl @Inject constructor(
             throwable.printStackTrace()
             isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
         }) {
-            when (val result = withContext(Dispatchers.IO) {
+            when (val result = withContext(dispatcher) {
                 removeWatchListUseCase.invoke(code, type)
             }) {
                 is Result.Success -> isSavedValue.value =
