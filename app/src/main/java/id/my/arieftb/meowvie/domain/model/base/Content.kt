@@ -62,7 +62,7 @@ open class Content(
                 BuildConfig.BASE_URL_IMAGE_LANDSCAPE + response.bannerPath
             } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
             this.posterPath = BuildConfig.BASE_URL_IMAGE_PORTRAIT + response.posterPath
-            this.type = if (response.type == "tv") {
+            this.type = if (response.type == "TV") {
                 ContentType.TV
             } else {
                 ContentType.MOVIE
