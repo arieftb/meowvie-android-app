@@ -49,9 +49,20 @@ class ExploreFragmentTest {
         onView(withId(R.id.formExploreSearch)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.buttonExploreSearch)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         onView(withId(R.id.listExplore)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.textExploreErrorMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.shimmerExploreDefault)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        Thread.sleep(3000)
+        onView(withId(R.id.textExploreErrorMessage)).check(
+            matches(
+                withEffectiveVisibility(
+                    ViewMatchers.Visibility.GONE
+                )
+            )
+        )
+        onView(withId(R.id.shimmerExploreDefault)).check(
+            matches(
+                withEffectiveVisibility(
+                    ViewMatchers.Visibility.GONE
+                )
+            )
+        )
     }
 
     @Test
@@ -62,8 +73,13 @@ class ExploreFragmentTest {
         onView(withId(R.id.formExploreSearch)).perform(typeText("afpjwfjwfjawpifjap"))
         onView(withId(R.id.buttonExploreSearch)).perform(click())
         onView(withId(R.id.listExplore)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.textExploreErrorMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-        Thread.sleep(3000)
+        onView(withId(R.id.textExploreErrorMessage)).check(
+            matches(
+                withEffectiveVisibility(
+                    ViewMatchers.Visibility.VISIBLE
+                )
+            )
+        )
     }
 
     @Test
@@ -73,9 +89,19 @@ class ExploreFragmentTest {
         onView(withId(R.id.formExploreSearch)).perform(click())
         onView(withId(R.id.formExploreSearch)).perform(typeText("avenger"))
         onView(withId(R.id.buttonExploreSearch)).perform(click())
-        onView(withId(R.id.textExploreErrorMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        onView(withId(R.id.textExploreErrorMessage)).check(
+            matches(
+                withEffectiveVisibility(
+                    ViewMatchers.Visibility.GONE
+                )
+            )
+        )
         onView(withId(R.id.listExplore)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-        onView(withId(R.id.listExplore)).perform(actionOnItemAtPosition<ContentPortraitGridRecyclerAdapter.ContentPortraitGridRecyclerViewHolder>(6, scrollTo()))
-        Thread.sleep(3000)
+        onView(withId(R.id.listExplore)).perform(
+            actionOnItemAtPosition<ContentPortraitGridRecyclerAdapter.ContentPortraitGridRecyclerViewHolder>(
+                6,
+                scrollTo()
+            )
+        )
     }
 }
