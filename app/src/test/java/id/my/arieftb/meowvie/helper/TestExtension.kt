@@ -16,16 +16,15 @@ fun GroupBody.applyInstantTaskExecutor() {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun GroupBody.applyTestDispatcher() {
-    val testCoroutineDispatcher = TestCoroutineDispatcher()
+fun GroupBody.applyTestDispatcher(dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) {
 
     beforeEachTest {
-        Dispatchers.setMain(testCoroutineDispatcher)
+        Dispatchers.setMain(dispatcher)
     }
 
     afterEachTest {
         Dispatchers.resetMain()
-        testCoroutineDispatcher.cleanupTestCoroutines()
+        dispatcher.cleanupTestCoroutines()
     }
 
 }
