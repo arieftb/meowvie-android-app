@@ -47,15 +47,24 @@ class ExploreViewModelImplTest : Spek({
                 viewModel.searchData.observeForever(observer)
                 runBlockingTest {
                     viewModel.search(pageParamDummy, keywordParamDummy)
-
-                    verifySequence {
+                    
+                    coVerify {
                         observer.onChanged(Data(Status.LOADING))
-                        observer.onChanged(Data(Status.ERROR, errorMessage = "Something went wrong"))
+                    }
+                    coVerify {
+                        observer.onChanged(
+                            Data(
+                                Status.ERROR,
+                                errorMessage = "Something went wrong"
+                            )
+                        )
                     }
 
                     coVerify {
                         searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
                     }
+
+                    viewModel.searchData.removeObserver(observer)
                 }
             }
         }
@@ -79,14 +88,19 @@ class ExploreViewModelImplTest : Spek({
                 runBlockingTest {
                     viewModel.search(pageParamDummy, keywordParamDummy)
 
-                    verifySequence {
+                    coVerify {
                         observer.onChanged(Data(Status.LOADING))
+                    }
+
+                    coVerify {
                         observer.onChanged(Data(Status.SUCCESS, emptyList()))
                     }
 
                     coVerify {
                         searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
                     }
+
+                    viewModel.searchData.removeObserver(observer)
                 }
             }
         }
