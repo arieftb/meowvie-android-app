@@ -10,6 +10,6 @@ class GetWatchListAllUseCaseImpl @Inject constructor(
     private val repository: WatchListRepository
 ) : GetWatchListAllUseCase {
     override fun invoke(limit: Int): Flow<PagingData<Content>> {
-        return repository.fetchAllWatchList(limit, Content())
+        return repository.fetchAllWatchList(limit)
     }
 }

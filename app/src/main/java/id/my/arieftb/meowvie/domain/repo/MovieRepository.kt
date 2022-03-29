@@ -9,6 +9,6 @@ import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 
 interface MovieRepository {
-    suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Content>>
-    suspend fun fetch(request: DetailRequest, data: MovieDetail): Result<ContentDetail>
+    suspend fun fetchAll(request: DiscoverRequest): Result<List<Content>>
+    suspend fun fetch(request: DetailRequest): Result<ContentDetail>
 }

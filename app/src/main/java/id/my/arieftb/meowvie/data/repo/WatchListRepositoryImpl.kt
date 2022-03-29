@@ -44,7 +44,7 @@ class WatchListRepositoryImpl @Inject constructor(
         return Result.Failure(exception = Exception("Something went wrong"))
     }
 
-    override fun fetchAllWatchList(limit: Int, data: Content): Flow<PagingData<Content>> {
+    override fun fetchAllWatchList(limit: Int): Flow<PagingData<Content>> {
         return Pager(
             PagingConfig(
                 pageSize = limit,
@@ -55,7 +55,7 @@ class WatchListRepositoryImpl @Inject constructor(
             local.fetchAllWatchList()
         }.flow.map {
             it.map { entity ->
-                data.mapFromWatchlistResult(entity)
+                entity.toContent()
             }
         }
     }

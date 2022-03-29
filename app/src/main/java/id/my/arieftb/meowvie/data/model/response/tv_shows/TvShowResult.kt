@@ -2,6 +2,10 @@ package id.my.arieftb.meowvie.data.model.response.tv_shows
 
 
 import com.google.gson.annotations.SerializedName
+import id.my.arieftb.meowvie.BuildConfig
+import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 
 data class TvShowResult(
     @SerializedName("backdrop_path")
@@ -30,4 +34,23 @@ data class TvShowResult(
     val voteAverage: String? = null,
     @SerializedName("vote_count")
     val voteCount: Long? = null
-)
+) : TvShowResultMapper {
+    override fun toTvShow(): Content {
+        return TvShow(
+            id = this.id!!,
+            title = this.name!!
+        ).apply {
+            posterPath =
+                BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + this@TvShowResult.posterPath
+            bannerPath = if (this@TvShowResult.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + this@TvShowResult.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + this@TvShowResult.posterPath
+            type = ContentType.TV
+        }
+    }
+
+}
+
+interface TvShowResultMapper {
+    fun toTvShow(): Content
+}

@@ -15,12 +15,12 @@ class MovieRepositoryImpl @Inject constructor(
     private val remote: MovieRemoteDataSource
 ) :
     MovieRepository {
-    override suspend fun fetchAll(request: DiscoverRequest, data: Movie): Result<List<Content>> {
+    override suspend fun fetchAll(request: DiscoverRequest): Result<List<Content>> {
         val response = remote.fetchAll(request)
         if (response.isSuccessful) {
             if (response.body() != null) {
                 return Result.Success(data = response.body()?.movieResults?.map {
-                    data.mapFromMovieResult(it)
+                    it.toMovie()
                 }?.toList() ?: emptyList())
             }
             return Result.Failure(Exception("Something went wrong"))
@@ -28,12 +28,12 @@ class MovieRepositoryImpl @Inject constructor(
         return Result.Failure(Exception("Something went wrong"))
     }
 
-    override suspend fun fetch(request: DetailRequest, data: MovieDetail): Result<ContentDetail> {
+    override suspend fun fetch(request: DetailRequest): Result<ContentDetail> {
         val response = remote.fetch(request)
         if (response.isSuccessful) {
             if (response.body() != null) {
                 if (response.body()?.success == true) {
-                    return Result.Success(data = data.mapFromMovieDetailResponse(response.body()))
+                    return Result.Success(data = response.body()!!.toMovieDetail())
                 }
                 return Result.Failure(Exception("Something went wrong"))
             }

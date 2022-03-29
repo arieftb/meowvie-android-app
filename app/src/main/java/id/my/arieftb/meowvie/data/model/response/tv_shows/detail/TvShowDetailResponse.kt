@@ -2,6 +2,9 @@ package id.my.arieftb.meowvie.data.model.response.tv_shows.detail
 
 
 import com.google.gson.annotations.SerializedName
+import id.my.arieftb.meowvie.BuildConfig
+import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
 
 data class TvShowDetailResponse(
     @SerializedName("backdrop_path")
@@ -72,4 +75,27 @@ data class TvShowDetailResponse(
     val statusCode: Long? = 0L,
     @SerializedName("status_message")
     val statusMessage: String? = null
-)
+): TvShowDetailResponseMapper {
+    override fun toTvShowDetail(): ContentDetail {
+        return TvShowDetail(
+            id = this.id!!,
+            title = this.name!!,
+        ).apply {
+            posterPath =
+                BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + this@TvShowDetailResponse.posterPath
+            bannerPath = if (this@TvShowDetailResponse.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + this@TvShowDetailResponse.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + this@TvShowDetailResponse.posterPath
+            releaseDate = this@TvShowDetailResponse.firstAirDate ?: ""
+            overview = this@TvShowDetailResponse.overview ?: ""
+            genre = this@TvShowDetailResponse.genres?.joinToString(", ") {
+                it.name.toString()
+            } ?: ""
+        }
+    }
+
+}
+
+interface TvShowDetailResponseMapper {
+    fun toTvShowDetail(): ContentDetail
+}

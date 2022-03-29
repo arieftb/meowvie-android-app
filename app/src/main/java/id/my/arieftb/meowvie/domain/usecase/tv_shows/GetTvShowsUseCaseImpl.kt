@@ -26,7 +26,6 @@ class GetTvShowsUseCaseImpl constructor(
             this.releaseDateGte = releaseDateGte
             this.language = getLanguageUseCase.invoke()
         }
-        val data = TvShow()
-        return repository.fetchAll(request, data)
+        return repository.fetchAll(request)
     }
 }

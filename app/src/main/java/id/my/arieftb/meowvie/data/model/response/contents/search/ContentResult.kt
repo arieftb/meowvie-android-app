@@ -2,6 +2,9 @@ package id.my.arieftb.meowvie.data.model.response.contents.search
 
 
 import com.google.gson.annotations.SerializedName
+import id.my.arieftb.meowvie.BuildConfig
+import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.model.base.Content
 
 data class ContentResult(
     @SerializedName("adult")
@@ -42,4 +45,27 @@ data class ContentResult(
     val originCountry: List<String>? = null,
     @SerializedName("original_name")
     val originalName: String? = null
-)
+) : ContentResultMapper {
+    override fun toContent(): Content {
+        return Content(
+            id = this.id!!,
+            title = this.name ?: this.originalTitle ?: ""
+        ).apply {
+            posterPath =
+                BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + this@ContentResult.posterPath
+            bannerPath = if (this@ContentResult.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + this@ContentResult.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + this@ContentResult.posterPath
+            type = if (this@ContentResult.mediaType.equals("tv")) {
+                ContentType.TV
+            } else {
+                ContentType.MOVIE
+            }
+        }
+    }
+
+}
+
+interface ContentResultMapper {
+    fun toContent(): Content
+}

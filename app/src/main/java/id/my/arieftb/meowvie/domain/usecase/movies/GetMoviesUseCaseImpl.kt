@@ -28,7 +28,6 @@ class GetMoviesUseCaseImpl @Inject constructor(
             this.releaseDateGte = releaseDateGte
             this.language = getLanguageUseCase.invoke()
         }
-        val data = Movie()
-        return repository.fetchAll(request, data)
+        return repository.fetchAll(request)
     }
 }

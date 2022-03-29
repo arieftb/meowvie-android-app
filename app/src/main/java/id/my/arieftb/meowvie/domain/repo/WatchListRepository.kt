@@ -11,5 +11,5 @@ interface WatchListRepository {
     suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean>
     suspend fun checkWatchList(code: Long, type: ContentType): Result<Boolean>
     suspend fun removeWatchList(code: Long, type: ContentType): Result<Boolean>
-    fun fetchAllWatchList(limit: Int, data: Content): Flow<PagingData<Content>>
+    fun fetchAllWatchList(limit: Int): Flow<PagingData<Content>>
 }

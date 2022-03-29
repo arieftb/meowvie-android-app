@@ -71,9 +71,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         binding.buttonDetailFavorite.setOnClickListener {
             IdlingResourceHelper.increment()
             if (!isSaved && contentDetail != null) {
-                viewModel.saveWatchList(Content().apply {
-                    this.id = contentDetail?.id
-                    this.title = contentDetail?.title
+                viewModel.saveWatchList(Content(
+                    id = contentDetail?.id!!,
+                    title = contentDetail?.title!!
+                ).apply {
                     this.posterPath = contentDetail?.posterPath
                     this.bannerPath = contentDetail?.bannerPath
                     this.type = this@DetailFragment.type

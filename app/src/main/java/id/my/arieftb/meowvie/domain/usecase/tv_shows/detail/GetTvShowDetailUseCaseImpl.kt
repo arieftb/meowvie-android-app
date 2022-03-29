@@ -17,7 +17,6 @@ class GetTvShowDetailUseCaseImpl @Inject constructor(
             this.id = id
             this.language = getLanguageUseCase.invoke()
         }
-        val data = TvShowDetail()
-        return repository.fetch(request, data)
+        return repository.fetch(request)
     }
 }

@@ -18,8 +18,7 @@ class SearchContentsUseCaseImpl @Inject constructor(
                 keyword,
                 page,
                 getLanguageUseCase.invoke()
-            ),
-            Content()
+            )
         )
     }
 }

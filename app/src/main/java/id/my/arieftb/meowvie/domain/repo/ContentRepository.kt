@@ -5,5 +5,5 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 
 interface ContentRepository {
-    suspend fun search(request: ContentSearchRequest, data: Content): Result<List<Content>>
+    suspend fun search(request: ContentSearchRequest): Result<List<Content>>
 }

@@ -1,7 +1,9 @@
 package id.my.arieftb.meowvie.data.model.response.movies.detail
 
-
 import com.google.gson.annotations.SerializedName
+import id.my.arieftb.meowvie.BuildConfig
+import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 
 data class MovieDetailResponse(
     @SerializedName("adult")
@@ -60,4 +62,26 @@ data class MovieDetailResponse(
     val statusCode: Long? = 0L,
     @SerializedName("status_message")
     val statusMessage: String? = null
-)
+) : MovieDetailResponseMapper {
+    override fun toMovieDetail(): ContentDetail {
+        return MovieDetail(
+            id = this.id!!,
+            title = this.originalTitle!!,
+        ).apply {
+            posterPath =
+                BuildConfig.BASE_URL_IMAGE_PORTRAIT_BIG + this@MovieDetailResponse.posterPath
+            bannerPath = if (this@MovieDetailResponse.backdropPath != null) {
+                BuildConfig.BASE_URL_IMAGE_LANDSCAPE + this@MovieDetailResponse.backdropPath
+            } else BuildConfig.BASE_URL_IMAGE_PORTRAIT + this@MovieDetailResponse.posterPath
+            releaseDate = this@MovieDetailResponse.releaseDate ?: ""
+            overview = this@MovieDetailResponse.overview ?: ""
+            genre = this@MovieDetailResponse.genres?.joinToString(", ") {
+                it.name.toString()
+            } ?: ""
+        }
+    }
+}
+
+interface MovieDetailResponseMapper {
+    fun toMovieDetail(): ContentDetail
+}

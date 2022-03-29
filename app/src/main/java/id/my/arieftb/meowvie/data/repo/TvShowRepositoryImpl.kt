@@ -14,23 +14,23 @@ import javax.inject.Inject
 class TvShowRepositoryImpl @Inject constructor(
     val remote: TvShowRemoteDataSource
 ) : TvShowRepository {
-    override suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>> {
+    override suspend fun fetchAll(request: DiscoverRequest): Result<List<Content>> {
         val response = remote.fetchAll(request)
         if (response.isSuccessful && response.body()?.tvShowResults != null) {
             return Result.Success(
                 data = response.body()?.tvShowResults?.map {
-                    data.mapFromTvShowResult(it)
+                    it.toTvShow()
                 }?.toList() ?: emptyList()
             )
         }
         return Result.Failure(Exception("Something went wrong"))
     }
 
-    override suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail> {
+    override suspend fun fetch(request: DetailRequest): Result<ContentDetail> {
         val response = remote.fetch(request)
         if (response.isSuccessful && response.body() != null && response.body()?.success == true) {
             return Result.Success(
-                data = data.mapFromTvShowDetailResponse(response.body())
+                data = response.body()!!.toTvShowDetail()
             )
         }
         return Result.Failure(Exception("Something went wrong"))

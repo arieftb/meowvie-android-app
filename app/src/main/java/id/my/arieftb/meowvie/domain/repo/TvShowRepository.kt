@@ -9,6 +9,6 @@ import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
 
 interface TvShowRepository {
-    suspend fun fetchAll(request: DiscoverRequest, data: TvShow): Result<List<Content>>
-    suspend fun fetch(request: DetailRequest, data: TvShowDetail): Result<ContentDetail>
+    suspend fun fetchAll(request: DiscoverRequest): Result<List<Content>>
+    suspend fun fetch(request: DetailRequest): Result<ContentDetail>
 }

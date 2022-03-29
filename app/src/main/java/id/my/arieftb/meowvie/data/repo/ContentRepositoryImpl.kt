@@ -11,14 +11,13 @@ class ContentRepositoryImpl @Inject constructor(
     private val remote: ContentRemoteDataSource
 ) : ContentRepository {
     override suspend fun search(
-        request: ContentSearchRequest,
-        data: Content
+        request: ContentSearchRequest
     ): Result<List<Content>> {
         val response = remote.search(request)
         if (response.isSuccessful) {
             if (response.body() != null) {
                 return Result.Success(data = response.body()?.contentResults?.map {
-                    data.mapFromSearchResult(it)
+                    it.toContent()
                 }?.toList() ?: emptyList())
             }
             return Result.Failure(Exception("Something went wrong"))

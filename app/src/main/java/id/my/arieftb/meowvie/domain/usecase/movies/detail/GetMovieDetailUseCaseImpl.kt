@@ -18,7 +18,6 @@ class GetMovieDetailUseCaseImpl @Inject constructor(
             this.id = id
             this.language = getLanguageUseCase.invoke()
         }
-        val data = MovieDetail()
-        return repository.fetch(request, data)
+        return repository.fetch(request)
     }
 }
