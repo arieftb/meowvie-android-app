@@ -1,7 +1,7 @@
 package id.my.arieftb.meowvie.helper
 
 import dagger.hilt.android.testing.CustomTestApplication
-import id.my.arieftb.meowvie.BaseMeowViewApplication
+import id.my.arieftb.meowvie.BaseMeowVieApplication
 
-@CustomTestApplication(BaseMeowViewApplication::class)
+@CustomTestApplication(BaseMeowVieApplication::class)
 interface MeowViewTestApplication
