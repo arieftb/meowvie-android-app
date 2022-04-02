@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
@@ -18,11 +18,9 @@ import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -82,23 +80,26 @@ class DetailViewModelImpl @Inject constructor(
 
     override fun getTvShowDetail(id: Long) {
         detailDataValue.postValue(Data(Status.LOADING))
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowDetailUseCase.invoke(id)
-            }) {
-                is Result.Success -> detailDataValue.value =
-                    Data(
-                        Status.SUCCESS,
-                        data = result.data
-                    )
-                is Result.Failure -> detailDataValue.value =
+        viewModelScope.launch {
+            getTvShowDetailUseCase.invoke(id).catch { cause: Throwable ->
+                detailDataValue.value =
                     Data(
                         Status.ERROR,
-                        errorMessage = result.exception.message
+                        errorMessage = cause.message
                     )
+            }.collect { value: Result<ContentDetail> ->
+                when (value) {
+                    is Result.Success -> detailDataValue.value =
+                        Data(
+                            Status.SUCCESS,
+                            data = value.data
+                        )
+                    is Result.Failure -> detailDataValue.value =
+                        Data(
+                            Status.ERROR,
+                            errorMessage = value.exception.message
+                        )
+                }
             }
         }
     }

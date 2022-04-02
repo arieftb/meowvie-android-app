@@ -11,7 +11,7 @@ import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
 
 class WatchListRecyclerAdapter(
     private val context: Context

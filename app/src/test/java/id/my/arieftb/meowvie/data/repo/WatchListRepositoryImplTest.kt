@@ -4,8 +4,8 @@ import com.google.common.truth.Truth.assertThat
 import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
-import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
-import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.request.content.ContentSaveRequest
+import id.my.arieftb.meowvie.domain.model.entity.Result
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

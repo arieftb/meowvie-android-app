@@ -1,11 +1,11 @@
 package id.my.arieftb.meowvie.data.repo
 
-import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
-import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
+import id.my.arieftb.meowvie.domain.model.request.detail.DetailRequest
+import id.my.arieftb.meowvie.domain.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

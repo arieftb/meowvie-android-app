@@ -3,8 +3,8 @@ package id.my.arieftb.meowvie.data.model.response.tv_shows.detail
 
 import com.google.gson.annotations.SerializedName
 import id.my.arieftb.meowvie.BuildConfig
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
-import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.tv_show.TvShowDetail
 
 data class TvShowDetailResponse(
     @SerializedName("backdrop_path")

@@ -10,8 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
@@ -71,7 +71,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         binding.buttonDetailFavorite.setOnClickListener {
             IdlingResourceHelper.increment()
             if (!isSaved && contentDetail != null) {
-                viewModel.saveWatchList(Content(
+                viewModel.saveWatchList(
+                    Content(
                     id = contentDetail?.id!!,
                     title = contentDetail?.title!!
                 ).apply {

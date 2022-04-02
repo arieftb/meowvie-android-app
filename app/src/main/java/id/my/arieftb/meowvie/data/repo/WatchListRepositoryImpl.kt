@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
-import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.request.content.ContentSaveRequest
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
 import id.my.arieftb.meowvie.domain.repo.WatchListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,9 +1,9 @@
 package id.my.arieftb.meowvie.data.remote.tv_show
 
-import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
-import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.tv_shows.TvShowsResponse
 import id.my.arieftb.meowvie.data.model.response.tv_shows.detail.TvShowDetailResponse
+import id.my.arieftb.meowvie.domain.model.request.detail.DetailRequest
+import id.my.arieftb.meowvie.domain.model.request.discover.DiscoverRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -35,12 +35,14 @@ class TvShowRemoteDataSourceImpl @Inject constructor(private val apiService: TvS
         }
     }
 
-    override suspend fun fetch(request: DetailRequest): Response<TvShowDetailResponse> {
+    override fun fetch(request: DetailRequest): Flow<Response<TvShowDetailResponse>> {
         val queryMap = HashMap<String, Any>().apply {
             this["api_key"] = request.apiKey
             this["language"] = request.language
         }
 
-        return apiService.getTvShow(request.id.toString(), queryMap)
+        return flow {
+            emit(apiService.getTvShow(request.id.toString(), queryMap))
+        }
     }
 }

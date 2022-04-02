@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.meowvie.domain.constant.SectionType
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.popular.GetMoviesPopularUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase

@@ -4,7 +4,7 @@ package id.my.arieftb.meowvie.data.model.response.movies
 import com.google.gson.annotations.SerializedName
 import id.my.arieftb.meowvie.BuildConfig
 import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 
 data class MovieResult(

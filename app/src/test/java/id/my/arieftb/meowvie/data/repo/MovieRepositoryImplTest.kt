@@ -1,12 +1,12 @@
 package id.my.arieftb.meowvie.data.repo
 
 import com.google.common.truth.Truth.assertThat
-import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
-import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
+import id.my.arieftb.meowvie.domain.model.request.detail.DetailRequest
+import id.my.arieftb.meowvie.domain.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
 import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.meowvie.data.remote.movie.MovieRemoteDataSource
-import id.my.arieftb.meowvie.domain.model.Result
+import id.my.arieftb.meowvie.domain.model.entity.Result
 import id.my.arieftb.meowvie.domain.model.movie.Movie
 import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 import id.my.arieftb.meowvie.helper.TestHelper

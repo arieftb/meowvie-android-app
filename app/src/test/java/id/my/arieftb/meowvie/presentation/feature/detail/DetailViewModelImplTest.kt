@@ -2,9 +2,9 @@ package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.Observer
 import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
 import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase

@@ -1,11 +1,11 @@
 package id.my.arieftb.meowvie.data.repo
 
 import com.google.common.truth.Truth.assertThat
-import id.my.arieftb.meowvie.data.model.request.content.ContentSearchRequest
+import id.my.arieftb.meowvie.domain.model.request.content.ContentSearchRequest
 import id.my.arieftb.meowvie.data.model.response.contents.search.ContentSearchResponse
 import id.my.arieftb.meowvie.data.remote.content.ContentRemoteDataSource
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.meowvie.domain.model.entity.Result
+import id.my.arieftb.meowvie.domain.model.entity.base.Content
 import id.my.arieftb.meowvie.helper.TestHelper
 import io.mockk.coEvery
 import io.mockk.coVerify

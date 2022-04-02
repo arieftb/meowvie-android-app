@@ -2,7 +2,7 @@ package id.my.arieftb.meowvie.data.model.response.movies.detail
 
 import com.google.gson.annotations.SerializedName
 import id.my.arieftb.meowvie.BuildConfig
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
 import id.my.arieftb.meowvie.domain.model.movie.MovieDetail
 
 data class MovieDetailResponse(
