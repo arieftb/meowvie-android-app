@@ -17,31 +17,34 @@ import javax.inject.Inject
 class WatchListRepositoryImpl @Inject constructor(
     private val local: WatchListLocalDataSource
 ) : WatchListRepository {
-    override suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean> {
-        val response = local.saveWatchList(request)
-        if (response != -1L) {
-            return Result.Success(data = true)
+    override fun saveWatchList(request: ContentSaveRequest): Flow<Result<Boolean>> {
+        return local.saveWatchList(request).map { response ->
+            if (response != -1L) {
+                Result.Success(true)
+            } else {
+                Result.Failure(exception = Exception("Something went wrong"))
+            }
         }
-
-        return Result.Failure(exception = Exception("Something went wrong"))
     }
 
-    override suspend fun checkWatchList(code: Long, type: ContentType): Result<Boolean> {
-        val response = local.checkWatchList(code, type)
-        if (response != null && response.code == code && response.type == type.toString()) {
-            return Result.Success(data = true)
+    override fun checkWatchList(code: Long, type: ContentType): Flow<Result<Boolean>> {
+        return local.checkWatchList(code, type).map { response ->
+            if (response != null && response.code == code && response.type == type.toString()) {
+                Result.Success(data = true)
+            } else {
+                Result.Success(data = false)
+            }
         }
-
-        return Result.Success(data = false)
     }
 
-    override suspend fun removeWatchList(code: Long, type: ContentType): Result<Boolean> {
-        val response = local.deleteWatchList(code, type)
-        if (response > 0) {
-            return Result.Success(data = false)
+    override fun removeWatchList(code: Long, type: ContentType): Flow<Result<Boolean>> {
+        return local.deleteWatchList(code, type).map { response ->
+            if (response > 0) {
+                Result.Success(data = false)
+            } else {
+                Result.Failure(exception = Exception("Something went wrong"))
+            }
         }
-
-        return Result.Failure(exception = Exception("Something went wrong"))
     }
 
     override fun fetchAllWatchList(limit: Int): Flow<PagingData<Content>> {

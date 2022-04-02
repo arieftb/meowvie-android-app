@@ -6,5 +6,5 @@ interface DateRepository {
     fun getCurrentDate(format: String): Flow<String?>
     fun getMonthAhead(format: String, monthInterval: Int): Flow<String?>
     fun getDateAhead(format: String, dateInterval: Int): Flow<String?>
-    suspend fun getCurrentDateTimeMillis(): Long?
+    fun getCurrentDateTimeMillis(): Flow<Long?>
 }

@@ -19,7 +19,7 @@ class DateRepositoryImpl @Inject constructor(private val local: DateLocalDataSou
         return local.getDateDayAhead(format, dateInterval)
     }
 
-    override suspend fun getCurrentDateTimeMillis(): Long? {
+    override fun getCurrentDateTimeMillis(): Flow<Long?> {
         return local.getCurrentDateTimeMillis()
     }
 }

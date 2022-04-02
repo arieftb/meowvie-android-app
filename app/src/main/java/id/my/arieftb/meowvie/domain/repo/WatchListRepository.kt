@@ -8,8 +8,8 @@ import id.my.arieftb.meowvie.domain.model.base.Content
 import kotlinx.coroutines.flow.Flow
 
 interface WatchListRepository {
-    suspend fun saveWatchList(request: ContentSaveRequest): Result<Boolean>
-    suspend fun checkWatchList(code: Long, type: ContentType): Result<Boolean>
-    suspend fun removeWatchList(code: Long, type: ContentType): Result<Boolean>
+    fun saveWatchList(request: ContentSaveRequest): Flow<Result<Boolean>>
+    fun checkWatchList(code: Long, type: ContentType): Flow<Result<Boolean>>
+    fun removeWatchList(code: Long, type: ContentType): Flow<Result<Boolean>>
     fun fetchAllWatchList(limit: Int): Flow<PagingData<Content>>
 }

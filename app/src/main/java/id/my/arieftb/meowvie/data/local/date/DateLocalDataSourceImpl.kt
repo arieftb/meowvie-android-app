@@ -25,7 +25,9 @@ class DateLocalDataSourceImpl @Inject constructor(private val dateHelper: DateHe
         }
     }
 
-    override suspend fun getCurrentDateTimeMillis(): Long? {
-        return dateHelper.now().getMillis()
+    override fun getCurrentDateTimeMillis(): Flow<Long?> {
+        return flow {
+            emit(dateHelper.now().getMillis())
+        }
     }
 }

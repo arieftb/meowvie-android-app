@@ -105,69 +105,78 @@ class DetailViewModelImpl @Inject constructor(
 
     override fun checkWatchList(code: Long, type: ContentType) {
         isAvailableValue.postValue(Data(Status.LOADING))
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isAvailableValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                checkWatchListUseCase.invoke(code, type)
-            }) {
-                is Result.Success -> isAvailableValue.value =
-                    Data(
-                        Status.SUCCESS,
-                        data = result.data
-                    )
-                is Result.Failure -> isAvailableValue.value =
+        viewModelScope.launch {
+            checkWatchListUseCase.invoke(code, type).catch { cause: Throwable ->
+                isAvailableValue.value =
                     Data(
                         Status.ERROR,
-                        errorMessage = result.exception.message
+                        errorMessage = cause.message
                     )
+            }.collect { value: Result<Boolean> ->
+                when (value) {
+                    is Result.Success -> isAvailableValue.value =
+                        Data(
+                            Status.SUCCESS,
+                            data = value.data
+                        )
+                    is Result.Failure -> isAvailableValue.value =
+                        Data(
+                            Status.ERROR,
+                            errorMessage = value.exception.message
+                        )
+                }
             }
         }
     }
 
     override fun saveWatchList(content: Content) {
         isSavedValue.postValue(Data(Status.LOADING))
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                saveWatchListUseCase.invoke(content)
-            }) {
-                is Result.Success -> isSavedValue.value =
-                    Data(
-                        Status.SUCCESS,
-                        data = result.data
-                    )
-                is Result.Failure -> isSavedValue.value =
+        viewModelScope.launch {
+            saveWatchListUseCase.invoke(content).catch { cause: Throwable ->
+                isSavedValue.value =
                     Data(
                         Status.ERROR,
-                        errorMessage = result.exception.message
+                        errorMessage = cause.message
                     )
+            }.collect { value: Result<Boolean> ->
+                when (value) {
+                    is Result.Success -> isSavedValue.value =
+                        Data(
+                            Status.SUCCESS,
+                            data = value.data
+                        )
+                    is Result.Failure -> isSavedValue.value =
+                        Data(
+                            Status.ERROR,
+                            errorMessage = value.exception.message
+                        )
+                }
             }
         }
     }
 
     override fun removeContent(code: Long, type: ContentType) {
         isSavedValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            isSavedValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                removeWatchListUseCase.invoke(code, type)
-            }) {
-                is Result.Success -> isSavedValue.value =
-                    Data(
-                        Status.SUCCESS,
-                        data = result.data
-                    )
-                is Result.Failure -> isSavedValue.value =
+        viewModelScope.launch {
+            removeWatchListUseCase.invoke(code, type).catch { cause: Throwable ->
+                isSavedValue.value =
                     Data(
                         Status.ERROR,
-                        errorMessage = result.exception.message
+                        errorMessage = cause.message
                     )
+            }.collect { value: Result<Boolean> ->
+                when (value) {
+                    is Result.Success -> isSavedValue.value =
+                        Data(
+                            Status.SUCCESS,
+                            data = value.data
+                        )
+                    is Result.Failure -> isSavedValue.value =
+                        Data(
+                            Status.ERROR,
+                            errorMessage = value.exception.message
+                        )
+                }
             }
         }
     }

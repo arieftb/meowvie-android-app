@@ -6,5 +6,5 @@ interface DateLocalDataSource {
     fun getCurrentDate(format: String): Flow<String?>
     fun getDateMonthAhead(format: String, monthInterval: Int): Flow<String?>
     fun getDateDayAhead(format: String, dayInterval: Int): Flow<String?>
-    suspend fun getCurrentDateTimeMillis(): Long?
+    fun getCurrentDateTimeMillis(): Flow<Long?>
 }

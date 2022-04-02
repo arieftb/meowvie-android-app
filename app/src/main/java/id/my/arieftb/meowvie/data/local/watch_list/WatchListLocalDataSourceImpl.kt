@@ -4,12 +4,14 @@ import androidx.paging.PagingSource
 import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class WatchListLocalDataSourceImpl @Inject constructor(
     private val dao: WatchListDao
 ) : WatchListLocalDataSource {
-    override suspend fun saveWatchList(request: ContentSaveRequest): Long {
+    override fun saveWatchList(request: ContentSaveRequest): Flow<Long> {
         val entity = WatchListEntity(
             null,
             request.id!!,
@@ -19,15 +21,22 @@ class WatchListLocalDataSourceImpl @Inject constructor(
             request.type.toString(),
             request.createdAt
         )
-        return dao.insert(entity)
+
+        return flow {
+            emit(dao.insert(entity))
+        }
     }
 
-    override suspend fun checkWatchList(code: Long, type: ContentType): WatchListEntity {
-        return dao.findByCode(code, type.toString())
+    override fun checkWatchList(code: Long, type: ContentType): Flow<WatchListEntity?> {
+        return flow {
+            emit(dao.findByCode(code, type.toString()))
+        }
     }
 
-    override suspend fun deleteWatchList(code: Long, type: ContentType): Int {
-        return dao.deleteByCode(code, type.toString())
+    override fun deleteWatchList(code: Long, type: ContentType): Flow<Int> {
+        return flow {
+            emit(dao.deleteByCode(code, type.toString()))
+        }
     }
 
     override fun fetchAllWatchList(): PagingSource<Int, WatchListEntity> {

@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.domain.usecase.date
 
+import kotlinx.coroutines.flow.Flow
+
 interface GetCurrentDateTimeMillisUseCase {
-    suspend fun invoke(): Long?
+    fun invoke(): Flow<Long?>
 }
