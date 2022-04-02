@@ -1,6 +1,6 @@
 package id.my.arieftb.meowvie.data.model.request.content
 
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 
 class ContentSaveRequest(
     var id: Long? = -1,

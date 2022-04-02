@@ -66,7 +66,7 @@
         <argument
             android:name="type"
             android:defaultValue="MOVIE"
-            app:argType="id.my.arieftb.meowvie.constant.ContentType"/>
+            app:argType="id.my.arieftb.meowvie.domain.constant.ContentType"/>
         <argument
             android:name="title"
             android:defaultValue="MeowVie"
@@ -80,7 +80,7 @@
         <argument
             android:name="type"
             android:defaultValue="NEW_MOVIE"
-            app:argType="id.my.arieftb.meowvie.constant.SectionType"/>
+            app:argType="id.my.arieftb.meowvie.domain.constant.SectionType"/>
 
         <action
             android:id="@+id/actionSectionToDetail"

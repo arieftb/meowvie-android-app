@@ -1,7 +1,7 @@
 package id.my.arieftb.meowvie.data.local.watch_list
 
 import androidx.paging.PagingSource
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.data.model.entity.WatchListEntity
 import id.my.arieftb.meowvie.data.model.request.content.ContentSaveRequest
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.utils.helper.date
+package id.my.arieftb.meowvie.domain.utils.date
 
 import dagger.Module
 import dagger.Provides

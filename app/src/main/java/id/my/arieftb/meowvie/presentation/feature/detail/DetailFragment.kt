@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
@@ -16,7 +16,7 @@ import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
-import id.my.arieftb.meowvie.utils.helper.date.DateHelper
+import id.my.arieftb.meowvie.domain.utils.date.DateHelper
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint

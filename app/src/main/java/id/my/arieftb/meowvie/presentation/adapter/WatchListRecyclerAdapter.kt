@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
 import id.my.arieftb.meowvie.domain.model.base.Content
 

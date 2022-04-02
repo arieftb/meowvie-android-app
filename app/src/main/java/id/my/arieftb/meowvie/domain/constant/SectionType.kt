@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.constant
+package id.my.arieftb.meowvie.domain.constant
 
 enum class SectionType {
     NEW_MOVIE,

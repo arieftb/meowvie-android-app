@@ -1,7 +1,7 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail

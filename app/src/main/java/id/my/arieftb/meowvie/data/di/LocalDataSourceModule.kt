@@ -11,7 +11,7 @@ import id.my.arieftb.meowvie.data.local.language.LanguageLocalDataSourceImpl
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListDao
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.meowvie.data.local.watch_list.WatchListLocalDataSourceImpl
-import id.my.arieftb.meowvie.utils.helper.date.DateHelper
+import id.my.arieftb.meowvie.domain.utils.date.DateHelper
 import javax.inject.Singleton
 
 @Module

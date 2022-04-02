@@ -3,7 +3,7 @@ package id.my.arieftb.meowvie.data.model.response.contents.search
 
 import com.google.gson.annotations.SerializedName
 import id.my.arieftb.meowvie.BuildConfig
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.domain.model.base.Content
 
 data class ContentResult(

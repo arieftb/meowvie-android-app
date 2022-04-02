@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import id.my.arieftb.meowvie.BuildConfig
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 import id.my.arieftb.meowvie.data.constant.DataConstant
 import id.my.arieftb.meowvie.domain.model.base.Content
 

@@ -1,6 +1,6 @@
 package id.my.arieftb.meowvie.domain.model.base
 
-import id.my.arieftb.meowvie.constant.ContentType
+import id.my.arieftb.meowvie.domain.constant.ContentType
 
 open class Content(
     open var id: Long,
