@@ -1,8 +1,10 @@
 package id.my.arieftb.meowvie.domain.usecase.language
 
 import id.my.arieftb.meowvie.domain.repo.LanguageRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -15,6 +17,6 @@ class GetLanguageUseCaseImpl @Inject constructor(private val repository: Languag
             } else {
                 "id-ID"
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }

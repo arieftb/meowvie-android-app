@@ -5,11 +5,10 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.repo.ContentRepository
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class SearchContentsUseCaseImpl @Inject constructor(
@@ -26,6 +25,6 @@ class SearchContentsUseCaseImpl @Inject constructor(
                     language
                 )
             )
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }

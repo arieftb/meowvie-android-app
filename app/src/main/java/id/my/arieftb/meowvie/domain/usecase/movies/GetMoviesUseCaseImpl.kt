@@ -6,8 +6,10 @@ import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.zip
 import javax.inject.Inject
 
@@ -35,6 +37,6 @@ class GetMoviesUseCaseImpl @Inject constructor(
                 })
             }.flatMapConcat {
                 it
-            }
+            }.flowOn(Dispatchers.IO)
     }
 }

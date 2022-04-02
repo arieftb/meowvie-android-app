@@ -21,6 +21,6 @@ class ContentRemoteDataSourceImpl @Inject constructor(
 
         return flow {
             emit(api.search(queryMap))
-        }.flowOn(Dispatchers.IO)
+        }
     }
 }

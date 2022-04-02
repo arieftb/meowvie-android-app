@@ -5,8 +5,10 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.repo.MovieRepository
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetMovieDetailUseCaseImpl @Inject constructor(
@@ -21,7 +23,6 @@ class GetMovieDetailUseCaseImpl @Inject constructor(
                 this.language = lang
             }
             repository.fetch(request)
-        }
-
+        }.flowOn(Dispatchers.IO)
     }
 }

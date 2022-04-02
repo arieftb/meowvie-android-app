@@ -4,8 +4,10 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetMoviesPopularUseCaseImpl @Inject constructor(
@@ -19,6 +21,6 @@ class GetMoviesPopularUseCaseImpl @Inject constructor(
                 sortBy = "popularity.desc",
                 releaseDateLte = date
             )
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }

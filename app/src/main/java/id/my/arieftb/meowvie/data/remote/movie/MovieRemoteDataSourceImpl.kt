@@ -4,10 +4,8 @@ import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.movies.MoviesResponse
 import id.my.arieftb.meowvie.data.model.response.movies.detail.MovieDetailResponse
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -35,7 +33,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(private val movieApiService:
 
         return flow {
             emit(movieApiService.getMovies(queryMap))
-        }.flowOn(Dispatchers.IO)
+        }
     }
 
     override fun fetch(request: DetailRequest): Flow<Response<MovieDetailResponse>> {
@@ -46,7 +44,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(private val movieApiService:
 
         return flow {
             emit(movieApiService.getMovie(request.id.toString(), queryMap))
-        }.flowOn(Dispatchers.IO)
+        }
     }
 
 }
