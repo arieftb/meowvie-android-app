@@ -7,8 +7,9 @@ import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.model.tv_show.TvShowDetail
+import kotlinx.coroutines.flow.Flow
 
 interface TvShowRepository {
-    suspend fun fetchAll(request: DiscoverRequest): Result<List<Content>>
+    fun fetchAll(request: DiscoverRequest): Flow<Result<List<Content>>>
     suspend fun fetch(request: DetailRequest): Result<ContentDetail>
 }

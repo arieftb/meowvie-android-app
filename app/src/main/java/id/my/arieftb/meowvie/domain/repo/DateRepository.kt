@@ -1,8 +1,10 @@
 package id.my.arieftb.meowvie.domain.repo
 
+import kotlinx.coroutines.flow.Flow
+
 interface DateRepository {
-    suspend fun getCurrentDate(format: String): String?
-    suspend fun getMonthAhead(format: String, monthInterval: Int): String?
-    suspend fun getDateAhead(format: String, dateInterval: Int): String?
+    fun getCurrentDate(format: String): Flow<String?>
+    fun getMonthAhead(format: String, monthInterval: Int): Flow<String?>
+    fun getDateAhead(format: String, dateInterval: Int): Flow<String?>
     suspend fun getCurrentDateTimeMillis(): Long?
 }

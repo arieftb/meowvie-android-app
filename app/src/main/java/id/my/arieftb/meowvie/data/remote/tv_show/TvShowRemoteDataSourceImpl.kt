@@ -4,12 +4,14 @@ import id.my.arieftb.meowvie.data.model.request.detail.DetailRequest
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.data.model.response.tv_shows.TvShowsResponse
 import id.my.arieftb.meowvie.data.model.response.tv_shows.detail.TvShowDetailResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import javax.inject.Inject
 
 class TvShowRemoteDataSourceImpl @Inject constructor(private val apiService: TvShowApiService) :
     TvShowRemoteDataSource {
-    override suspend fun fetchAll(request: DiscoverRequest): Response<TvShowsResponse> {
+    override fun fetchAll(request: DiscoverRequest): Flow<Response<TvShowsResponse>> {
         val queryMap = HashMap<String, Any>()
         queryMap["api_key"] = request.apiKey
         queryMap["region"] = request.region
@@ -28,7 +30,9 @@ class TvShowRemoteDataSourceImpl @Inject constructor(private val apiService: TvS
             queryMap["first_air_date.lte"] = it
         }
 
-        return apiService.getTvShows(queryMap)
+        return flow {
+            emit(apiService.getTvShows(queryMap))
+        }
     }
 
     override suspend fun fetch(request: DetailRequest): Response<TvShowDetailResponse> {

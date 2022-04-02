@@ -5,6 +5,11 @@ import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.domain.repo.ContentRepository
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SearchContentsUseCaseImpl @Inject constructor(
@@ -12,13 +17,15 @@ class SearchContentsUseCaseImpl @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase
 ) : SearchContentsUseCase {
 
-    override suspend fun invoke(page: Int, keyword: String): Result<List<Content>> {
-        return repository.search(
-            ContentSearchRequest(
-                keyword,
-                page,
-                getLanguageUseCase.invoke()
+    override fun invoke(page: Int, keyword: String): Flow<Result<List<Content>>> {
+        return getLanguageUseCase.invoke().flatMapMerge { language ->
+            repository.search(
+                ContentSearchRequest(
+                    keyword,
+                    page,
+                    language
+                )
             )
-        )
+        }
     }
 }

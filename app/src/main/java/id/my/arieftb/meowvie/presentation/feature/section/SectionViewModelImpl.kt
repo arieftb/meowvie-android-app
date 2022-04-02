@@ -18,9 +18,9 @@ import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,91 +55,88 @@ class SectionViewModelImpl @Inject constructor(
     }
 
     override fun getMovies(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getMoviesUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { result ->
+                when (result) {
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = result.exception.message)
+                    is Result.Success -> contentDataValue.value = Data(Status.SUCCESS, result.data)
+                }
             }
         }
     }
 
     override fun getTvShows(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: Result<List<Content>> ->
+                when (value) {
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                    is Result.Success -> setValueSuccess(value.data)
+                }
             }
         }
     }
 
     override fun getUpComingMovies(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesUpcomingUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getMoviesUpcomingUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { result ->
+                when (result) {
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = result.exception.message)
+                    is Result.Success -> setValueSuccess(result.data)
+                }
             }
         }
     }
 
     override fun getUpComingTvShows(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsUpcomingUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsUpcomingUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: Result<List<Content>> ->
+                when (value) {
+                    is Result.Success -> setValueSuccess(value.data)
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }
 
+
     override fun getPopularMovies(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesPopularUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getMoviesPopularUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: Result<List<Content>> ->
+                when (value) {
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                    is Result.Success -> setValueSuccess(value.data)
+                }
             }
         }
     }
 
     override fun getPopularTvShows(page: Int) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            contentDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsPopularUseCase.invoke(page = page)
-            }) {
-                is Result.Success -> setValueSuccess(result.data)
-                is Result.Failure -> contentDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsPopularUseCase.invoke(page).catch { cause: Throwable ->
+                contentDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: Result<List<Content>> ->
+                when (value) {
+                    is Result.Success -> setValueSuccess(value.data)
+                    is Result.Failure -> contentDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }

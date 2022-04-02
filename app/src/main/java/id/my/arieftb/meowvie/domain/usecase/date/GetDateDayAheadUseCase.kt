@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.domain.usecase.date
 
+import kotlinx.coroutines.flow.Flow
+
 interface GetDateDayAheadUseCase {
-    suspend fun invoke(format: String, dayInterval: Int): String?
+    fun invoke(format: String, dayInterval: Int): Flow<String?>
 }

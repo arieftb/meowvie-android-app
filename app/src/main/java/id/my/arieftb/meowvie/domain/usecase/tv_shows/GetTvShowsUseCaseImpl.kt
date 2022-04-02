@@ -3,29 +3,36 @@ package id.my.arieftb.meowvie.domain.usecase.tv_shows
 import id.my.arieftb.meowvie.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.tv_show.TvShow
 import id.my.arieftb.meowvie.domain.repo.TvShowRepository
 import id.my.arieftb.meowvie.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.meowvie.domain.usecase.language.GetLanguageUseCase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.zip
 
 class GetTvShowsUseCaseImpl constructor(
     private val getCurrentDateUseCase: GetCurrentDateUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
     private val repository: TvShowRepository
 ) : GetTvShowsUseCase {
-    override suspend fun invoke(
+    override fun invoke(
         page: Int,
         sortBy: String?,
         releaseDateLte: String?,
         releaseDateGte: String?
-    ): Result<List<Content>> {
-        val request = DiscoverRequest().apply {
-            this.page = page
-            this.sortBy = sortBy
-            this.releaseDateLte = releaseDateLte ?: getCurrentDateUseCase.invoke("yyyy-MM-dd")
-            this.releaseDateGte = releaseDateGte
-            this.language = getLanguageUseCase.invoke()
-        }
-        return repository.fetchAll(request)
+    ): Flow<Result<List<Content>>> {
+        return getCurrentDateUseCase.invoke("yyyy-MM-dd")
+            .zip(getLanguageUseCase.invoke()) { date, lang ->
+                val request = DiscoverRequest().apply {
+                    this.page = page
+                    this.sortBy = sortBy
+                    this.releaseDateLte = releaseDateLte ?: date
+                    this.releaseDateGte = releaseDateGte
+                    this.language = lang
+                }
+                repository.fetchAll(request)
+            }.flatMapConcat {
+                it
+            }
     }
 }

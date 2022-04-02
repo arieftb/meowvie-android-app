@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.domain.repo
 
+import kotlinx.coroutines.flow.Flow
+
 interface LanguageRepository {
-    suspend fun getLanguageCode(): String
+    fun getLanguageCode(): Flow<String>
 }

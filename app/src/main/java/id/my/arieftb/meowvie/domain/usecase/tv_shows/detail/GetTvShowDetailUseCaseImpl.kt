@@ -15,7 +15,7 @@ class GetTvShowDetailUseCaseImpl @Inject constructor(
     override suspend fun invoke(id: Long): Result<ContentDetail> {
         val request = DetailRequest().apply {
             this.id = id
-            this.language = getLanguageUseCase.invoke()
+            this.language = "en"
         }
         return repository.fetch(request)
     }

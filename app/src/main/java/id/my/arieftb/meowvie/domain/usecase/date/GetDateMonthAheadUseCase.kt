@@ -1,5 +1,7 @@
 package id.my.arieftb.meowvie.domain.usecase.date
 
+import kotlinx.coroutines.flow.Flow
+
 interface GetDateMonthAheadUseCase {
-    suspend fun invoke(format: String, monthInterval: Int): String?
+    fun invoke(format: String, monthInterval: Int): Flow<String?>
 }

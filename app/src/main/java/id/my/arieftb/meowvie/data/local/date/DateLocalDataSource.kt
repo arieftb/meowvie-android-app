@@ -1,8 +1,10 @@
 package id.my.arieftb.meowvie.data.local.date
 
+import kotlinx.coroutines.flow.Flow
+
 interface DateLocalDataSource {
-    suspend fun getCurrentDate(format: String): String?
-    suspend fun getDateMonthAhead(format: String, monthInterval: Int): String?
-    suspend fun getDateDayAhead(format: String, dayInterval: Int): String?
+    fun getCurrentDate(format: String): Flow<String?>
+    fun getDateMonthAhead(format: String, monthInterval: Int): Flow<String?>
+    fun getDateDayAhead(format: String, dayInterval: Int): Flow<String?>
     suspend fun getCurrentDateTimeMillis(): Long?
 }

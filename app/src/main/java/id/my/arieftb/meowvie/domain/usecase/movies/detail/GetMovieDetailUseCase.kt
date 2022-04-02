@@ -2,7 +2,8 @@ package id.my.arieftb.meowvie.domain.usecase.movies.detail
 
 import id.my.arieftb.meowvie.domain.model.Result
 import id.my.arieftb.meowvie.domain.model.base.ContentDetail
+import kotlinx.coroutines.flow.Flow
 
 interface GetMovieDetailUseCase {
-    suspend fun invoke(id: Long): Result<ContentDetail>
+    fun invoke(id: Long): Flow<Result<ContentDetail>>
 }

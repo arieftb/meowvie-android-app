@@ -19,6 +19,8 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -49,26 +51,30 @@ class DetailViewModelImpl @Inject constructor(
 
     override fun getMovieDetail(id: Long) {
         detailDataValue.postValue(Data(Status.LOADING))
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            detailDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMovieDetailUseCase.invoke(id)
-            }) {
-                is Result.Success -> {
-                    detailDataValue.value =
-                        Data(
-                            Status.SUCCESS,
-                            data = result.data
-                        )
-                }
-                is Result.Failure -> {
-                    detailDataValue.value =
-                        Data(
-                            Status.ERROR,
-                            errorMessage = result.exception.message
-                        )
+        viewModelScope.launch {
+            getMovieDetailUseCase.invoke(id).catch { cause: Throwable ->
+                detailDataValue.value =
+                    Data(
+                        Status.ERROR,
+                        errorMessage = cause.message
+                    )
+                cause.printStackTrace()
+            }.collect { value: Result<ContentDetail> ->
+                when (value) {
+                    is Result.Success -> {
+                        detailDataValue.value =
+                            Data(
+                                Status.SUCCESS,
+                                data = value.data
+                            )
+                    }
+                    is Result.Failure -> {
+                        detailDataValue.value =
+                            Data(
+                                Status.ERROR,
+                                errorMessage = value.exception.message
+                            )
+                    }
                 }
             }
         }

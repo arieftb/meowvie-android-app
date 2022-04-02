@@ -166,7 +166,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
     }
 
     private fun getMoviesHighlight() {
-        viewModel.moviesData.observe(viewLifecycleOwner, {
+        viewModel.moviesData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeNewMovie.status = it.status
@@ -180,7 +180,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomeNewMovie.status = it.status
             }
-        })
+        }
     }
 
     private fun getTvShowsHighlight() {

@@ -11,7 +11,10 @@ import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCase
 import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,17 +32,15 @@ class ExploreViewModelImpl @Inject constructor(
         }
 
         searchDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            searchDataValue.value = Data(Status.ERROR, errorMessage = "Something went wrong")
-        }) {
-            when (val result = withContext(ioDispatcher) {
-                searchContentsUseCase.invoke(page, keyword)
-            }) {
-                is Result.Success -> searchDataValue.value =
-                    Data(Status.SUCCESS, data = result.data)
-                else -> searchDataValue.value =
-                    Data(Status.ERROR, errorMessage = "Something went wrong")
+        viewModelScope.launch {
+            searchContentsUseCase.invoke(page, keyword).catch { cause: Throwable ->
+                searchDataValue.value = Data(Status.ERROR, errorMessage = cause.localizedMessage)
+            }.collect { result ->
+                when (result) {
+                    is Result.Failure -> searchDataValue.value =
+                        Data(Status.ERROR, errorMessage = result.exception.localizedMessage)
+                    is Result.Success -> searchDataValue.value = Data(Status.SUCCESS, result.data)
+                }
             }
         }
     }
