@@ -1,3 +1,4 @@
 rootProject.name = "MeowVie"
 include ':app'
 include ':domain'
+include ':data'
