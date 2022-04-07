@@ -10,7 +10,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginVertical="@dimen/_16sdp"
         android:fontFamily="@font/bold"
-        android:text="Coming Soon"
+        android:text="@string/warning_message_coming_soon"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"

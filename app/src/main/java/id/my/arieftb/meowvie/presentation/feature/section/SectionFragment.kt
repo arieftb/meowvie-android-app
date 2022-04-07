@@ -82,13 +82,13 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
     }
 
     private fun getContents() {
-        viewModel.contentData.observe(viewLifecycleOwner, {
+        viewModel.contentData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> setSuccessView(it.data)
                 Status.ERROR -> setErrorView()
                 else -> setLoadingView()
             }
-        })
+        }
     }
 
     private fun setSuccessView(data: List<Content>?) {

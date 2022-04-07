@@ -25,7 +25,7 @@ class ContentPortraitGridRecyclerAdapter(
     var listener: ContentRecyclerListener? = null
 
     override fun getItemViewType(position: Int): Int {
-        return getContent(position).id?.toInt() ?: -1
+        return getContent(position).id.toInt()
     }
 
 

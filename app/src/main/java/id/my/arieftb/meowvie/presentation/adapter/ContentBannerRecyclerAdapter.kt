@@ -22,7 +22,7 @@ class ContentBannerRecyclerAdapter(val context: Context) :
 
     inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun getItemViewType(position: Int): Int = getContent(position).id?.toInt() ?: -1
+    override fun getItemViewType(position: Int): Int = getContent(position).id.toInt()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =

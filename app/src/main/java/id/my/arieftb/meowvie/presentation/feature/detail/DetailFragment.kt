@@ -7,16 +7,16 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
-import id.my.arieftb.meowvie.R
 import id.my.arieftb.core.domain.constant.ContentType
-import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.model.base.ContentDetail
+import id.my.arieftb.core.domain.utils.date.DateHelper
+import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
-import id.my.arieftb.core.domain.utils.date.DateHelper
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint
@@ -99,21 +99,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun getDetail() {
-        viewModel.detailData.observe(viewLifecycleOwner, {
+        viewModel.detailData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> setSuccessDetailView(it.data)
                 Status.ERROR -> setErrorView()
                 else -> setLoadingView()
 
             }
-        })
+        }
 
         IdlingResourceHelper.increment()
         viewModel.getDetail(id, type)
     }
 
     private fun getContentAvailabilityStatus() {
-        viewModel.isAvailable.observe(viewLifecycleOwner, {
+        viewModel.isAvailable.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.buttonDetailFavorite.isEnabled = true
@@ -121,13 +121,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
                 else -> binding.buttonDetailFavorite.isEnabled = false
             }
-        })
+        }
 
         viewModel.checkWatchList(id, type)
     }
 
     private fun getContentSaveStatus() {
-        viewModel.isSaved.observe(viewLifecycleOwner, {
+        viewModel.isSaved.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     if (it.data == true) {
@@ -154,7 +154,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
             IdlingResourceHelper.decrement()
-        })
+        }
     }
 
     private fun setSuccessSaveView(data: Boolean?) {
@@ -200,13 +200,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 getString(
                     R.string.label_release_date,
                     DateHelper.instance?.fromDateString(
-                        it.releaseDate ?: "0000-00-00",
+                        it.releaseDate,
                         "yyyy-MM-dd"
                     )
                         ?.toPattern("dd MMM yyyy")?.getString() ?: ""
                 )
             )
-            binding.ratingDetailVote.rating = it.rating?.toFloat() ?: 0.0f
+            binding.ratingDetailVote.rating = it.rating.toFloat()
         }
         IdlingResourceHelper.decrement()
     }

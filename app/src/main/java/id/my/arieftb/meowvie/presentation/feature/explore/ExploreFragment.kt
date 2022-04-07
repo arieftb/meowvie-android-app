@@ -91,14 +91,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     }
 
     private fun getContents() {
-        viewModel.searchData.observe(viewLifecycleOwner, {
+        viewModel.searchData.observe(viewLifecycleOwner) {
             hideKeyBoard()
             when (it.status) {
                 Status.SUCCESS -> setSuccessView(it.data)
                 Status.ERROR -> setErrorView()
                 else -> setLoadingView()
             }
-        })
+        }
     }
 
     private fun setSuccessView(data: List<Content>?) {

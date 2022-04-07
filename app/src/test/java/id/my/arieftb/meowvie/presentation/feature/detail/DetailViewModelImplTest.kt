@@ -50,7 +50,7 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetMovieDetailUseCase::class.java.simpleName}.${GetMovieDetailUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<ContentDetail>(Exception("Something went wrong"))
+            val resultDummy = Result.Failure(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMovieDetailUseCase.invoke(idParamDummy)
