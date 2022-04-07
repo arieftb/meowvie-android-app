@@ -35,12 +35,14 @@ class TvShowRemoteDataSourceImpl @Inject constructor(private val apiService: TvS
         }
     }
 
-    override suspend fun fetch(request: DetailRequest): Response<TvShowDetailResponse> {
+    override fun fetch(request: DetailRequest): Flow<Response<TvShowDetailResponse>> {
         val queryMap = HashMap<String, Any>().apply {
             this["api_key"] = request.apiKey
             this["language"] = request.language
         }
 
-        return apiService.getTvShow(request.id.toString(), queryMap)
+        return flow {
+            emit(apiService.getTvShow(request.id.toString(), queryMap))
+        }
     }
 }

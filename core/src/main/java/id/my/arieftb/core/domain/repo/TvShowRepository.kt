@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TvShowRepository {
     fun fetchAll(request: DiscoverRequest): Flow<Result<List<Content>>>
-    suspend fun fetch(request: DetailRequest): Result<ContentDetail>
+    fun fetch(request: DetailRequest): Flow<Result<ContentDetail>>
 }

@@ -9,5 +9,5 @@ import retrofit2.Response
 
 interface TvShowRemoteDataSource {
     fun fetchAll(request: DiscoverRequest): Flow<Response<TvShowsResponse>>
-    suspend fun fetch(request: DetailRequest): Response<TvShowDetailResponse>
+    fun fetch(request: DetailRequest): Flow<Response<TvShowDetailResponse>>
 }

@@ -30,25 +30,16 @@ class TvShowRepositoryImpl @Inject constructor(
                 Result.Failure(Exception("Something went wrong"))
             }
         }
-//        val response = remote.fetchAll(request)
-//        if (response.isSuccessful && response.body()?.tvShowResults != null) {
-//            return Result.Success(
-//                data = response.body()?.tvShowResults?.map {
-//                    it.toTvShow()
-//                }?.toList() ?: emptyList()
-//            )
-//        }
-//        return Result.Failure(Exception("Something went wrong"))
     }
 
-    override suspend fun fetch(request: DetailRequest): Result<ContentDetail> {
-        val response = remote.fetch(request)
-        if (response.isSuccessful && response.body() != null && response.body()?.success == true) {
-            return Result.Success(
-                data = response.body()!!.toTvShowDetail()
-            )
+    override fun fetch(request: DetailRequest): Flow<Result<ContentDetail>> {
+        return remote.fetch(request).map { response ->
+            if (response.isSuccessful && response.body() != null && response.body()?.success == true) {
+                Result.Success(data = response.body()!!.toTvShowDetail())
+            } else {
+                Result.Failure(Exception("Something went wrong"))
+            }
         }
-        return Result.Failure(Exception("Something went wrong"))
     }
 
 }
