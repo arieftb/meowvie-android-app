@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.domain.constant.ContentType
+import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
 
 class ContentBannerRecyclerAdapter(val context: Context) :

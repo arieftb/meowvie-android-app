@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.domain.constant.ContentType
+import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentFavoriteBinding
 import id.my.arieftb.meowvie.presentation.adapter.ContentRecyclerListener
 import id.my.arieftb.meowvie.presentation.adapter.WatchListRecyclerAdapter

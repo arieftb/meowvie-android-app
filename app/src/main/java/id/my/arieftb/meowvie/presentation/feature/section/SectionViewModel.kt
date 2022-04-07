@@ -1,8 +1,8 @@
 package id.my.arieftb.meowvie.presentation.feature.section
 
 import androidx.lifecycle.LiveData
-import id.my.arieftb.meowvie.domain.constant.SectionType
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.core.domain.constant.SectionType
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.model.Data
 
 interface SectionViewModel {

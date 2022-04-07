@@ -1,14 +1,13 @@
 package id.my.arieftb.meowvie.presentation.feature.section
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.usecase.movies.GetMoviesUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.popular.GetMoviesPopularUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.GetTvShowsUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
+import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularUseCase
+import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.GetTvShowsUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
 import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
 import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data

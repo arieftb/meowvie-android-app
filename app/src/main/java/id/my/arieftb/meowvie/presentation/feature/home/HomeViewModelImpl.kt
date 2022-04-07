@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
+import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
+import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
@@ -20,6 +19,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import id.my.arieftb.core.domain.model.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
