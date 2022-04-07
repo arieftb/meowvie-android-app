@@ -202,12 +202,6 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetWatchListAllUseCase(
-        repository: WatchListRepository
-    ): GetWatchListAllUseCase = GetWatchListAllUseCaseImpl(repository)
-
-    @Provides
-    @Singleton
     fun provideSearchContentsUseCase(
         repository: ContentRepository,
         getLanguageUseCase: GetLanguageUseCase
