@@ -39,8 +39,9 @@
             app:popUpTo="@id/favoriteFragment"/>
     </fragment>
     <fragment
+        app:moduleName="favorite"
         android:id="@+id/favoriteFragment"
-        android:name="id.my.arieftb.meowvie.presentation.feature.favorite.FavoriteFragment"
+        android:name="id.my.arieftb.meowvie.favorite.FavoriteFragment"
         android:label="@string/menu_watchlist">
         <action
             android:id="@+id/actionFavoriteToDetail"
