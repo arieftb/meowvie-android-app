@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.domain.constant.ContentType
+import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
-import id.my.arieftb.meowvie.domain.model.entity.base.Content
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
 
 class ContentPortraitGridRecyclerAdapter(
@@ -25,7 +25,7 @@ class ContentPortraitGridRecyclerAdapter(
     var listener: ContentRecyclerListener? = null
 
     override fun getItemViewType(position: Int): Int {
-        return getContent(position).id?.toInt() ?: -1
+        return getContent(position).id.toInt()
     }
 
 

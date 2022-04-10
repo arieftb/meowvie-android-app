@@ -1,9 +1,9 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.LiveData
-import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.entity.base.Content
-import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.presentation.model.Data
 
 interface DetailViewModel {

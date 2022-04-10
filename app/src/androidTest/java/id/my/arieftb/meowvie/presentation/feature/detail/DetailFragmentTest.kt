@@ -11,7 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.domain.constant.ContentType
+import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.helper.launchFragmentInHiltContainer
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi

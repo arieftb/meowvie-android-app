@@ -21,10 +21,11 @@
     <string name="section_coming_soon_tv_show">Upcoming Tv Show</string>
     <string name="section_popular_movie">Popular Movie</string>
     <string name="section_popular_tv_show">Popular Tv Show</string>
-    
+
     <string name="error_message_something_went_wrong">Something went wrong, please try again later.</string>
     <string name="error_message_watch_list_empty">You don\'t have any watch list item yet</string>
     <string name="error_message_list_empty">The content that you request is empty, please try again later.</string>
 
     <string name="warning_message_coming_soon">Coming Soon</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

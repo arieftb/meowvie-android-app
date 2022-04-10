@@ -1,15 +1,14 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.entity.Result
-import id.my.arieftb.meowvie.domain.model.entity.base.Content
-import id.my.arieftb.meowvie.domain.model.entity.base.ContentDetail
-import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.ContentDetail
+import id.my.arieftb.core.domain.usecase.movies.detail.GetMovieDetailUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.CheckWatchListUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.RemoveWatchListUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.SaveWatchListUseCase
 import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
 import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
@@ -51,7 +50,7 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetMovieDetailUseCase::class.java.simpleName}.${GetMovieDetailUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<ContentDetail>(Exception("Something went wrong"))
+            val resultDummy = Result.Failure(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMovieDetailUseCase.invoke(idParamDummy)

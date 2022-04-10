@@ -1,9 +1,8 @@
 package id.my.arieftb.meowvie.presentation.feature.explore
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.domain.model.entity.Result
-import id.my.arieftb.meowvie.domain.model.entity.base.Content
-import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCase
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.usecase.contents.SearchContentsUseCase
 import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
 import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data

@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.domain.constant.ContentType
-import id.my.arieftb.meowvie.domain.constant.SectionType
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.constant.SectionType
 import id.my.arieftb.meowvie.databinding.FragmentHomeBinding
 import id.my.arieftb.meowvie.presentation.adapter.*
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
@@ -184,7 +184,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
     }
 
     private fun getTvShowsHighlight() {
-        viewModel.tvShowsData.observe(viewLifecycleOwner, {
+        viewModel.tvShowsData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeNewTvShow.status = it.status
@@ -197,13 +197,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomeNewMovie.status = it.status
             }
-        })
+        }
 
 
     }
 
     private fun getMoviesUpcomingHighlight() {
-        viewModel.moviesUpcomingData.observe(viewLifecycleOwner, {
+        viewModel.moviesUpcomingData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeComingSoonMovie.status = it.status
@@ -216,13 +216,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomeComingSoonMovie.status = it.status
             }
-        })
+        }
 
 
     }
 
     private fun getTvShowsUpcomingHighlight() {
-        viewModel.tvShowsUpcomingData.observe(viewLifecycleOwner, {
+        viewModel.tvShowsUpcomingData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomeComingSoonTvShow.status = it.status
@@ -235,12 +235,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomeComingSoonTvShow.status = it.status
             }
-        })
+        }
 
     }
 
     private fun getMoviesPopularHighlight() {
-        viewModel.moviesPopularData.observe(viewLifecycleOwner, {
+        viewModel.moviesPopularData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomePopularMovie.status = it.status
@@ -253,11 +253,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomePopularMovie.status = it.status
             }
-        })
+        }
     }
 
     private fun getTvShowsPopularHighlight() {
-        viewModel.tvShowsPopularData.observe(viewLifecycleOwner, {
+        viewModel.tvShowsPopularData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.sectionHomePopularTvShow.status = it.status
@@ -270,7 +270,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ContentRecyclerListene
                 }
                 else -> binding.sectionHomePopularTvShow.status = it.status
             }
-        })
+        }
     }
 
     private fun navigateToSection(view: View, type: SectionType, title: String) {
