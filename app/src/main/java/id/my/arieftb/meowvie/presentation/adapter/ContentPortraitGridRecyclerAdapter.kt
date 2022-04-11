@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.qualifiers.ApplicationContext
-import id.my.arieftb.meowvie.R
 import id.my.arieftb.core.domain.constant.ContentType
-import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
 import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class ContentPortraitGridRecyclerAdapter @Inject constructor(
     @ApplicationContext private val context: Context
 ) : BaseRecyclerDefaultAdapter<Content, ContentPortraitGridRecyclerAdapter.ContentPortraitGridRecyclerViewHolder>() {
