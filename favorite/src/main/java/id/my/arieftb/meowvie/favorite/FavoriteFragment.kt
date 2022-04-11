@@ -48,6 +48,13 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
         getWatchListAll()
     }
 
+    override fun onDestroyView() {
+        binding?.let { binding ->
+            binding.listFavorite.adapter = null
+        }
+        super.onDestroyView()
+    }
+
     private fun initView() {
         watchListAdapter = WatchListRecyclerAdapter(requireContext()).apply {
             listener = this@FavoriteFragment
