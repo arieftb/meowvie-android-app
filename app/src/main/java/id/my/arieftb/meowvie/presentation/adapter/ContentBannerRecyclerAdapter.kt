@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
+import dagger.hilt.android.qualifiers.ApplicationContext
 import id.my.arieftb.meowvie.R
 import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ContentBannerRecyclerAdapter(val context: Context) :
+@Singleton
+class ContentBannerRecyclerAdapter @Inject constructor(@ApplicationContext val context: Context) :
     BaseRecyclerDefaultAdapter<Content, ContentBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
     var listener: ContentRecyclerListener? = null

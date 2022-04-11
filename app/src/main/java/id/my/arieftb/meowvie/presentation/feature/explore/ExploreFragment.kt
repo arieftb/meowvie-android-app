@@ -9,10 +9,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import id.my.arieftb.meowvie.R
 import id.my.arieftb.core.domain.constant.ContentType
-import id.my.arieftb.meowvie.databinding.FragmentExploreBinding
 import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.databinding.FragmentExploreBinding
 import id.my.arieftb.meowvie.presentation.adapter.ContentPortraitGridRecyclerAdapter
 import id.my.arieftb.meowvie.presentation.adapter.ContentRecyclerListener
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
@@ -20,15 +20,19 @@ import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerListener {
     private val viewModel: ExploreViewModelImpl by viewModels()
-    private var adapter: ContentPortraitGridRecyclerAdapter? = null
+
     private var page: Int = 1
     private var searchKey: String? = null
     private var isPaginationEnable: Boolean = false
+
+    @Inject
+    lateinit var exploreAdapter: ContentPortraitGridRecyclerAdapter
 
     override fun getViewBinding(): FragmentExploreBinding =
         FragmentExploreBinding.inflate(layoutInflater)
@@ -40,6 +44,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
         getContents()
     }
 
+    override fun onDestroyView() {
+        binding?.let { binding ->
+            binding.listExplore.adapter = null
+        }
+        super.onDestroyView()
+    }
+
     private fun initView() {
         initContentList()
         initRecyclerScroll()
@@ -47,13 +58,15 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     }
 
     private fun initSearchView() {
-        with(binding) {
-            buttonExploreSearch.setOnClickListener {
-                if (formExploreSearch.text.toString().isNotEmpty()) {
-                    formExploreSearch.text.toString().let {
-                        IdlingResourceHelper.increment()
-                        viewModel.search(page, it)
-                        searchKey = it
+        binding?.let { binding ->
+            with(binding) {
+                buttonExploreSearch.setOnClickListener {
+                    if (formExploreSearch.text.toString().isNotEmpty()) {
+                        formExploreSearch.text.toString().let {
+                            IdlingResourceHelper.increment()
+                            viewModel.search(page, it)
+                            searchKey = it
+                        }
                     }
                 }
             }
@@ -61,33 +74,34 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     }
 
     private fun initContentList() {
-        adapter = ContentPortraitGridRecyclerAdapter(requireContext()).apply {
-            listener = this@ExploreFragment
-        }.also {
+
+        binding?.let { binding ->
             with(binding.listExplore) {
                 layoutManager = GridLayoutManager(requireContext(), 2)
-                adapter = it
+                adapter = exploreAdapter
             }
         }
     }
 
     private fun initRecyclerScroll() {
-        binding.listExplore.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+        binding?.let { binding ->
+            binding.listExplore.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
 
-                if (!binding.listExplore.canScrollVertically(1)
-                    && isPaginationEnable
-                    && newState == RecyclerView.SCROLL_STATE_IDLE
-                ) {
-                    isPaginationEnable = false
-                    page += 1
-                    if (!searchKey.isNullOrEmpty()) {
-                        viewModel.search(page, searchKey!!)
+                    if (!binding.listExplore.canScrollVertically(1)
+                        && isPaginationEnable
+                        && newState == RecyclerView.SCROLL_STATE_IDLE
+                    ) {
+                        isPaginationEnable = false
+                        page += 1
+                        if (!searchKey.isNullOrEmpty()) {
+                            viewModel.search(page, searchKey!!)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun getContents() {
@@ -104,11 +118,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
     private fun setSuccessView(data: List<Content>?) {
         IdlingResourceHelper.decrement()
         if (!data.isNullOrEmpty()) {
-            with(binding) {
-                shimmerExploreDefault.hide()
-                textExploreErrorMessage.hide()
-                listExplore.show()
-                adapter?.replaceAll(data)
+            binding?.let { binding ->
+                with(binding) {
+                    shimmerExploreDefault.hide()
+                    textExploreErrorMessage.hide()
+                    listExplore.show()
+                    exploreAdapter.replaceAll(data)
+                }
             }
             isPaginationEnable = true
         } else {
@@ -118,12 +134,14 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
 
     private fun setErrorView(errorMessage: String? = getString(R.string.error_message_something_went_wrong)) {
         if (page == 1) {
-            with(binding) {
-                shimmerExploreDefault.hide()
-                binding.listExplore.hide()
-                binding.textExploreErrorMessage.apply {
-                    show()
-                    text = errorMessage
+            binding?.let { binding ->
+                with(binding) {
+                    shimmerExploreDefault.hide()
+                    binding.listExplore.hide()
+                    binding.textExploreErrorMessage.apply {
+                        show()
+                        text = errorMessage
+                    }
                 }
             }
         }
@@ -131,9 +149,11 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(), ContentRecyclerL
 
     private fun setLoadingView() {
         if (page == 1) {
-            binding.listExplore.hide()
-            binding.textExploreErrorMessage.hide()
-            binding.shimmerExploreDefault.show()
+            binding?.let { binding ->
+                binding.listExplore.hide()
+                binding.textExploreErrorMessage.hide()
+                binding.shimmerExploreDefault.show()
+            }
         }
     }
 

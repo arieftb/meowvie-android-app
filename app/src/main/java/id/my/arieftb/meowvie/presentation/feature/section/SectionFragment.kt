@@ -8,11 +8,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import id.my.arieftb.meowvie.R
 import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.core.domain.constant.SectionType
-import id.my.arieftb.meowvie.databinding.FragmentSectionBinding
 import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.meowvie.R
+import id.my.arieftb.meowvie.databinding.FragmentSectionBinding
 import id.my.arieftb.meowvie.presentation.adapter.ContentPortraitGridRecyclerAdapter
 import id.my.arieftb.meowvie.presentation.adapter.ContentRecyclerListener
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
@@ -20,14 +20,17 @@ import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerListener {
     private val viewModel: SectionViewModelImpl by viewModels()
     private var page: Int = 1
     private var type: SectionType = SectionType.NEW_MOVIE
-    private var adapter: ContentPortraitGridRecyclerAdapter? = null
     private var isPaginationEnable: Boolean = false
+
+    @Inject
+    lateinit var sectionAdapter: ContentPortraitGridRecyclerAdapter
 
     override fun getViewBinding(): FragmentSectionBinding =
         FragmentSectionBinding.inflate(layoutInflater)
@@ -57,28 +60,28 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
     }
 
     private fun initContentList() {
-        adapter = ContentPortraitGridRecyclerAdapter(requireContext()).apply {
-            listener = this@SectionFragment
-        }.also {
+        binding?.let { binding ->
             with(binding.listSection) {
                 layoutManager = GridLayoutManager(requireContext(), 2)
-                adapter = it
+                adapter = sectionAdapter
             }
         }
     }
 
     private fun initRecyclerScroll() {
-        binding.listSection.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+        binding?.let { binding ->
+            binding.listSection.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
 
-                if (!binding.listSection.canScrollVertically(1) && isPaginationEnable && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    isPaginationEnable = false
-                    page += 1
-                    viewModel.getContents(page, type)
+                    if (!binding.listSection.canScrollVertically(1) && isPaginationEnable && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        isPaginationEnable = false
+                        page += 1
+                        viewModel.getContents(page, type)
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun getContents() {
@@ -93,14 +96,16 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
 
     private fun setSuccessView(data: List<Content>?) {
         if (!data.isNullOrEmpty()) {
-            with(binding) {
-                if (!listSection.isVisible) listSection.show()
-                shimmerSectionDefault.hide()
-                textSectionErrorMessage.hide()
-                adapter?.replaceAll(data)
+            binding?.let { binding ->
+                with(binding) {
+                    if (!listSection.isVisible) listSection.show()
+                    shimmerSectionDefault.hide()
+                    textSectionErrorMessage.hide()
+                    sectionAdapter.replaceAll(data)
+                }
+                isPaginationEnable = true
+                IdlingResourceHelper.decrement()
             }
-            isPaginationEnable = true
-            IdlingResourceHelper.decrement()
         } else {
             setErrorView(getString(R.string.error_message_list_empty))
         }
@@ -109,12 +114,14 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
 
     private fun setErrorView(errorMessage: String? = getString(R.string.error_message_something_went_wrong)) {
         if (page == 1) {
-            with(binding) {
-                shimmerSectionDefault.hide()
-                listSection.hide()
-                binding.textSectionErrorMessage.apply {
-                    show()
-                    text = errorMessage
+            binding?.let { binding ->
+                with(binding) {
+                    shimmerSectionDefault.hide()
+                    listSection.hide()
+                    binding.textSectionErrorMessage.apply {
+                        show()
+                        text = errorMessage
+                    }
                 }
             }
         }
@@ -122,7 +129,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>(), ContentRecyclerL
 
     private fun setLoadingView() {
         if (page == 1) {
-            binding.shimmerSectionDefault.show()
+            binding?.shimmerSectionDefault.show()
         }
     }
 

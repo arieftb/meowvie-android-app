@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.EntryPointAccessors
 import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.databinding.FragmentFavoriteBinding
+import id.my.arieftb.meowvie.favorite.databinding.FragmentFavoriteBinding
 import id.my.arieftb.meowvie.favorite.di.DaggerFavoriteComponent
 import id.my.arieftb.meowvie.favorite.di.FavoriteViewModelFactory
 import id.my.arieftb.meowvie.presentation.adapter.ContentRecyclerListener
@@ -37,7 +37,10 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         DaggerFavoriteComponent.builder().context(requireContext()).appDependencies(
-            EntryPointAccessors.fromApplication(requireContext(), FavoriteModuleDependencies::class.java)
+            EntryPointAccessors.fromApplication(
+                requireContext(),
+                FavoriteModuleDependencies::class.java
+            )
         ).build().inject(this)
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,10 +52,13 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
         watchListAdapter = WatchListRecyclerAdapter(requireContext()).apply {
             listener = this@FavoriteFragment
         }.also {
-            with(binding.listFavorite) {
-                layoutManager = GridLayoutManager(requireContext(), 2)
-                adapter = it
+            binding?.let { binding ->
+                with(binding.listFavorite) {
+                    layoutManager = GridLayoutManager(requireContext(), 2)
+                    adapter = it
+                }
             }
+
         }
     }
 
@@ -75,17 +81,21 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), ContentRecycle
     }
 
     private fun setWatchListAvailable() {
-        binding.shimmerFavoriteDefault.hide()
-        binding.textFavoriteErrorMessage.hide()
-        binding.listFavorite.show()
+        binding?.let { binding ->
+            binding.shimmerFavoriteDefault.hide()
+            binding.textFavoriteErrorMessage.hide()
+            binding.listFavorite.show()
+        }
     }
 
     private fun setWatchListEmpty() {
-        binding.shimmerFavoriteDefault.hide()
-        binding.listFavorite.hide()
-        binding.textFavoriteErrorMessage.apply {
-            text = getString(R.string.error_message_watch_list_empty)
-            show()
+        binding?.let { binding ->
+            binding.shimmerFavoriteDefault.hide()
+            binding.listFavorite.hide()
+            binding.textFavoriteErrorMessage.apply {
+                text = getString(R.string.error_message_watch_list_empty)
+                show()
+            }
         }
     }
 
