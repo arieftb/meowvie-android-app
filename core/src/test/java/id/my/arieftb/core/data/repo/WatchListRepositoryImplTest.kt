@@ -1,13 +1,16 @@
 package id.my.arieftb.core.data.repo
 
 import com.google.common.truth.Truth.assertThat
-import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.core.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.core.data.model.entity.WatchListEntity
 import id.my.arieftb.core.data.model.request.content.ContentSaveRequest
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.Result
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -27,15 +30,18 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.saveWatchList(contentSaveRequestDummyData)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::saveWatchList.name} should return Result Failure"
             ) {
                 runBlocking {
-                    val result = repository.saveWatchList(contentSaveRequestDummyData)
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.saveWatchList(contentSaveRequestDummyData).collect { result ->
+                        assertThat(result is Result.Failure).isTrue()
+                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    }
                 }
                 coVerify {
                     local.saveWatchList(contentSaveRequestDummyData)
@@ -49,15 +55,18 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.saveWatchList(contentSaveRequestDummyData)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::saveWatchList.name} should return Result Success with true"
             ) {
                 runBlocking {
-                    val result = repository.saveWatchList(contentSaveRequestDummyData)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isTrue()
+                    repository.saveWatchList(contentSaveRequestDummyData).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data).isTrue()
+                    }
                 }
                 coVerify {
                     local.saveWatchList(contentSaveRequestDummyData)
@@ -77,15 +86,19 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with false"
             ) {
                 runBlocking {
-                    val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isFalse()
+                    repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Success).isTrue()
+                            assertThat((result as Result.Success).data).isFalse()
+                        }
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
@@ -104,17 +117,22 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with false"
             ) {
                 runBlocking {
-                    val response = local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isFalse()
-                    assertThat(response?.code).isNotEqualTo(codeRequestParamDummy)
+//                    val response =
+//                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Success).isTrue()
+                            assertThat((result as Result.Success).data).isFalse()
+                        }
+//                    assertThat(response?.code).isNotEqualTo(codeRequestParamDummy)
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
@@ -133,17 +151,22 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with false"
             ) {
                 runBlocking {
-                    val response = local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isFalse()
-                    assertThat(response?.type).isNotEqualTo(typeRequestParamDummy.toString())
+//                    val response =
+//                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Success).isTrue()
+                            assertThat((result as Result.Success).data).isFalse()
+                        }
+//                    assertThat(response?.type).isNotEqualTo(typeRequestParamDummy.toString())
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
@@ -162,18 +185,23 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::checkWatchList.name} should return Result Success with true"
             ) {
                 runBlocking {
-                    val response = local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    val result = repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isTrue()
-                    assertThat(response?.type).isEqualTo(typeRequestParamDummy.toString())
-                    assertThat(response?.code).isEqualTo(codeRequestParamDummy)
+//                    val response =
+//                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Success).isTrue()
+                            assertThat((result as Result.Success).data).isTrue()
+                        }
+//                    assertThat(response?.type).isEqualTo(typeRequestParamDummy.toString())
+//                    assertThat(response?.code).isEqualTo(codeRequestParamDummy)
                 }
                 coVerify {
                     local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
@@ -193,17 +221,22 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::removeWatchList.name} should return Result Failure"
             ) {
                 runBlocking {
-                    val response = local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    val result = repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
-                    assertThat(response).isEqualTo(0)
+//                    val response =
+//                        local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Failure).isTrue()
+                            assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        }
+//                    assertThat(response).isEqualTo(0)
                 }
                 coVerify {
                     local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
@@ -217,17 +250,22 @@ class WatchListRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                } returns responseDummy
+                } returns flow {
+                    emit(responseDummy)
+                }
             }
             it(
                 "${WatchListRepositoryImpl::class.java.simpleName}.${WatchListRepositoryImpl::removeWatchList.name} should return Result Success with false"
             ) {
                 runBlocking {
-                    val response = local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    val result = repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isFalse()
-                    assertThat(response).isGreaterThan(0)
+//                    val response =
+//                        local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                    repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
+                        .collect { result ->
+                            assertThat(result is Result.Success).isTrue()
+                            assertThat((result as Result.Success).data).isFalse()
+                        }
+//                    assertThat(response).isGreaterThan(0)
                 }
                 coVerify {
                     local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
