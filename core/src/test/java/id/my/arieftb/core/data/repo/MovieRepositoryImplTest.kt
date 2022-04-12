@@ -6,13 +6,15 @@ import id.my.arieftb.core.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.core.data.model.response.movies.MoviesResponse
 import id.my.arieftb.core.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.core.data.remote.movie.MovieRemoteDataSource
-import id.my.arieftb.core.domain.model.movie.Movie
+import id.my.arieftb.core.domain.model.Result
 import id.my.arieftb.core.domain.model.movie.MovieDetail
-import id.my.arieftb.meowvie.helper.TestHelper
+import id.my.arieftb.core.helper.TestHelper
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -33,14 +35,17 @@ class MovieRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequest)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result failure") {
                 runBlocking {
-                    val result = repository.fetchAll(dummyRequest, Movie())
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.fetchAll(dummyRequest).collect { result ->
+                        assertThat(result is Result.Failure).isTrue()
+                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    }
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
@@ -54,14 +59,17 @@ class MovieRepositoryImplTest : Spek({
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequest)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
-            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result failure") {
+            it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return empty data") {
                 runBlocking {
-                    val result = repository.fetchAll(dummyRequest, Movie())
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.fetchAll(dummyRequest).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data.isEmpty()).isTrue()
+                    }
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
@@ -71,18 +79,24 @@ class MovieRepositoryImplTest : Spek({
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetchAll.name} return response that 200 but null result") {
             val dummyResponse =
-                TestHelper.createDummyResponse("movie/get-movies-result-null-response.json", MoviesResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "movie/get-movies-result-null-response.json",
+                    MoviesResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequest)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with empty data") {
                 runBlocking {
-                    val result = repository.fetchAll(dummyRequest, Movie())
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isEmpty()
+                    repository.fetchAll(dummyRequest).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data).isEmpty()
+                    }
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
@@ -92,18 +106,24 @@ class MovieRepositoryImplTest : Spek({
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetchAll.name} return response that 200 but empty result") {
             val dummyResponse =
-                TestHelper.createDummyResponse("movie/get-movies-result-empty-response.json", MoviesResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "movie/get-movies-result-empty-response.json",
+                    MoviesResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequest)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with empty data") {
                 runBlocking {
-                    val result = repository.fetchAll(dummyRequest, Movie())
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isEmpty()
+                    repository.fetchAll(dummyRequest).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data).isEmpty()
+                    }
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
@@ -113,18 +133,24 @@ class MovieRepositoryImplTest : Spek({
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetchAll.name} return response that 200 with result") {
             val dummyResponse =
-                TestHelper.createDummyResponse("movie/get-movies-result-success-response.json", MoviesResponse::class.java)
+                TestHelper.createDummyResponse(
+                    "movie/get-movies-result-success-response.json",
+                    MoviesResponse::class.java
+                )
             beforeEachGroup {
                 coEvery {
                     remote.fetchAll(dummyRequest)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with data") {
                 runBlocking {
-                    val result = repository.fetchAll(dummyRequest, Movie())
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isNotEmpty()
+                    repository.fetchAll(dummyRequest).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data).isNotEmpty()
+                    }
                 }
                 coVerify {
                     remote.fetchAll(dummyRequest)
@@ -134,23 +160,27 @@ class MovieRepositoryImplTest : Spek({
     }
 
     describe("#${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name}") {
-        val dummyRequestParam : DetailRequest = mockk()
-        val dummyDataParam : MovieDetail = mockk(relaxed = true)
+        val dummyRequestParam: DetailRequest = mockk()
+        val dummyDataParam: MovieDetail = mockk(relaxed = true)
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that not 200") {
-            val dummyResponse = TestHelper.createDummyResponse(null, 500, MovieDetailResponse::class.java)
+            val dummyResponse =
+                TestHelper.createDummyResponse(null, 500, MovieDetailResponse::class.java)
 
             beforeEachGroup {
                 coEvery {
                     remote.fetch(dummyRequestParam)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
-                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.fetch(dummyRequestParam).collect { result ->
+                        assertThat(result is Result.Failure).isTrue()
+                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    }
                 }
                 coVerify {
                     remote.fetch(dummyRequestParam)
@@ -159,19 +189,23 @@ class MovieRepositoryImplTest : Spek({
         }
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 but null body") {
-            val dummyResponse = TestHelper.createDummyResponse(null, MovieDetailResponse::class.java)
+            val dummyResponse =
+                TestHelper.createDummyResponse(null, MovieDetailResponse::class.java)
 
             beforeEachGroup {
                 coEvery {
                     remote.fetch(dummyRequestParam)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
-                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.fetch(dummyRequestParam).collect { result ->
+                        assertThat(result is Result.Failure).isTrue()
+                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    }
                 }
                 coVerify {
                     remote.fetch(dummyRequestParam)
@@ -180,19 +214,25 @@ class MovieRepositoryImplTest : Spek({
         }
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 but status success false") {
-            val dummyResponse = TestHelper.createDummyResponse("movie/get-movie-not-success-response.json", MovieDetailResponse::class.java)
+            val dummyResponse = TestHelper.createDummyResponse(
+                "movie/get-movie-not-success-response.json",
+                MovieDetailResponse::class.java
+            )
 
             beforeEachGroup {
                 coEvery {
                     remote.fetch(dummyRequestParam)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
-                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
-                    assertThat(result is Result.Failure).isTrue()
-                    assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    repository.fetch(dummyRequestParam).collect { result ->
+                        assertThat(result is Result.Failure).isTrue()
+                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                    }
                 }
                 coVerify {
                     remote.fetch(dummyRequestParam)
@@ -201,19 +241,25 @@ class MovieRepositoryImplTest : Spek({
         }
 
         context("when ${MovieRemoteDataSource::class.java.simpleName}.${MovieRemoteDataSource::fetch.name} return response that 200 with data") {
-            val dummyResponse = TestHelper.createDummyResponse("movie/get-movie-success-response.json", MovieDetailResponse::class.java)
+            val dummyResponse = TestHelper.createDummyResponse(
+                "movie/get-movie-success-response.json",
+                MovieDetailResponse::class.java
+            )
 
             beforeEachGroup {
                 coEvery {
                     remote.fetch(dummyRequestParam)
-                } returns dummyResponse
+                } returns flow {
+                    emit(dummyResponse)
+                }
             }
 
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result success") {
                 runBlocking {
-                    val result = repository.fetch(dummyRequestParam, dummyDataParam)
-                    assertThat(result is Result.Success).isTrue()
-                    assertThat((result as Result.Success).data).isNotNull()
+                    repository.fetch(dummyRequestParam).collect { result ->
+                        assertThat(result is Result.Success).isTrue()
+                        assertThat((result as Result.Success).data).isNotNull()
+                    }
                 }
                 coVerify {
                     remote.fetch(dummyRequestParam)
