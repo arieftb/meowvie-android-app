@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.helper
+package id.my.arieftb.core.helper
 
 object FileUtils {
     fun readTestResourceFile(fileName: String?): String {

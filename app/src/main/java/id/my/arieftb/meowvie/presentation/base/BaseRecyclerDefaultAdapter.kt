@@ -15,9 +15,7 @@ abstract class BaseRecyclerDefaultAdapter<D, VH : RecyclerView.ViewHolder> :
     fun addAll(contents: List<D>?) {
         if (!contents.isNullOrEmpty()) {
             this.contents.addAll(contents)
-            this.contents.forEachIndexed { index, _ ->
-                notifyItemInserted(index)
-            }
+            notifyItemRangeChanged(this.contents.size - 1, (this.contents.size - 1) + contents.size)
         }
     }
 
@@ -25,9 +23,7 @@ abstract class BaseRecyclerDefaultAdapter<D, VH : RecyclerView.ViewHolder> :
         if (!contents.isNullOrEmpty()) {
             this.contents.clear()
             this.contents.addAll(contents)
-            this.contents.forEachIndexed { index, _ ->
-                notifyItemInserted(index)
-            }
+            notifyItemRangeChanged(0, contents.size - 1)
         }
     }
 

@@ -1,7 +1,6 @@
 package id.my.arieftb.core.helper
 
 import com.google.gson.Gson
-import id.my.arieftb.meowvie.helper.FileUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response

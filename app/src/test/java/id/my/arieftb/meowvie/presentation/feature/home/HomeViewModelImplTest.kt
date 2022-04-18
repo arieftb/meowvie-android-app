@@ -9,8 +9,8 @@ import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingHighli
 import id.my.arieftb.core.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
-import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
-import id.my.arieftb.meowvie.helper.applyTestDispatcher
+import id.my.arieftb.core.helper.applyInstantTaskExecutor
+import id.my.arieftb.core.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
@@ -42,8 +42,7 @@ class HomeViewModelImplTest : Spek({
             getMoviesUpcomingUseCase,
             getTvShowsUpcomingHighlightUseCase,
             getMoviesPopularHighlightUseCase,
-            getTvShowsPopularHighlightUseCase,
-            testDispatcher
+            getTvShowsPopularHighlightUseCase
         )
     }
 

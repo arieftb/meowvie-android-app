@@ -14,10 +14,8 @@ import id.my.arieftb.core.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.SaveWatchListUseCase
-import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,8 +27,7 @@ class DetailViewModelImpl @Inject constructor(
     private val getTvShowDetailUseCase: GetTvShowDetailUseCase,
     private val saveWatchListUseCase: SaveWatchListUseCase,
     private val checkWatchListUseCase: CheckWatchListUseCase,
-    private val removeWatchListUseCase: RemoveWatchListUseCase,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    private val removeWatchListUseCase: RemoveWatchListUseCase
 ) :
     ViewModel(), DetailViewModel {
     private val detailDataValue: MutableLiveData<Data<ContentDetail>> = MutableLiveData()

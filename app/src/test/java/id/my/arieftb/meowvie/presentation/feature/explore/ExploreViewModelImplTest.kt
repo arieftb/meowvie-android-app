@@ -4,8 +4,8 @@ import androidx.lifecycle.Observer
 import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.contents.SearchContentsUseCase
-import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
-import id.my.arieftb.meowvie.helper.applyTestDispatcher
+import id.my.arieftb.core.helper.applyInstantTaskExecutor
+import id.my.arieftb.core.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
@@ -25,7 +25,7 @@ class ExploreViewModelImplTest : Spek({
 
 
     val searchContentUseCase: SearchContentsUseCase = mockk(relaxed = true)
-    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase, testDispatcher) }
+    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase) }
 
     describe(
         "#${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::search.name}"

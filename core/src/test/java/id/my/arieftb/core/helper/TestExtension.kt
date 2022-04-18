@@ -1,4 +1,4 @@
-package id.my.arieftb.meowvie.helper
+package id.my.arieftb.core.helper
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor

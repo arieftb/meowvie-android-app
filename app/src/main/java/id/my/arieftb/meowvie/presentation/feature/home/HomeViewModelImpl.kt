@@ -13,10 +13,8 @@ import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingHighli
 import id.my.arieftb.core.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
-import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,8 +27,7 @@ class HomeViewModelImpl @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingHighlightUseCase,
     private val getTvShowsUpcomingHighlightUseCase: GetTvShowsUpcomingHighlightUseCase,
     private val getMoviesPopularHighlightUseCase: GetMoviesPopularHighlightUseCase,
-    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase
 ) :
     ViewModel(),
     HomeViewModel {

@@ -14,10 +14,8 @@ import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCas
 import id.my.arieftb.core.domain.usecase.tv_shows.GetTvShowsUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
-import id.my.arieftb.meowvie.presentation.di.IoDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,8 +28,7 @@ class SectionViewModelImpl @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
     private val getTvShowsUpcomingUseCase: GetTvShowsUpcomingUseCase,
     private val getMoviesPopularUseCase: GetMoviesPopularUseCase,
-    private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    private val getTvShowsPopularUseCase: GetTvShowsPopularUseCase
 ) : ViewModel(), SectionViewModel {
     private val listData = mutableListOf<Content>()
 
