@@ -2,7 +2,8 @@ package id.my.arieftb.meowvie.presentation.base
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerDefaultAdapter<D, VH: RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerDefaultAdapter<D, VH : RecyclerView.ViewHolder> :
+    RecyclerView.Adapter<VH>() {
     private val contents = mutableListOf<D>()
 
     override fun getItemViewType(position: Int): Int {
@@ -14,7 +15,9 @@ abstract class BaseRecyclerDefaultAdapter<D, VH: RecyclerView.ViewHolder> : Recy
     fun addAll(contents: List<D>?) {
         if (!contents.isNullOrEmpty()) {
             this.contents.addAll(contents)
-            notifyDataSetChanged()
+            this.contents.forEachIndexed { index, _ ->
+                notifyItemInserted(index)
+            }
         }
     }
 
@@ -22,7 +25,9 @@ abstract class BaseRecyclerDefaultAdapter<D, VH: RecyclerView.ViewHolder> : Recy
         if (!contents.isNullOrEmpty()) {
             this.contents.clear()
             this.contents.addAll(contents)
-            notifyDataSetChanged()
+            this.contents.forEachIndexed { index, _ ->
+                notifyItemInserted(index)
+            }
         }
     }
 
