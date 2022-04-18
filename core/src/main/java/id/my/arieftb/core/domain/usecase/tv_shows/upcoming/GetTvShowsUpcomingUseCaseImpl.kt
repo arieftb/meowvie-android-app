@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.zip
 import javax.inject.Inject
 
 class GetTvShowsUpcomingUseCaseImpl @Inject constructor(
@@ -18,16 +17,15 @@ class GetTvShowsUpcomingUseCaseImpl @Inject constructor(
     private val getTvShowsUseCase: GetTvShowsUseCase
 ) : GetTvShowsUpcomingUseCase {
     override fun invoke(page: Int): Flow<ResultEntity<List<Content>>> {
-        return getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1)
-            .zip(getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1)) { date, month ->
+        return getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1).flatMapConcat { date ->
+            getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1).flatMapConcat { month ->
                 getTvShowsUseCase.invoke(
                     page = page,
                     releaseDateGte = date,
                     releaseDateLte = month,
-                    sortBy = "first_air_date.asc"
+                    sortBy = "release_date.asc"
                 )
-            }.flatMapConcat { result ->
-                result
-            }.flowOn(Dispatchers.IO)
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }
