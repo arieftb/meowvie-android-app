@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.presentation.feature.section
 
 import androidx.lifecycle.Observer
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularUseCase
@@ -14,6 +15,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
@@ -50,11 +52,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUseCase::class.java.simpleName}.${GetMoviesUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -86,11 +90,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUseCase::class.java.simpleName}.${GetMoviesUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -127,11 +133,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUseCase::class.java.simpleName}.${GetTvShowsUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -163,11 +171,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUseCase::class.java.simpleName}.${GetTvShowsUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -204,11 +214,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUpcomingUseCase::class.java.simpleName}.${GetMoviesUpcomingUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -240,11 +252,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUpcomingUseCase::class.java.simpleName}.${GetMoviesUpcomingUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -281,11 +295,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUpcomingUseCase::class.java.simpleName}.${GetTvShowsUpcomingUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -317,11 +333,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUpcomingUseCase::class.java.simpleName}.${GetTvShowsUpcomingUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -357,11 +375,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesPopularUseCase::class.java.simpleName}.${GetMoviesPopularUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesPopularUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -393,11 +413,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetMoviesPopularUseCase::class.java.simpleName}.${GetMoviesPopularUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesPopularUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -433,11 +455,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsPopularUseCase::class.java.simpleName}.${GetTvShowsPopularUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsPopularUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"
@@ -469,11 +493,13 @@ class SectionViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsPopularUseCase::class.java.simpleName}.${GetTvShowsPopularUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsPopularUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${SectionViewModelImpl::class.java.simpleName}.${SectionViewModelImpl::contentData.name} should has Data Status Loading and Error sequentially"

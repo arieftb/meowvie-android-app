@@ -1,6 +1,7 @@
 package id.my.arieftb.meowvie.presentation.feature.home
 
 import androidx.lifecycle.Observer
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
 import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
@@ -14,6 +15,7 @@ import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
@@ -51,11 +53,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesHighlightUseCase::class.java.simpleName}.${GetMoviesHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesData.name} should has Data Status Loading and Error sequentially"
@@ -88,11 +92,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesHighlightUseCase::class.java.simpleName}.${GetMoviesHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesData.name} should has Data Status Loading and Success sequentially"
@@ -124,11 +130,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsHighlightUseCase::class.java.simpleName}.${GetTvShowsHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsData.name} should has Data Status Loading and Error sequentially"
@@ -161,11 +169,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsHighlightUseCase::class.java.simpleName}.${GetTvShowsHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsData.name} should has Data Status Loading and Success sequentially"
@@ -198,11 +208,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUpcomingHighlightUseCase::class.java.simpleName}.${GetMoviesUpcomingHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesUpcomingData.name} should has Data Status Loading and Error sequentially"
@@ -233,11 +245,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesUpcomingHighlightUseCase::class.java.simpleName}.${GetMoviesUpcomingHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesUpcomingUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesUpcomingData.name} should has Data Status Loading and Success sequentially"
@@ -267,11 +281,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUpcomingHighlightUseCase::class.java.simpleName}.${GetTvShowsUpcomingHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsUpcomingHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsUpcomingData.name} should has Data Status Loading and Error sequentially"
@@ -302,11 +318,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsUpcomingHighlightUseCase::class.java.simpleName}.${GetTvShowsUpcomingHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsUpcomingHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsUpcomingData.name} should has Data Status Loading and Success sequentially"
@@ -337,11 +355,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesPopularHighlightUseCase::class.java.simpleName}.${GetMoviesPopularHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMoviesPopularHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesPopularData.name} should has Data Status Loading and Error sequentially"
@@ -373,11 +393,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetMoviesPopularHighlightUseCase::class.java.simpleName}.${GetMoviesPopularHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getMoviesPopularHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::moviesPopularData.name} should has Data Status Loading and Success sequentially"
@@ -408,11 +430,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsPopularHighlightUseCase::class.java.simpleName}.${GetTvShowsPopularHighlightUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowsPopularHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsPopularData.name} should has Data Status Loading and Error sequentially"
@@ -444,11 +468,13 @@ class HomeViewModelImplTest : Spek({
         context(
             "when ${GetTvShowsPopularHighlightUseCase::class.java.simpleName}.${GetTvShowsPopularHighlightUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     getTvShowsPopularHighlightUseCase.invoke()
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${HomeViewModelImpl::class.java.simpleName}.${HomeViewModelImpl::tvShowsPopularData.name} should has Data Status Loading and Success sequentially"
