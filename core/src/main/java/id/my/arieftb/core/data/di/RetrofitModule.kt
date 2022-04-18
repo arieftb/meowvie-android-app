@@ -8,6 +8,7 @@ import id.my.arieftb.core.BuildConfig
 import id.my.arieftb.core.data.remote.content.ContentApiService
 import id.my.arieftb.core.data.remote.movie.MovieApiService
 import id.my.arieftb.core.data.remote.tv_show.TvShowApiService
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,10 +27,22 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor) = OkHttpClient.Builder()
+    fun provideCertificatePinner(): CertificatePinner {
+        return CertificatePinner.Builder()
+            .add("api.themoviedb.org", "sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk=")
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkhttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        certificatePinner: CertificatePinner
+    ) = OkHttpClient.Builder()
         .readTimeout(60, TimeUnit.SECONDS)
         .connectTimeout(60, TimeUnit.SECONDS)
         .addInterceptor(httpLoggingInterceptor)
+        .certificatePinner(certificatePinner)
         .build()
 
     @Provides
