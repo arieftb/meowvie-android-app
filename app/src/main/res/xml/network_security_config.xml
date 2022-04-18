@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">
+            themoviedb.org
+        </domain>
+        <pin-set>
+            <pin digest="SHA-256">oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
