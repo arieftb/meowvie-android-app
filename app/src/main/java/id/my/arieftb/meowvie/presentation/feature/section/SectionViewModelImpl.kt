@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.core.domain.constant.SectionType
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
 import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularUseCase
@@ -60,9 +60,9 @@ class SectionViewModelImpl @Inject constructor(
                 contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
             }.collect { result ->
                 when (result) {
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = result.exception.message)
-                    is Result.Success -> contentDataValue.value = Data(Status.SUCCESS, result.data)
+                    is ResultEntity.Success -> contentDataValue.value = Data(Status.SUCCESS, result.data)
                 }
             }
         }
@@ -72,11 +72,11 @@ class SectionViewModelImpl @Inject constructor(
         viewModelScope.launch {
             getTvShowsUseCase.invoke(page).catch { cause: Throwable ->
                 contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
-                    is Result.Success -> setValueSuccess(value.data)
+                    is ResultEntity.Success -> setValueSuccess(value.data)
                 }
             }
         }
@@ -88,9 +88,9 @@ class SectionViewModelImpl @Inject constructor(
                 contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
             }.collect { result ->
                 when (result) {
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = result.exception.message)
-                    is Result.Success -> setValueSuccess(result.data)
+                    is ResultEntity.Success -> setValueSuccess(result.data)
                 }
             }
         }
@@ -101,10 +101,10 @@ class SectionViewModelImpl @Inject constructor(
             getTvShowsUpcomingUseCase.invoke(page).catch { cause: Throwable ->
                 contentDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> setValueSuccess(value.data)
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Success -> setValueSuccess(value.data)
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }
@@ -116,11 +116,11 @@ class SectionViewModelImpl @Inject constructor(
         viewModelScope.launch {
             getMoviesPopularUseCase.invoke(page).catch { cause: Throwable ->
                 contentDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
-                    is Result.Success -> setValueSuccess(value.data)
+                    is ResultEntity.Success -> setValueSuccess(value.data)
                 }
             }
         }
@@ -131,10 +131,10 @@ class SectionViewModelImpl @Inject constructor(
             getTvShowsPopularUseCase.invoke(page).catch { cause: Throwable ->
                 contentDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> setValueSuccess(value.data)
-                    is Result.Failure -> contentDataValue.value =
+                    is ResultEntity.Success -> setValueSuccess(value.data)
+                    is ResultEntity.Failure -> contentDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }

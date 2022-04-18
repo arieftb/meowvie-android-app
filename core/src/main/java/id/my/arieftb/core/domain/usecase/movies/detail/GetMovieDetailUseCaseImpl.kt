@@ -1,7 +1,7 @@
 package id.my.arieftb.core.domain.usecase.movies.detail
 
 import id.my.arieftb.core.data.model.request.detail.DetailRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.ContentDetail
 import id.my.arieftb.core.domain.repo.MovieRepository
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
@@ -16,7 +16,7 @@ class GetMovieDetailUseCaseImpl @Inject constructor(
     private val repository: MovieRepository
 ) : GetMovieDetailUseCase {
 
-    override fun invoke(id: Long): Flow<Result<ContentDetail>> {
+    override fun invoke(id: Long): Flow<ResultEntity<ContentDetail>> {
         return getLanguageUseCase.invoke().flatMapConcat { lang ->
             val request = DetailRequest().apply {
                 this.id = id

@@ -1,7 +1,7 @@
 package id.my.arieftb.core.domain.usecase.tv_shows.detail
 
 import id.my.arieftb.core.data.model.request.detail.DetailRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.ContentDetail
 import id.my.arieftb.core.domain.repo.TvShowRepository
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
@@ -13,7 +13,7 @@ class GetTvShowDetailUseCaseImpl @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase,
     private val repository: TvShowRepository
 ) : GetTvShowDetailUseCase {
-    override fun invoke(id: Long): Flow<Result<ContentDetail>> {
+    override fun invoke(id: Long): Flow<ResultEntity<ContentDetail>> {
         return getLanguageUseCase.invoke().flatMapConcat { lang ->
             val request = DetailRequest().apply {
                 this.id = id

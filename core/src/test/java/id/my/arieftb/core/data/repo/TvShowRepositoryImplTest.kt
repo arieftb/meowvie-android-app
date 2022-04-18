@@ -6,7 +6,7 @@ import id.my.arieftb.core.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.core.data.model.response.tv_shows.TvShowsResponse
 import id.my.arieftb.core.data.model.response.tv_shows.detail.TvShowDetailResponse
 import id.my.arieftb.core.data.remote.tv_show.TvShowRemoteDataSource
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.helper.TestHelper
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -46,8 +46,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetchAll(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -73,8 +73,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetchAll(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data.isEmpty()).isTrue()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data.isEmpty()).isTrue()
                     }
                 }
                 coVerify {
@@ -103,8 +103,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetchAll(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data.isEmpty()).isTrue()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data.isEmpty()).isTrue()
                     }
                 }
                 coVerify {
@@ -133,8 +133,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetchAll(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isEmpty()
                     }
                 }
                 coVerify {
@@ -163,8 +163,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetchAll(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isNotEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isNotEmpty()
                     }
                 }
                 coVerify {
@@ -195,8 +195,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetch(detailRequestParamDummy).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -222,8 +222,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetch(detailRequestParamDummy).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -252,8 +252,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetch(detailRequestParamDummy).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -281,8 +281,8 @@ class TvShowRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.fetch(detailRequestParamDummy).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isNotNull()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isNotNull()
                     }
                 }
                 coVerify {

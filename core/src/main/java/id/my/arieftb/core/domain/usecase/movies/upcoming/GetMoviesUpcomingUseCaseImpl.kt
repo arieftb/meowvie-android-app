@@ -1,6 +1,6 @@
 package id.my.arieftb.core.domain.usecase.movies.upcoming
 
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.date.GetDateDayAheadUseCase
 import id.my.arieftb.core.domain.usecase.date.GetDateMonthAheadUseCase
@@ -17,7 +17,7 @@ class GetMoviesUpcomingUseCaseImpl @Inject constructor(
     private val getDateDayAheadUseCase: GetDateDayAheadUseCase,
     private val getMoviesUseCase: GetMoviesUseCase
 ) : GetMoviesUpcomingUseCase {
-    override fun invoke(page: Int): Flow<Result<List<Content>>> {
+    override fun invoke(page: Int): Flow<ResultEntity<List<Content>>> {
         return getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1)
             .zip(getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1)) { month, date ->
                 getMoviesUseCase.invoke(

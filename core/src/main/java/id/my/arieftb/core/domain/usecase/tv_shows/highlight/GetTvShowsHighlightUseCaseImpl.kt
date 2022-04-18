@@ -1,6 +1,6 @@
 package id.my.arieftb.core.domain.usecase.tv_shows.highlight
 
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.tv_shows.GetTvShowsUseCase
 import kotlinx.coroutines.flow.Flow
@@ -9,12 +9,12 @@ import javax.inject.Inject
 
 class GetTvShowsHighlightUseCaseImpl @Inject constructor(private val getTvShowsUseCase: GetTvShowsUseCase) :
     GetTvShowsHighlightUseCase {
-    override fun invoke(limit: Int): Flow<Result<List<Content>>> {
+    override fun invoke(limit: Int): Flow<ResultEntity<List<Content>>> {
         return getTvShowsUseCase.invoke().map { result ->
             when (result) {
-                is Result.Failure -> result
-                is Result.Success -> {
-                    Result.Success(data = result.data.take(limit))
+                is ResultEntity.Failure -> result
+                is ResultEntity.Success -> {
+                    ResultEntity.Success(data = result.data.take(limit))
                 }
             }
         }

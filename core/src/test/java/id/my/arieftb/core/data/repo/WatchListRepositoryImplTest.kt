@@ -5,7 +5,7 @@ import id.my.arieftb.core.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.core.data.model.entity.WatchListEntity
 import id.my.arieftb.core.data.model.request.content.ContentSaveRequest
 import id.my.arieftb.core.domain.constant.ContentType
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -39,8 +39,8 @@ class WatchListRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.saveWatchList(contentSaveRequestDummyData).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -64,8 +64,8 @@ class WatchListRepositoryImplTest : Spek({
             ) {
                 runBlocking {
                     repository.saveWatchList(contentSaveRequestDummyData).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isTrue()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isTrue()
                     }
                 }
                 coVerify {
@@ -96,8 +96,8 @@ class WatchListRepositoryImplTest : Spek({
                 runBlocking {
                     repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Success).isTrue()
-                            assertThat((result as Result.Success).data).isFalse()
+                            assertThat(result is ResultEntity.Success).isTrue()
+                            assertThat((result as ResultEntity.Success).data).isFalse()
                         }
                 }
                 coVerify {
@@ -129,8 +129,8 @@ class WatchListRepositoryImplTest : Spek({
 //                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Success).isTrue()
-                            assertThat((result as Result.Success).data).isFalse()
+                            assertThat(result is ResultEntity.Success).isTrue()
+                            assertThat((result as ResultEntity.Success).data).isFalse()
                         }
 //                    assertThat(response?.code).isNotEqualTo(codeRequestParamDummy)
                 }
@@ -163,8 +163,8 @@ class WatchListRepositoryImplTest : Spek({
 //                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Success).isTrue()
-                            assertThat((result as Result.Success).data).isFalse()
+                            assertThat(result is ResultEntity.Success).isTrue()
+                            assertThat((result as ResultEntity.Success).data).isFalse()
                         }
 //                    assertThat(response?.type).isNotEqualTo(typeRequestParamDummy.toString())
                 }
@@ -197,8 +197,8 @@ class WatchListRepositoryImplTest : Spek({
 //                        local.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     repository.checkWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Success).isTrue()
-                            assertThat((result as Result.Success).data).isTrue()
+                            assertThat(result is ResultEntity.Success).isTrue()
+                            assertThat((result as ResultEntity.Success).data).isTrue()
                         }
 //                    assertThat(response?.type).isEqualTo(typeRequestParamDummy.toString())
 //                    assertThat(response?.code).isEqualTo(codeRequestParamDummy)
@@ -233,8 +233,8 @@ class WatchListRepositoryImplTest : Spek({
 //                        local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Failure).isTrue()
-                            assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                            assertThat(result is ResultEntity.Failure).isTrue()
+                            assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                         }
 //                    assertThat(response).isEqualTo(0)
                 }
@@ -262,8 +262,8 @@ class WatchListRepositoryImplTest : Spek({
 //                        local.deleteWatchList(codeRequestParamDummy, typeRequestParamDummy)
                     repository.removeWatchList(codeRequestParamDummy, typeRequestParamDummy)
                         .collect { result ->
-                            assertThat(result is Result.Success).isTrue()
-                            assertThat((result as Result.Success).data).isFalse()
+                            assertThat(result is ResultEntity.Success).isTrue()
+                            assertThat((result as ResultEntity.Success).data).isFalse()
                         }
 //                    assertThat(response).isGreaterThan(0)
                 }

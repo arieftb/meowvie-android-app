@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.my.arieftb.core.domain.constant.ContentType
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.model.base.ContentDetail
 import id.my.arieftb.core.domain.usecase.movies.detail.GetMovieDetailUseCase
@@ -57,16 +57,16 @@ class DetailViewModelImpl @Inject constructor(
                         errorMessage = cause.message
                     )
                 cause.printStackTrace()
-            }.collect { value: Result<ContentDetail> ->
+            }.collect { value: ResultEntity<ContentDetail> ->
                 when (value) {
-                    is Result.Success -> {
+                    is ResultEntity.Success -> {
                         detailDataValue.value =
                             Data(
                                 Status.SUCCESS,
                                 data = value.data
                             )
                     }
-                    is Result.Failure -> {
+                    is ResultEntity.Failure -> {
                         detailDataValue.value =
                             Data(
                                 Status.ERROR,
@@ -87,14 +87,14 @@ class DetailViewModelImpl @Inject constructor(
                         Status.ERROR,
                         errorMessage = cause.message
                     )
-            }.collect { value: Result<ContentDetail> ->
+            }.collect { value: ResultEntity<ContentDetail> ->
                 when (value) {
-                    is Result.Success -> detailDataValue.value =
+                    is ResultEntity.Success -> detailDataValue.value =
                         Data(
                             Status.SUCCESS,
                             data = value.data
                         )
-                    is Result.Failure -> detailDataValue.value =
+                    is ResultEntity.Failure -> detailDataValue.value =
                         Data(
                             Status.ERROR,
                             errorMessage = value.exception.message
@@ -113,14 +113,14 @@ class DetailViewModelImpl @Inject constructor(
                         Status.ERROR,
                         errorMessage = cause.message
                     )
-            }.collect { value: Result<Boolean> ->
+            }.collect { value: ResultEntity<Boolean> ->
                 when (value) {
-                    is Result.Success -> isAvailableValue.value =
+                    is ResultEntity.Success -> isAvailableValue.value =
                         Data(
                             Status.SUCCESS,
                             data = value.data
                         )
-                    is Result.Failure -> isAvailableValue.value =
+                    is ResultEntity.Failure -> isAvailableValue.value =
                         Data(
                             Status.ERROR,
                             errorMessage = value.exception.message
@@ -139,14 +139,14 @@ class DetailViewModelImpl @Inject constructor(
                         Status.ERROR,
                         errorMessage = cause.message
                     )
-            }.collect { value: Result<Boolean> ->
+            }.collect { value: ResultEntity<Boolean> ->
                 when (value) {
-                    is Result.Success -> isSavedValue.value =
+                    is ResultEntity.Success -> isSavedValue.value =
                         Data(
                             Status.SUCCESS,
                             data = value.data
                         )
-                    is Result.Failure -> isSavedValue.value =
+                    is ResultEntity.Failure -> isSavedValue.value =
                         Data(
                             Status.ERROR,
                             errorMessage = value.exception.message
@@ -165,14 +165,14 @@ class DetailViewModelImpl @Inject constructor(
                         Status.ERROR,
                         errorMessage = cause.message
                     )
-            }.collect { value: Result<Boolean> ->
+            }.collect { value: ResultEntity<Boolean> ->
                 when (value) {
-                    is Result.Success -> isSavedValue.value =
+                    is ResultEntity.Success -> isSavedValue.value =
                         Data(
                             Status.SUCCESS,
                             data = value.data
                         )
-                    is Result.Failure -> isSavedValue.value =
+                    is ResultEntity.Failure -> isSavedValue.value =
                         Data(
                             Status.ERROR,
                             errorMessage = value.exception.message

@@ -1,7 +1,7 @@
 package id.my.arieftb.core.domain.usecase.watch_list
 
 import id.my.arieftb.core.data.model.request.content.ContentSaveRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.WatchListRepository
 import id.my.arieftb.core.domain.usecase.date.GetCurrentDateTimeMillisUseCase
@@ -14,7 +14,7 @@ class SaveWatchListUseCaseImpl(
     private val getCurrentDateTimeMillisUseCase: GetCurrentDateTimeMillisUseCase,
     private val repository: WatchListRepository
 ) : SaveWatchListUseCase {
-    override fun invoke(content: Content): Flow<Result<Boolean>> {
+    override fun invoke(content: Content): Flow<ResultEntity<Boolean>> {
         return getCurrentDateTimeMillisUseCase.invoke().flatMapConcat { time ->
             val request = ContentSaveRequest(
                 content.id,

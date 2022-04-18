@@ -1,6 +1,6 @@
 package id.my.arieftb.core.domain.usecase.movies.highlight
 
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetMoviesHighlightUseCaseImpl @Inject constructor(private val getMoviesUseCase: GetMoviesUseCase) :
     GetMoviesHighlightUseCase {
-    override fun invoke(limit: Int): Flow<Result<List<Content>>> {
+    override fun invoke(limit: Int): Flow<ResultEntity<List<Content>>> {
         return getMoviesUseCase.invoke().flowOn(Dispatchers.IO)
     }
 }

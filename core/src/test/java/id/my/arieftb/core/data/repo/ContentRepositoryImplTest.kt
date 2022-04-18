@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import id.my.arieftb.core.data.model.request.content.ContentSearchRequest
 import id.my.arieftb.core.data.model.response.contents.search.ContentSearchResponse
 import id.my.arieftb.core.data.remote.content.ContentRemoteDataSource
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.helper.TestHelper
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -44,8 +44,8 @@ class ContentRepositoryImplTest : Spek({
             it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} should return result failure with exception") {
                 runBlocking {
                     repository.search(dummyRequest).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong.")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong.")
                     }
                 }
                 coVerify {
@@ -73,8 +73,8 @@ class ContentRepositoryImplTest : Spek({
             it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} should return result failure with exception") {
                 runBlocking {
                     repository.search(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data.isEmpty()).isTrue()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data.isEmpty()).isTrue()
                     }
                 }
                 coVerify {
@@ -105,8 +105,8 @@ class ContentRepositoryImplTest : Spek({
             it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} return result success with empty data") {
                 runBlocking {
                     repository.search(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isEmpty()
                     }
                 }
                 coVerify {
@@ -137,8 +137,8 @@ class ContentRepositoryImplTest : Spek({
             it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} return result success with empty data") {
                 runBlocking {
                     repository.search(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isEmpty()
                     }
                 }
                 coVerify {
@@ -169,8 +169,8 @@ class ContentRepositoryImplTest : Spek({
             it("${ContentRepositoryImpl::class.java.simpleName}.${ContentRepositoryImpl::search.name} return result success with data") {
                 runBlocking {
                     repository.search(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isNotEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isNotEmpty()
                     }
                 }
                 coVerify {

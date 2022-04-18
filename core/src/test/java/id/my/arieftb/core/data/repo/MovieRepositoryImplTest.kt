@@ -6,7 +6,7 @@ import id.my.arieftb.core.data.model.request.discover.DiscoverRequest
 import id.my.arieftb.core.data.model.response.movies.MoviesResponse
 import id.my.arieftb.core.data.model.response.movies.detail.MovieDetailResponse
 import id.my.arieftb.core.data.remote.movie.MovieRemoteDataSource
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.movie.MovieDetail
 import id.my.arieftb.core.helper.TestHelper
 import io.mockk.coEvery
@@ -43,8 +43,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result failure") {
                 runBlocking {
                     repository.fetchAll(dummyRequest).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -67,8 +67,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return empty data") {
                 runBlocking {
                     repository.fetchAll(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data.isEmpty()).isTrue()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data.isEmpty()).isTrue()
                     }
                 }
                 coVerify {
@@ -94,8 +94,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with empty data") {
                 runBlocking {
                     repository.fetchAll(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isEmpty()
                     }
                 }
                 coVerify {
@@ -121,8 +121,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with empty data") {
                 runBlocking {
                     repository.fetchAll(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isEmpty()
                     }
                 }
                 coVerify {
@@ -148,8 +148,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetchAll.name} should return result success with data") {
                 runBlocking {
                     repository.fetchAll(dummyRequest).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isNotEmpty()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isNotEmpty()
                     }
                 }
                 coVerify {
@@ -178,8 +178,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
                     repository.fetch(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -203,8 +203,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
                     repository.fetch(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -230,8 +230,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result failure") {
                 runBlocking {
                     repository.fetch(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Failure).isTrue()
-                        assertThat((result as Result.Failure).exception.message).isEqualTo("Something went wrong")
+                        assertThat(result is ResultEntity.Failure).isTrue()
+                        assertThat((result as ResultEntity.Failure).exception.message).isEqualTo("Something went wrong")
                     }
                 }
                 coVerify {
@@ -257,8 +257,8 @@ class MovieRepositoryImplTest : Spek({
             it("${MovieRepositoryImpl::class.java.simpleName}.${MovieRepositoryImpl::fetch.name} should return result success") {
                 runBlocking {
                     repository.fetch(dummyRequestParam).collect { result ->
-                        assertThat(result is Result.Success).isTrue()
-                        assertThat((result as Result.Success).data).isNotNull()
+                        assertThat(result is ResultEntity.Success).isTrue()
+                        assertThat((result as ResultEntity.Success).data).isNotNull()
                     }
                 }
                 coVerify {

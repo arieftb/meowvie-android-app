@@ -1,7 +1,7 @@
 package id.my.arieftb.core.domain.usecase.tv_shows
 
 import id.my.arieftb.core.data.model.request.discover.DiscoverRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.TvShowRepository
 import id.my.arieftb.core.domain.usecase.date.GetCurrentDateUseCase
@@ -20,7 +20,7 @@ class GetTvShowsUseCaseImpl constructor(
         sortBy: String?,
         releaseDateLte: String?,
         releaseDateGte: String?
-    ): Flow<Result<List<Content>>> {
+    ): Flow<ResultEntity<List<Content>>> {
         return getCurrentDateUseCase.invoke("yyyy-MM-dd")
             .zip(getLanguageUseCase.invoke()) { date, lang ->
                 val request = DiscoverRequest().apply {

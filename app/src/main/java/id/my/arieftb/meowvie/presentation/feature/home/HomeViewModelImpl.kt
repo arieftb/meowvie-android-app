@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
 import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
@@ -55,9 +55,9 @@ class HomeViewModelImpl @Inject constructor(
                 moviesDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
             }.collect { result ->
                 when (result) {
-                    is Result.Failure -> moviesDataValue.value =
+                    is ResultEntity.Failure -> moviesDataValue.value =
                         Data(Status.ERROR, errorMessage = result.exception.message)
-                    is Result.Success -> moviesDataValue.value = Data(Status.SUCCESS, result.data)
+                    is ResultEntity.Success -> moviesDataValue.value = Data(Status.SUCCESS, result.data)
                 }
             }
         }
@@ -69,10 +69,10 @@ class HomeViewModelImpl @Inject constructor(
             getTvShowsHighlightUseCase.invoke().catch { cause: Throwable ->
                 tvShowsDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, value.data)
-                    is Result.Failure -> tvShowsDataValue.value =
+                    is ResultEntity.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> tvShowsDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }
@@ -85,11 +85,11 @@ class HomeViewModelImpl @Inject constructor(
             getMoviesUpcomingUseCase.invoke().catch { cause: Throwable ->
                 moviesUpcomingDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> moviesUpcomingDataValue.value =
+                    is ResultEntity.Success -> moviesUpcomingDataValue.value =
                         Data(Status.SUCCESS, value.data)
-                    is Result.Failure -> moviesUpcomingDataValue.value =
+                    is ResultEntity.Failure -> moviesUpcomingDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }
@@ -103,11 +103,11 @@ class HomeViewModelImpl @Inject constructor(
             getTvShowsUpcomingHighlightUseCase.invoke().catch { cause: Throwable ->
                 tvShowsUpcomingDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> tvShowsUpcomingDataValue.value =
+                    is ResultEntity.Success -> tvShowsUpcomingDataValue.value =
                         Data(Status.SUCCESS, value.data)
-                    is Result.Failure -> tvShowsUpcomingDataValue.value =
+                    is ResultEntity.Failure -> tvShowsUpcomingDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }
@@ -120,11 +120,11 @@ class HomeViewModelImpl @Inject constructor(
             getMoviesPopularHighlightUseCase.invoke().catch { cause: Throwable ->
                 moviesPopularDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> moviesPopularDataValue.value =
+                    is ResultEntity.Success -> moviesPopularDataValue.value =
                         Data(Status.SUCCESS, value.data)
-                    is Result.Failure -> moviesPopularDataValue.value =
+                    is ResultEntity.Failure -> moviesPopularDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }
@@ -137,11 +137,11 @@ class HomeViewModelImpl @Inject constructor(
             getTvShowsPopularHighlightUseCase.invoke().catch { cause: Throwable ->
                 tvShowsPopularDataValue.value =
                     Data(Status.ERROR, errorMessage = cause.message)
-            }.collect { value: Result<List<Content>> ->
+            }.collect { value: ResultEntity<List<Content>> ->
                 when (value) {
-                    is Result.Success -> tvShowsPopularDataValue.value =
+                    is ResultEntity.Success -> tvShowsPopularDataValue.value =
                         Data(Status.SUCCESS, value.data)
-                    is Result.Failure -> tvShowsPopularDataValue.value =
+                    is ResultEntity.Failure -> tvShowsPopularDataValue.value =
                         Data(Status.ERROR, errorMessage = value.exception.message)
                 }
             }

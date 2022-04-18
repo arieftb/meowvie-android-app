@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.contents.SearchContentsUseCase
 import id.my.arieftb.meowvie.presentation.di.IoDispatcher
@@ -37,9 +37,9 @@ class ExploreViewModelImpl @Inject constructor(
                 searchDataValue.value = Data(Status.ERROR, errorMessage = cause.localizedMessage)
             }.collect { result ->
                 when (result) {
-                    is Result.Failure -> searchDataValue.value =
+                    is ResultEntity.Failure -> searchDataValue.value =
                         Data(Status.ERROR, errorMessage = result.exception.localizedMessage)
-                    is Result.Success -> searchDataValue.value = Data(Status.SUCCESS, result.data)
+                    is ResultEntity.Success -> searchDataValue.value = Data(Status.SUCCESS, result.data)
                 }
             }
         }

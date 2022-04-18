@@ -1,6 +1,6 @@
 package id.my.arieftb.core.domain.usecase.movies.popular
 
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
@@ -14,7 +14,7 @@ class GetMoviesPopularUseCaseImpl @Inject constructor(
     private val getCurrentDateUseCase: GetCurrentDateUseCase,
     private val getMoviesUseCase: GetMoviesUseCase
 ) : GetMoviesPopularUseCase {
-    override fun invoke(page: Int): Flow<Result<List<Content>>> {
+    override fun invoke(page: Int): Flow<ResultEntity<List<Content>>> {
         return getCurrentDateUseCase.invoke("yyyy-MM-dd").flatMapConcat { date ->
             getMoviesUseCase.invoke(
                 page = page,

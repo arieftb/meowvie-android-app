@@ -1,7 +1,7 @@
 package id.my.arieftb.core.domain.usecase.contents
 
 import id.my.arieftb.core.data.model.request.content.ContentSearchRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.ContentRepository
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
@@ -16,7 +16,7 @@ class SearchContentsUseCaseImpl @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase
 ) : SearchContentsUseCase {
 
-    override fun invoke(page: Int, keyword: String): Flow<Result<List<Content>>> {
+    override fun invoke(page: Int, keyword: String): Flow<ResultEntity<List<Content>>> {
         return getLanguageUseCase.invoke().flatMapMerge { language ->
             repository.search(
                 ContentSearchRequest(

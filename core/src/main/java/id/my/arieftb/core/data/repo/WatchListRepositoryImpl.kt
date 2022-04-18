@@ -7,7 +7,7 @@ import androidx.paging.map
 import id.my.arieftb.core.domain.constant.ContentType
 import id.my.arieftb.core.data.local.watch_list.WatchListLocalDataSource
 import id.my.arieftb.core.data.model.request.content.ContentSaveRequest
-import id.my.arieftb.core.domain.model.Result
+import id.my.arieftb.core.domain.model.ResultEntity
 import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.WatchListRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,32 +17,32 @@ import javax.inject.Inject
 class WatchListRepositoryImpl @Inject constructor(
     private val local: WatchListLocalDataSource
 ) : WatchListRepository {
-    override fun saveWatchList(request: ContentSaveRequest): Flow<Result<Boolean>> {
+    override fun saveWatchList(request: ContentSaveRequest): Flow<ResultEntity<Boolean>> {
         return local.saveWatchList(request).map { response ->
             if (response != -1L) {
-                Result.Success(true)
+                ResultEntity.Success(true)
             } else {
-                Result.Failure(exception = Exception("Something went wrong"))
+                ResultEntity.Failure(exception = Exception("Something went wrong"))
             }
         }
     }
 
-    override fun checkWatchList(code: Long, type: ContentType): Flow<Result<Boolean>> {
+    override fun checkWatchList(code: Long, type: ContentType): Flow<ResultEntity<Boolean>> {
         return local.checkWatchList(code, type).map { response ->
             if (response != null && response.code == code && response.type == type.toString()) {
-                Result.Success(data = true)
+                ResultEntity.Success(data = true)
             } else {
-                Result.Success(data = false)
+                ResultEntity.Success(data = false)
             }
         }
     }
 
-    override fun removeWatchList(code: Long, type: ContentType): Flow<Result<Boolean>> {
+    override fun removeWatchList(code: Long, type: ContentType): Flow<ResultEntity<Boolean>> {
         return local.deleteWatchList(code, type).map { response ->
             if (response > 0) {
-                Result.Success(data = false)
+                ResultEntity.Success(data = false)
             } else {
-                Result.Failure(exception = Exception("Something went wrong"))
+                ResultEntity.Failure(exception = Exception("Something went wrong"))
             }
         }
     }
