@@ -1,8 +1,11 @@
 package id.my.arieftb.core.data.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.my.arieftb.core.BuildConfig
 import id.my.arieftb.core.data.remote.content.ContentApiService
@@ -37,11 +40,13 @@ object RetrofitModule {
     @Singleton
     fun provideOkhttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        certificatePinner: CertificatePinner
+        certificatePinner: CertificatePinner,
+        @ApplicationContext context: Context
     ) = OkHttpClient.Builder()
         .readTimeout(60, TimeUnit.SECONDS)
         .connectTimeout(60, TimeUnit.SECONDS)
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(ChuckerInterceptor.Builder(context).build())
         .certificatePinner(certificatePinner)
         .build()
 

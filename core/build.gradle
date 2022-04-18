@@ -67,6 +67,9 @@ dependencies {
 
     debugImplementation dep.logging.leakCanary
 
+    debugImplementation dep.logging.chucker
+    releaseImplementation dep.logging.chuckerNoOp
+
     testImplementation dep.unitTest.spekDsl
     testImplementation dep.unitTest.spekRunner
     testImplementation dep.unitTest.mockk
