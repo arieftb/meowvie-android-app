@@ -1,7 +1,7 @@
 package id.my.arieftb.core.data.constant
 
 object DataConstant {
-    const val DB_NAME = "meowvie_db"
+    const val DB_NAME = "meowvie_db.db"
 
     const val WATCH_LIST_TABLE_NAME = "watch_list"
     const val CONTENT_ID_COLUMN_NAME = "code"

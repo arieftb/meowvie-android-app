@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    ndkVersion '21.3.6528147'
     defaultConfig {
         compileSdkVersion rootProject.targetSdk
         minSdkVersion rootProject.minSdk
@@ -64,6 +65,8 @@ dependencies {
     implementation dep.local.room
     kapt dep.local.roomCompiler
     androidTestImplementation dep.local.roomTest
+    implementation dep.local.sqlite
+    implementation dep.security.dbCipher
 
     debugImplementation dep.logging.leakCanary
 

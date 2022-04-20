@@ -6,6 +6,7 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
+    ndkVersion '21.1.6352462'
     defaultConfig {
         applicationId "id.my.arieftb.meowvie"
 
@@ -25,7 +26,6 @@ android {
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "id.my.arieftb.meowvie.helper.MeowViewTestRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false

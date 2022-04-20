@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 android {
+    ndkVersion '21.3.6528147'
     defaultConfig {
         compileSdkVersion rootProject.targetSdk
         minSdkVersion rootProject.minSdk

@@ -22,6 +22,7 @@ version.mockito = "4.0.0"
 version.truth = "1.1.3"
 version.espresso = "3.3.0"
 version.arch = "2.1.0"
+version.sqlite = "2.1.0"
 version.junit4 = "4.0"
 version.junitGradle = "1.7.1.1"
 version.extJunit = "1.1.2"
@@ -30,6 +31,7 @@ version.coil = "1.2.2"
 version.unitSize = "1.0.6"
 version.leakCanary = "2.8.1"
 version.chucker = "3.5.2"
+version.cipher = "4.4.0"
 
 ext.version = version
 
@@ -97,6 +99,7 @@ def local = [:]
 local.room = "androidx.room:room-ktx:$version.room"
 local.roomCompiler = "androidx.room:room-compiler:$version.room"
 local.roomTest = "androidx.room:room-testing:$version.room"
+local.sqlite = "androidx.sqlite:sqlite-ktx:$version.sqlite"
 dep.local = local
 
 def unitTest = [:]
@@ -118,8 +121,8 @@ def instrumentTest = [:]
 instrumentTest.espresso = "androidx.test.espresso:espresso-core:$version.espresso"
 instrumentTest.espressoContrib = "androidx.test.espresso:espresso-contrib:$version.espresso"
 instrumentTest.espressoIdling = "androidx.test.espresso:espresso-idling-resource:$version.espresso"
-instrumentTest.rules = "androidx.test:rules:$version.testRules"
-instrumentTest.runner = "androidx.test:runner:$version.testRules"
+instrumentTest.rules = "androidx.test:rules:$version.testRule"
+instrumentTest.runner = "androidx.test:runner:$version.testRule"
 instrumentTest.archCore = "androidx.arch.core:core-testing:$version.arch"
 dep.instrumentTest = instrumentTest
 
@@ -128,6 +131,10 @@ logging.leakCanary = "com.squareup.leakcanary:leakcanary-android:$version.leakCa
 logging.chucker = "com.github.chuckerteam.chucker:library:$version.chucker"
 logging.chuckerNoOp = "com.github.chuckerteam.chucker:library-no-op:$version.chucker"
 dep.logging = logging
+
+def security = [:]
+security.dbCipher = "net.zetetic:android-database-sqlcipher:$version.cipher"
+dep.security = security
 
 ext.dep = dep
 
