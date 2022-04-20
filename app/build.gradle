@@ -31,6 +31,19 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all{
+            variant ->
+                variant.outputs.each{
+                    output->
+                        project.ext { appName = 'meowvie' }
+                        def formattedDate = new Date().format('yyyyMMddHHmmss')
+                        def newName = output.outputFile.name
+                        newName = newName.replace("app-", formattedDate + "-$project.ext.appName-")
+                        newName = newName.replace("-debug", "-debug")
+                        newName = newName.replace("-release", "-release")
+                        output.outputFileName  = newName
+                }
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
