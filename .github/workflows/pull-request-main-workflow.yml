@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name : Gradle Wrapper
-        run : grade wrapper
+        run : gradle wrapper
       - name: Build App Debug
         run: ./gradlew clean assembleDebug --full-stacktrace
