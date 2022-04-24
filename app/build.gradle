@@ -18,31 +18,42 @@ android {
         versionName "1.0.0"
 
         buildConfigField("String", "API_KEY", "\"" + rootProject.API_KEY + "\"")
-        buildConfigField("String", "BASE_URL", "\""+ "https://api.themoviedb.org/3/" + "\"")
-        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT", "\""+ "https://www.themoviedb.org/t/p/w220_and_h330_face/" + "\"")
-        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT_BIG", "\""+ "https://www.themoviedb.org/t/p/w440_and_h660_face/" + "\"")
-        buildConfigField("String", "BASE_URL_IMAGE_LANDSCAPE", "\""+ "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + "\"")
+        buildConfigField("String", "BASE_URL", "\"" + "https://api.themoviedb.org/3/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT", "\"" + "https://www.themoviedb.org/t/p/w220_and_h330_face/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT_BIG", "\"" + "https://www.themoviedb.org/t/p/w440_and_h660_face/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_LANDSCAPE", "\"" + "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + "\"")
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "id.my.arieftb.meowvie.helper.MeowViewTestRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file(rootProject.KEYSTORE_PATH)
+            keyAlias = rootProject.KEY_ALIAS
+            keyPassword rootProject.KEY_PASSWORD
+            storePassword rootProject.STORE_PASSWORD
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
     buildTypes {
         release {
             testCoverageEnabled false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
-        applicationVariants.all{
+        applicationVariants.all {
             variant ->
-                variant.outputs.each{
-                    output->
+                variant.outputs.each {
+                    output ->
                         project.ext { appName = 'meowvie' }
                         def formattedDate = new Date().format('yyyyMMddHHmmss')
                         def newName = output.outputFile.name
                         newName = newName.replace("app-", formattedDate + "-$project.ext.appName-")
                         newName = newName.replace("-debug", "-debug")
                         newName = newName.replace("-release", "-release")
-                        output.outputFileName  = newName
+                        output.outputFileName = newName
                 }
         }
     }
