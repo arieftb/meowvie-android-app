@@ -1,0 +1,14 @@
+name: Build Debug Workflow
+on:
+  workflow_call:
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-env
+      - run: chmod +x ./gradlew
+      - name: Build App Debug
+        run: ./gradlew clean assembleDebug --full-stacktrace
