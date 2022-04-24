@@ -4,11 +4,10 @@ on:
     branches:
       - main
 jobs:
-  setup-env:
-    uses: ./.github/workflows/setup-env-workflow.yml
   build:
     needs: setup-env
     runs-on: ubuntu-20.04
     steps:
+      - uses: ./.github/actions/setup-env
       - name: Build App Debug
         run: ./gradlew clean assembleDebug --full-stacktrace
