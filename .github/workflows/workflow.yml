@@ -23,7 +23,7 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Make Gradlew Executable
-          run: chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       - name: Build App
         run : ./gradlew --no-daemon build
