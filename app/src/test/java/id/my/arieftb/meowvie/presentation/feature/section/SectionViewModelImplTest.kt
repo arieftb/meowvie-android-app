@@ -9,8 +9,8 @@ import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingUseCas
 import id.my.arieftb.core.domain.usecase.tv_shows.GetTvShowsUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularUseCase
 import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingUseCase
-import id.my.arieftb.core.helper.applyInstantTaskExecutor
-import id.my.arieftb.core.helper.applyTestDispatcher
+import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
+import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*

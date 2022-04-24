@@ -11,7 +11,7 @@ import org.spekframework.spek2.dsl.GroupBody
 
 fun GroupBody.applyInstantTaskExecutor() {
     beforeEachTest {
-        ArchTaskExecutor.getInstance().setDelegate(id.my.arieftb.core.helper.InstantTaskExecutor)
+        ArchTaskExecutor.getInstance().setDelegate(InstantTaskExecutor)
     }
 }
 

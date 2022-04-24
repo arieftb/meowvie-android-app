@@ -29,7 +29,7 @@ fun GroupBody.applyTestDispatcher(dispatcher: TestCoroutineDispatcher = TestCoro
 
 }
 
-private object InstantTaskExecutor : TaskExecutor() {
+public object InstantTaskExecutor : TaskExecutor() {
     override fun executeOnDiskIO(runnable: Runnable) {
         runnable.run()
     }
