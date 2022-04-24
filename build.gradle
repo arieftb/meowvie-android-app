@@ -4,7 +4,7 @@ ext {
     KEY_ALIAS = ""
     KEY_PASSWORD = ""
     STORE_PASSWORD = ""
-    KEYSTORE_PATH = ""
+    KEYSTORE_PATH = "unknown"
     localProperties = new Properties()
     if (rootProject.file("local.properties").exists()) {
         localProperties.load(new FileInputStream(rootProject.file("local.properties")))
@@ -12,7 +12,9 @@ ext {
         KEY_ALIAS = localProperties['KEY_ALIAS']
         KEY_PASSWORD = localProperties['KEY_PASSWORD']
         STORE_PASSWORD = localProperties['STORE_PASSWORD']
-        KEYSTORE_PATH = localProperties['KEYSTORE_PATH']
+        if (localProperties['KEYSTORE_PATH'] != null) {
+            KEYSTORE_PATH = localProperties['KEYSTORE_PATH']
+        }
     }
 
     minSdk = 21
