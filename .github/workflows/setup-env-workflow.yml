@@ -2,7 +2,7 @@ name: Setup ENV Workflow
 on:
   workflow_call:
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo

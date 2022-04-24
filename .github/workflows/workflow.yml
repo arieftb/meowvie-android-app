@@ -4,10 +4,10 @@ on:
     branches:
       - main
 jobs:
+  setup-env:
+    uses: ./.github/workflows/setup-env-workflow.yml
   build:
     runs-on: ubuntu-latest
-    call-setup-env-workflow-in-local-repo:
-      uses: ./.github/workflows/setup-env-workflow.yml
     steps:
       - name: Build App Debug
         run: ./gradlew clean assembleDebug --full-stacktrace
