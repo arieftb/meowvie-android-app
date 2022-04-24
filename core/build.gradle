@@ -1,0 +1,87 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    ndkVersion '21.3.6528147'
+    defaultConfig {
+        compileSdkVersion rootProject.targetSdk
+        minSdkVersion rootProject.minSdk
+        targetSdkVersion rootProject.targetSdk
+
+        buildConfigField("String", "API_KEY", "\"" + rootProject.API_KEY + "\"")
+        buildConfigField("String", "BASE_URL", "\""+ "https://api.themoviedb.org/3/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT", "\""+ "https://www.themoviedb.org/t/p/w220_and_h330_face/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_PORTRAIT_BIG", "\""+ "https://www.themoviedb.org/t/p/w440_and_h660_face/" + "\"")
+        buildConfigField("String", "BASE_URL_IMAGE_LANDSCAPE", "\""+ "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + "\"")
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation dep.kotlin.lib
+    implementation dep.kotlin.coroutineCore
+    implementation dep.kotlin.coroutineAndroid
+    implementation dep.kotlin.ktx
+    testImplementation dep.kotlin.junit
+    testImplementation dep.kotlin.reflect
+    testImplementation dep.kotlin.coroutineTest
+
+    implementation dep.android.paging
+    testImplementation dep.android.pagingTest
+
+    implementation dep.dependencyInjection.hilt
+    kapt dep.dependencyInjection.hiltCompiler
+    // For instrumented tests.
+    androidTestImplementation dep.dependencyInjection.hiltTesting
+    // ...with Kotlin.
+    kaptAndroidTest dep.dependencyInjection.hiltTestingCompiler
+    // ...with Java.
+    androidTestAnnotationProcessor dep.dependencyInjection.hiltTestingCompiler
+
+    implementation dep.remote.retrofit
+    implementation dep.remote.retrofitGson
+    implementation dep.remote.loggingInterceptor
+
+    implementation dep.local.room
+    kapt dep.local.roomCompiler
+    androidTestImplementation dep.local.roomTest
+    implementation dep.local.sqlite
+    implementation dep.security.dbCipher
+
+    debugImplementation dep.logging.leakCanary
+
+    debugImplementation dep.logging.chucker
+    releaseImplementation dep.logging.chuckerNoOp
+
+    testImplementation dep.unitTest.spekDsl
+    testImplementation dep.unitTest.spekRunner
+    testImplementation dep.unitTest.mockk
+    androidTestImplementation dep.unitTest.mockkAndroid
+    testImplementation dep.unitTest.mockkJvm
+    testImplementation dep.unitTest.mockito
+    testImplementation dep.unitTest.mockitoKotlin
+    testImplementation dep.unitTest.googleTruth
+    implementation dep.unitTest.hamcrest
+    testImplementation dep.unitTest.junit
+    androidTestImplementation dep.unitTest.extJunit
+}

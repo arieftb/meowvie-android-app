@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
+import dagger.hilt.android.qualifiers.ApplicationContext
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentDefaultBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
+import javax.inject.Inject
 
-class ContentPortraitGridRecyclerAdapter(
-    private val context: Context
+class ContentPortraitGridRecyclerAdapter @Inject constructor(
+    @ApplicationContext private val context: Context
 ) : BaseRecyclerDefaultAdapter<Content, ContentPortraitGridRecyclerAdapter.ContentPortraitGridRecyclerViewHolder>() {
 
     inner class ContentPortraitGridRecyclerViewHolder(itemView: View) :
@@ -25,7 +27,7 @@ class ContentPortraitGridRecyclerAdapter(
     var listener: ContentRecyclerListener? = null
 
     override fun getItemViewType(position: Int): Int {
-        return getContent(position).id?.toInt() ?: -1
+        return getContent(position).id.toInt()
     }
 
 

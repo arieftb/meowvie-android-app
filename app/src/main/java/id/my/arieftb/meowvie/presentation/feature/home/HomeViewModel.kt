@@ -1,7 +1,7 @@
 package id.my.arieftb.meowvie.presentation.feature.home
 
 import androidx.lifecycle.LiveData
-import id.my.arieftb.meowvie.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.model.Data
 
 interface HomeViewModel {

@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.shape.CornerFamily
+import dagger.hilt.android.qualifiers.ApplicationContext
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.ItemContentBannerBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
 import id.my.arieftb.meowvie.presentation.base.BaseRecyclerDefaultAdapter
+import javax.inject.Inject
 
-class ContentBannerRecyclerAdapter(val context: Context) :
+class ContentBannerRecyclerAdapter @Inject constructor(@ApplicationContext val context: Context) :
     BaseRecyclerDefaultAdapter<Content, ContentBannerRecyclerAdapter.MoviesRecyclerViewHolder>() {
 
     var listener: ContentRecyclerListener? = null
@@ -22,7 +24,7 @@ class ContentBannerRecyclerAdapter(val context: Context) :
 
     inner class MoviesRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun getItemViewType(position: Int): Int = getContent(position).id?.toInt() ?: -1
+    override fun getItemViewType(position: Int): Int = getContent(position).id.toInt()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesRecyclerViewHolder {
         binding =

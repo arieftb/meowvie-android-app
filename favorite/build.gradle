@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+android {
+    ndkVersion '21.3.6528147'
+    defaultConfig {
+        compileSdkVersion rootProject.targetSdk
+        minSdkVersion rootProject.minSdk
+        targetSdkVersion rootProject.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    api project(":app")
+    api project(":core")
+
+    implementation dep.kotlin.lib
+    implementation dep.kotlin.coroutineCore
+    implementation dep.kotlin.coroutineAndroid
+    implementation dep.kotlin.ktx
+    testImplementation dep.kotlin.junit
+    testImplementation dep.kotlin.reflect
+    testImplementation dep.kotlin.coroutineTest
+
+    implementation dep.android.appCompat
+    implementation dep.android.material
+    implementation dep.android.viewModel
+    implementation dep.android.paging
+    testImplementation dep.android.pagingTest
+
+    implementation dep.navigation.fragment
+    implementation dep.navigation.ui
+    implementation dep.navigation.dynamicFeatureFragment
+    debugImplementation dep.navigation.fragmentTesting
+
+    implementation dep.sizeUnit.sdp
+    implementation dep.sizeUnit.ssp
+
+    implementation dep.loading.shimmer
+
+    implementation dep.image.coil
+
+    implementation dep.dependencyInjection.hilt
+    kapt dep.dependencyInjection.hiltCompiler
+    // For instrumented tests.
+    androidTestImplementation dep.dependencyInjection.hiltTesting
+    // ...with Kotlin.
+    kaptAndroidTest dep.dependencyInjection.hiltTestingCompiler
+    // ...with Java.
+    androidTestAnnotationProcessor dep.dependencyInjection.hiltTestingCompiler
+
+    testImplementation dep.unitTest.junit
+    androidTestImplementation dep.unitTest.extJunit
+
+    androidTestImplementation dep.instrumentTest.espresso
+    androidTestImplementation dep.instrumentTest.espressoContrib
+    implementation dep.instrumentTest.espressoIdling
+    androidTestImplementation dep.instrumentTest.rules
+    androidTestImplementation dep.instrumentTest.runner
+    testImplementation dep.instrumentTest.archCore
+    androidTestImplementation dep.instrumentTest.archCore
+}

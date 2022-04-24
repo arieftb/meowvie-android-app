@@ -5,18 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
-import id.my.arieftb.meowvie.presentation.di.IoDispatcher
+import id.my.arieftb.core.domain.model.ResultEntity
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.usecase.movies.highlight.GetMoviesHighlightUseCase
+import id.my.arieftb.core.domain.usecase.movies.popular.GetMoviesPopularHighlightUseCase
+import id.my.arieftb.core.domain.usecase.movies.upcoming.GetMoviesUpcomingHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.highlight.GetTvShowsHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.popular.GetTvShowsPopularHighlightUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.upcoming.GetTvShowsUpcomingHighlightUseCase
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
-import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,8 +27,7 @@ class HomeViewModelImpl @Inject constructor(
     private val getMoviesUpcomingUseCase: GetMoviesUpcomingHighlightUseCase,
     private val getTvShowsUpcomingHighlightUseCase: GetTvShowsUpcomingHighlightUseCase,
     private val getMoviesPopularHighlightUseCase: GetMoviesPopularHighlightUseCase,
-    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    private val getTvShowsPopularHighlightUseCase: GetTvShowsPopularHighlightUseCase
 ) :
     ViewModel(),
     HomeViewModel {
@@ -46,19 +46,15 @@ class HomeViewModelImpl @Inject constructor(
 
     override fun getMoviesHighlight() {
         moviesDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            moviesDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesHighlightUseCase.invoke()
-            }) {
-                is Result.Success -> {
-                    moviesDataValue.value = Data(Status.SUCCESS, result.data)
-                }
-                is Result.Failure -> {
-                    moviesDataValue.value =
+        viewModelScope.launch {
+            getMoviesHighlightUseCase.invoke().catch { cause: Throwable ->
+                cause.printStackTrace()
+                moviesDataValue.value = Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { result ->
+                when (result) {
+                    is ResultEntity.Failure -> moviesDataValue.value =
                         Data(Status.ERROR, errorMessage = result.exception.message)
+                    is ResultEntity.Success -> moviesDataValue.value = Data(Status.SUCCESS, result.data)
                 }
             }
         }
@@ -66,84 +62,85 @@ class HomeViewModelImpl @Inject constructor(
 
     override fun getTvShowsHighlight() {
         tvShowsDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            tvShowsDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsHighlightUseCase.invoke()
-            }) {
-                is Result.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, result.data)
-                is Result.Failure -> tvShowsDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsHighlightUseCase.invoke().catch { cause: Throwable ->
+                tvShowsDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: ResultEntity<List<Content>> ->
+                when (value) {
+                    is ResultEntity.Success -> tvShowsDataValue.value = Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> tvShowsDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }
 
     override fun getMoviesUpcomingHighlight() {
         moviesUpcomingDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            moviesUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesUpcomingUseCase.invoke()
-            }) {
-                is Result.Success -> moviesUpcomingDataValue.value =
-                    Data(Status.SUCCESS, result.data)
-                is Result.Failure -> moviesUpcomingDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getMoviesUpcomingUseCase.invoke().catch { cause: Throwable ->
+                moviesUpcomingDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: ResultEntity<List<Content>> ->
+                when (value) {
+                    is ResultEntity.Success -> moviesUpcomingDataValue.value =
+                        Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> moviesUpcomingDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
+
         }
     }
 
     override fun getTvShowsUpcomingHighlight() {
         tvShowsUpcomingDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            tvShowsUpcomingDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsUpcomingHighlightUseCase.invoke()
-            }) {
-                is Result.Success -> tvShowsUpcomingDataValue.value =
-                    Data(Status.SUCCESS, result.data)
-                is Result.Failure -> tvShowsUpcomingDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsUpcomingHighlightUseCase.invoke().catch { cause: Throwable ->
+                tvShowsUpcomingDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: ResultEntity<List<Content>> ->
+                when (value) {
+                    is ResultEntity.Success -> tvShowsUpcomingDataValue.value =
+                        Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> tvShowsUpcomingDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }
 
     override fun getMoviesPopularHighlight() {
         moviesPopularDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            moviesPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getMoviesPopularHighlightUseCase.invoke()
-            }) {
-                is Result.Success -> moviesPopularDataValue.value =
-                    Data(Status.SUCCESS, result.data)
-                is Result.Failure -> moviesPopularDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getMoviesPopularHighlightUseCase.invoke().catch { cause: Throwable ->
+                moviesPopularDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: ResultEntity<List<Content>> ->
+                when (value) {
+                    is ResultEntity.Success -> moviesPopularDataValue.value =
+                        Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> moviesPopularDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }
 
     override fun getTvShowsPopularHighlight() {
         tvShowsPopularDataValue.value = Data(Status.LOADING)
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            throwable.printStackTrace()
-            tvShowsPopularDataValue.value = Data(Status.ERROR, errorMessage = throwable.message)
-        }) {
-            when (val result = withContext(dispatcher) {
-                getTvShowsPopularHighlightUseCase.invoke()
-            }) {
-                is Result.Success -> tvShowsPopularDataValue.value =
-                    Data(Status.SUCCESS, result.data)
-                is Result.Failure -> tvShowsPopularDataValue.value =
-                    Data(Status.ERROR, errorMessage = result.exception.message)
+        viewModelScope.launch {
+            getTvShowsPopularHighlightUseCase.invoke().catch { cause: Throwable ->
+                tvShowsPopularDataValue.value =
+                    Data(Status.ERROR, errorMessage = cause.message)
+            }.collect { value: ResultEntity<List<Content>> ->
+                when (value) {
+                    is ResultEntity.Success -> tvShowsPopularDataValue.value =
+                        Data(Status.SUCCESS, value.data)
+                    is ResultEntity.Failure -> tvShowsPopularDataValue.value =
+                        Data(Status.ERROR, errorMessage = value.exception.message)
+                }
             }
         }
     }

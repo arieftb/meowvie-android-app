@@ -7,7 +7,7 @@
 <!--    TODO : Add Fragment Container If Navigation Component Ready-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentMainContainer"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"

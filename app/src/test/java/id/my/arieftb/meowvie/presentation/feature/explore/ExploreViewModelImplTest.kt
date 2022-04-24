@@ -1,15 +1,16 @@
 package id.my.arieftb.meowvie.presentation.feature.explore
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.usecase.contents.SearchContentsUseCase
-import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
-import id.my.arieftb.meowvie.helper.applyTestDispatcher
+import id.my.arieftb.core.domain.model.ResultEntity
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.usecase.contents.SearchContentsUseCase
+import id.my.arieftb.core.helper.applyInstantTaskExecutor
+import id.my.arieftb.core.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
@@ -24,7 +25,7 @@ class ExploreViewModelImplTest : Spek({
 
 
     val searchContentUseCase: SearchContentsUseCase = mockk(relaxed = true)
-    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase, testDispatcher) }
+    val viewModel by memoized { ExploreViewModelImpl(searchContentUseCase) }
 
     describe(
         "#${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::search.name}"
@@ -34,11 +35,13 @@ class ExploreViewModelImplTest : Spek({
         context(
             "when ${SearchContentsUseCase::class.java.simpleName}.${SearchContentsUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<List<Content>>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<List<Content>>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::searchData.name} should has Data Status Loading and Error sequentially"
@@ -72,11 +75,13 @@ class ExploreViewModelImplTest : Spek({
         context(
             "when ${SearchContentsUseCase::class.java.simpleName}.${SearchContentsUseCase::invoke.name} return Result Success"
         ) {
-            val resultDummy = Result.Success<List<Content>>(data = emptyList())
+            val resultDummy = ResultEntity.Success<List<Content>>(data = emptyList())
             beforeEachGroup {
                 coEvery {
                     searchContentUseCase.invoke(pageParamDummy, keywordParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${ExploreViewModelImpl::class.java.simpleName}.${ExploreViewModelImpl::searchData.name} should has Data Status Loading and Success sequentially"

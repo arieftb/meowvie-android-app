@@ -7,16 +7,16 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.ContentDetail
+import id.my.arieftb.core.domain.utils.date.DateHelper
 import id.my.arieftb.meowvie.R
-import id.my.arieftb.meowvie.constant.ContentType
 import id.my.arieftb.meowvie.databinding.FragmentDetailBinding
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
 import id.my.arieftb.meowvie.presentation.base.BaseFragment
 import id.my.arieftb.meowvie.presentation.model.Status
 import id.my.arieftb.meowvie.utils.extension.hide
 import id.my.arieftb.meowvie.utils.extension.show
-import id.my.arieftb.meowvie.utils.helper.date.DateHelper
 import id.my.arieftb.meowvie.utils.helper.test.IdlingResourceHelper
 
 @AndroidEntryPoint
@@ -56,77 +56,86 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun initTypeView() {
         when (type) {
-            ContentType.TV -> binding.imageDetailType.apply {
-                tag = R.drawable.ic_content_tv
-                setImageResource(R.drawable.ic_content_tv)
+            ContentType.TV -> binding?.let { binding ->
+                binding.imageDetailType.apply {
+                    tag = R.drawable.ic_content_tv
+                    setImageResource(R.drawable.ic_content_tv)
+                }
             }
-            else -> binding.imageDetailType.apply {
-                tag = R.drawable.ic_content_movie
-                setImageResource(R.drawable.ic_content_movie)
+            else -> binding?.let { binding ->
+                binding.imageDetailType.apply {
+                    tag = R.drawable.ic_content_movie
+                    setImageResource(R.drawable.ic_content_movie)
+                }
             }
         }
     }
 
     private fun initButtonFavorite() {
-        binding.buttonDetailFavorite.setOnClickListener {
-            IdlingResourceHelper.increment()
-            if (!isSaved && contentDetail != null) {
-                viewModel.saveWatchList(Content().apply {
-                    this.id = contentDetail?.id
-                    this.title = contentDetail?.title
-                    this.posterPath = contentDetail?.posterPath
-                    this.bannerPath = contentDetail?.bannerPath
-                    this.type = this@DetailFragment.type
-                })
-            } else viewModel.removeContent(id, type)
+        binding?.let { binding ->
+            binding.buttonDetailFavorite.setOnClickListener {
+                IdlingResourceHelper.increment()
+                if (!isSaved && contentDetail != null) {
+                    viewModel.saveWatchList(Content(
+                        id = contentDetail?.id!!,
+                        title = contentDetail?.title!!
+                    ).apply {
+                        this.posterPath = contentDetail?.posterPath
+                        this.bannerPath = contentDetail?.bannerPath
+                        this.type = this@DetailFragment.type
+                    })
+                } else viewModel.removeContent(id, type)
+            }
         }
     }
 
     private fun initButtonShare() {
-        binding.buttonDetailShare.setOnClickListener {
-            Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, binding.textDetailTitle.text)
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    "${binding.textDetailTitle.text} \n\n ${binding.textDetailOverview.text}"
-                )
-            }.also {
-                startActivity(Intent.createChooser(it, "Share using"))
+        binding?.let { binding ->
+            binding.buttonDetailShare.setOnClickListener {
+                Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, binding.textDetailTitle.text)
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "${binding.textDetailTitle.text} \n\n ${binding.textDetailOverview.text}"
+                    )
+                }.also {
+                    startActivity(Intent.createChooser(it, "Share using"))
+                }
             }
         }
     }
 
     private fun getDetail() {
-        viewModel.detailData.observe(viewLifecycleOwner, {
+        viewModel.detailData.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> setSuccessDetailView(it.data)
                 Status.ERROR -> setErrorView()
                 else -> setLoadingView()
 
             }
-        })
+        }
 
         IdlingResourceHelper.increment()
         viewModel.getDetail(id, type)
     }
 
     private fun getContentAvailabilityStatus() {
-        viewModel.isAvailable.observe(viewLifecycleOwner, {
+        viewModel.isAvailable.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    binding.buttonDetailFavorite.isEnabled = true
+                    binding?.buttonDetailFavorite?.isEnabled = true
                     setSuccessSaveView(it.data)
                 }
-                else -> binding.buttonDetailFavorite.isEnabled = false
+                else -> binding?.buttonDetailFavorite?.isEnabled = false
             }
-        })
+        }
 
         viewModel.checkWatchList(id, type)
     }
 
     private fun getContentSaveStatus() {
-        viewModel.isSaved.observe(viewLifecycleOwner, {
+        viewModel.isSaved.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     if (it.data == true) {
@@ -150,62 +159,69 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     Toast.LENGTH_SHORT
                 ).show()
                 else -> {
+//                    Nothing to do here
                 }
             }
             IdlingResourceHelper.decrement()
-        })
+        }
     }
 
     private fun setSuccessSaveView(data: Boolean?) {
         this.isSaved = data ?: false
         if (this.isSaved) {
-            binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-        } else binding.buttonDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            binding?.buttonDetailFavorite?.setImageResource(R.drawable.ic_baseline_favorite_24)
+        } else binding?.buttonDetailFavorite?.setImageResource(R.drawable.ic_baseline_favorite_border_24)
     }
 
     private fun setLoadingView() {
-        binding.shimmerDetailLoading.show()
-        binding.groupDetailView.hide()
-        binding.textDetailErrorMessage.hide()
+        binding?.let { binding ->
+            binding.shimmerDetailLoading.show()
+            binding.groupDetailView.hide()
+            binding.textDetailErrorMessage.hide()
+        }
     }
 
     private fun setErrorView() {
-        binding.shimmerDetailLoading.hide()
-        binding.groupDetailView.hide()
-        binding.textDetailErrorMessage.apply {
-            show()
-            text = getString(R.string.error_message_something_went_wrong)
+        binding?.let { binding ->
+            binding.shimmerDetailLoading.hide()
+            binding.groupDetailView.hide()
+            binding.textDetailErrorMessage.apply {
+                show()
+                text = getString(R.string.error_message_something_went_wrong)
+            }
         }
         IdlingResourceHelper.decrement()
     }
 
     private fun setSuccessDetailView(data: ContentDetail?) {
         this.contentDetail = data
-        binding.shimmerDetailLoading.hide()
-        binding.groupDetailView.show()
+        binding?.let { binding ->
+            binding.shimmerDetailLoading.hide()
+            binding.groupDetailView.show()
 
-        data?.let {
-            binding.imageDetailPoster.load(it.posterPath) {
-                crossfade(true)
-                placeholder(R.drawable.background_image_default)
-                error(R.drawable.image_not_found)
-            }
+            data?.let {
+                binding.imageDetailPoster.load(it.posterPath) {
+                    crossfade(true)
+                    placeholder(R.drawable.background_image_default)
+                    error(R.drawable.image_not_found)
+                }
 
-            binding.textDetailTitle.text = it.title
-            binding.textDetailGenre.text = it.genre
-            binding.textDetailReleaseDate.text = it.releaseDate
-            binding.textDetailOverview.text = it.overview
-            binding.textDetailReleaseDate.text = String.format(
-                getString(
-                    R.string.label_release_date,
-                    DateHelper.instance?.fromDateString(
-                        it.releaseDate ?: "0000-00-00",
-                        "yyyy-MM-dd"
+                binding.textDetailTitle.text = it.title
+                binding.textDetailGenre.text = it.genre
+                binding.textDetailReleaseDate.text = it.releaseDate
+                binding.textDetailOverview.text = it.overview
+                binding.textDetailReleaseDate.text = String.format(
+                    getString(
+                        R.string.label_release_date,
+                        DateHelper.instance?.fromDateString(
+                            it.releaseDate,
+                            "yyyy-MM-dd"
+                        )
+                            ?.toPattern("dd MMM yyyy")?.getString() ?: ""
                     )
-                        ?.toPattern("dd MMM yyyy")?.getString() ?: ""
                 )
-            )
-            binding.ratingDetailVote.rating = it.rating?.toFloat() ?: 0.0f
+                binding.ratingDetailVote.rating = it.rating.toFloat()
+            }
         }
         IdlingResourceHelper.decrement()
     }

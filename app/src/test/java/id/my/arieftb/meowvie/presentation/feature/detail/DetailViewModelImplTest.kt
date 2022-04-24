@@ -1,21 +1,22 @@
 package id.my.arieftb.meowvie.presentation.feature.detail
 
 import androidx.lifecycle.Observer
-import id.my.arieftb.meowvie.constant.ContentType
-import id.my.arieftb.meowvie.domain.model.Result
-import id.my.arieftb.meowvie.domain.model.base.Content
-import id.my.arieftb.meowvie.domain.model.base.ContentDetail
-import id.my.arieftb.meowvie.domain.usecase.movies.detail.GetMovieDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.CheckWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.RemoveWatchListUseCase
-import id.my.arieftb.meowvie.domain.usecase.watch_list.SaveWatchListUseCase
-import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
-import id.my.arieftb.meowvie.helper.applyTestDispatcher
+import id.my.arieftb.core.domain.constant.ContentType
+import id.my.arieftb.core.domain.model.ResultEntity
+import id.my.arieftb.core.domain.model.base.Content
+import id.my.arieftb.core.domain.model.base.ContentDetail
+import id.my.arieftb.core.domain.usecase.movies.detail.GetMovieDetailUseCase
+import id.my.arieftb.core.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.CheckWatchListUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.RemoveWatchListUseCase
+import id.my.arieftb.core.domain.usecase.watch_list.SaveWatchListUseCase
+import id.my.arieftb.core.helper.applyInstantTaskExecutor
+import id.my.arieftb.core.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.spekframework.spek2.Spek
@@ -38,8 +39,7 @@ class DetailViewModelImplTest : Spek({
             getTvShowDetailUseCase,
             saveWatchListUseCase,
             checkWatchListUseCase,
-            removeWatchListUseCase,
-            testCoroutineDispatcher
+            removeWatchListUseCase
         )
     }
 
@@ -51,11 +51,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetMovieDetailUseCase::class.java.simpleName}.${GetMovieDetailUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<ContentDetail>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<ContentDetail>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getMovieDetailUseCase.invoke(idParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Error sequentially"
@@ -87,12 +89,14 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetMovieDetailUseCase::class.java.simpleName}.${GetMovieDetailUseCase::invoke.name} return Result Success"
         ) {
-            val contentDetailDummy = ContentDetail()
-            val resultDummy = Result.Success(data = contentDetailDummy)
+            val contentDetailDummy = ContentDetail(1L, "Dummy")
+            val resultDummy = ResultEntity.Success(data = contentDetailDummy)
             beforeEachGroup {
                 coEvery {
                     getMovieDetailUseCase.invoke(idParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getMovieDetail.name} should has Data Status Loading and Success sequentially"
@@ -124,11 +128,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetTvShowDetailUseCase::class.java.simpleName}.${GetTvShowDetailUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<ContentDetail>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<ContentDetail>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     getTvShowDetailUseCase.invoke(idParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Error sequentially"
@@ -160,12 +166,14 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${GetTvShowDetailUseCase::class.java.simpleName}.${GetTvShowDetailUseCase::invoke.name} return Result Success"
         ) {
-            val contentDetailDummy = ContentDetail()
-            val resultDummy = Result.Success(data = contentDetailDummy)
+            val contentDetailDummy = ContentDetail(1L, "Dummy")
+            val resultDummy = ResultEntity.Success(data = contentDetailDummy)
             beforeEachGroup {
                 coEvery {
                     getTvShowDetailUseCase.invoke(idParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::getTvShowDetail.name} should has Data Status Loading and Success sequentially"
@@ -198,11 +206,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<Boolean>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Failure sequentially"
@@ -234,11 +244,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Success true"
         ) {
-            val resultDummy = Result.Success(true)
+            val resultDummy = ResultEntity.Success(true)
             beforeEachGroup {
                 coEvery {
                     checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success True sequentially"
@@ -265,11 +277,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${CheckWatchListUseCase::class.java.simpleName}.${CheckWatchListUseCase::invoke.name} return Result Success false"
         ) {
-            val resultDummy = Result.Success(false)
+            val resultDummy = ResultEntity.Success(false)
             beforeEachGroup {
                 coEvery {
                     checkWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::checkWatchList.name} should has Data Status Loading and Success false sequentially"
@@ -297,15 +311,17 @@ class DetailViewModelImplTest : Spek({
     describe(
         "#${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name}"
     ) {
-        val contentParamDummy = Content()
+        val contentParamDummy = Content(1L, "Dummy")
         context(
             "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<Boolean>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     saveWatchListUseCase.invoke(contentParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Failure sequentially"
@@ -337,11 +353,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Success True"
         ) {
-            val resultDummy = Result.Success(true)
+            val resultDummy = ResultEntity.Success(true)
             beforeEachGroup {
                 coEvery {
                     saveWatchListUseCase.invoke(contentParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success True sequentially"
@@ -368,11 +386,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${SaveWatchListUseCase::class.java.simpleName}.${SaveWatchListUseCase::invoke.name} return Result Success False"
         ) {
-            val resultDummy = Result.Success(false)
+            val resultDummy = ResultEntity.Success(false)
             beforeEachGroup {
                 coEvery {
                     saveWatchListUseCase.invoke(contentParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::saveWatchList.name} should has Data Status Loading and Success False sequentially"
@@ -405,11 +425,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Failure"
         ) {
-            val resultDummy = Result.Failure<Boolean>(Exception("Something went wrong"))
+            val resultDummy = ResultEntity.Failure<Boolean>(Exception("Something went wrong"))
             beforeEachGroup {
                 coEvery {
                     removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Failure sequentially"
@@ -441,11 +463,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Success True"
         ) {
-            val resultDummy = Result.Success(true)
+            val resultDummy = ResultEntity.Success(true)
             beforeEachGroup {
                 coEvery {
                     removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success True sequentially"
@@ -472,11 +496,13 @@ class DetailViewModelImplTest : Spek({
         context(
             "when ${RemoveWatchListUseCase::class.java.simpleName}.${RemoveWatchListUseCase::invoke.name} return Result Success False"
         ) {
-            val resultDummy = Result.Success(false)
+            val resultDummy = ResultEntity.Success(false)
             beforeEachGroup {
                 coEvery {
                     removeWatchListUseCase.invoke(idParamDummy, typeParamDummy)
-                } returns resultDummy
+                } returns flow {
+                    emit(resultDummy)
+                }
             }
             it(
                 "${DetailViewModelImpl::class.java.simpleName}.${DetailViewModelImpl::removeContent.name} should has Data Status Loading and Success False sequentially"
