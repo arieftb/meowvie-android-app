@@ -8,12 +8,4 @@ jobs:
     uses: ./.github/workflows/test-workflow.yml
   build:
     needs: test
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: ./.github/actions/setup-env
-      - run: chmod +x ./gradlew
-      - name: Build App Debug
-        run: ./gradlew clean assembleDebug --full-stacktrace
+    uses: ./.github/workflows/build-debug-workflow.yml
