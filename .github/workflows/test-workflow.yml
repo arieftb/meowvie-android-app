@@ -12,4 +12,4 @@ jobs:
       - name: Test Execution
         run: |
           chmod +x ./gradlew
-          ./gradlew clean test --full-stacktrace
+          ./gradlew clean testDebugUnitTest --full-stacktrace
