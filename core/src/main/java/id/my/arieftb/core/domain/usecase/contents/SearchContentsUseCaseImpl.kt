@@ -6,6 +6,7 @@ import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.ContentRepository
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flowOn
@@ -16,6 +17,7 @@ class SearchContentsUseCaseImpl @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase
 ) : SearchContentsUseCase {
 
+    @OptIn(FlowPreview::class)
     override fun invoke(page: Int, keyword: String): Flow<ResultEntity<List<Content>>> {
         return getLanguageUseCase.invoke().flatMapMerge { language ->
             repository.search(

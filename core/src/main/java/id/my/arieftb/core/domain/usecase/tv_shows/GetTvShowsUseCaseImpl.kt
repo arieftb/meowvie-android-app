@@ -6,6 +6,7 @@ import id.my.arieftb.core.domain.model.base.Content
 import id.my.arieftb.core.domain.repo.TvShowRepository
 import id.my.arieftb.core.domain.usecase.date.GetCurrentDateUseCase
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.zip
@@ -15,6 +16,7 @@ class GetTvShowsUseCaseImpl constructor(
     private val getLanguageUseCase: GetLanguageUseCase,
     private val repository: TvShowRepository
 ) : GetTvShowsUseCase {
+    @OptIn(FlowPreview::class)
     override fun invoke(
         page: Int,
         sortBy: String?,
