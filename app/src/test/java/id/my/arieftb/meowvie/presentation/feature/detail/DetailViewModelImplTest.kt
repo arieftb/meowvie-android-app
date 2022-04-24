@@ -10,8 +10,8 @@ import id.my.arieftb.core.domain.usecase.tv_shows.detail.GetTvShowDetailUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.CheckWatchListUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.RemoveWatchListUseCase
 import id.my.arieftb.core.domain.usecase.watch_list.SaveWatchListUseCase
-import id.my.arieftb.core.helper.applyInstantTaskExecutor
-import id.my.arieftb.core.helper.applyTestDispatcher
+import id.my.arieftb.meowvie.helper.applyInstantTaskExecutor
+import id.my.arieftb.meowvie.helper.applyTestDispatcher
 import id.my.arieftb.meowvie.presentation.model.Data
 import id.my.arieftb.meowvie.presentation.model.Status
 import io.mockk.*
