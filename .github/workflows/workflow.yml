@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -21,6 +21,9 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+
+      - name: Make Gradlew Executable
+          run: chmod +x ./gradlew
 
       - name: Build App
         run : ./gradlew --no-daemon build
