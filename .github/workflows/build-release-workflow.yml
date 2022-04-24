@@ -24,7 +24,7 @@ jobs:
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
         run: |
           chmod +x ./gradlew
-          ./gradlew clean assembleDebug --full-stacktrace
+          ./gradlew clean assembleRelease --full-stacktrace
       - name: Apk Release Upload
         uses: actions/upload-artifact@v2
         with:
