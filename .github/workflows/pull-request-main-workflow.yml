@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   test:
-    uses: ./.github/actions/test-workflow.yml
+    uses: ./.github/workflows/test-workflow.yml
   build:
     needs: test
     runs-on: ubuntu-20.04
