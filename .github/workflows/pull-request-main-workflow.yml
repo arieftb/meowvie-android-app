@@ -5,21 +5,11 @@ on:
       - main
 jobs:
   test:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: ./.github/actions/setup-env
-      - run: chmod +x ./gradlew
-      - name: Test
-        run: ./gradlew clean test --full-stacktrace
+    uses: ./.github/actions/test-workflow.yml
   build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-env
