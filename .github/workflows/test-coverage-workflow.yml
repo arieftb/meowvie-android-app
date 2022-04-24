@@ -17,7 +17,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Test Coverage Artifact
-          path: build/reports/jacoco/jacocoFullReport.csv
+          path: build/reports/jacoco
       - name: Test Coverage Result Badge
         uses: cicirello/jacoco-badge-generator@v2
         with:

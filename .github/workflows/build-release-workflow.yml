@@ -1,0 +1,32 @@
+name: Build Debug Workflow
+on:
+  workflow_call:
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Decode Keystore
+        env:
+          ENCODED_STRING: ${{ secrets.KEYSTORE }}
+        run: |
+          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
+          mkdir "${TMP_KEYSTORE_FILE_PATH}"
+          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/meowvie.jks
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-env
+      - name: Build App Release Execution
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean assembleDebug --full-stacktrace
+        env:
+          KEYSTORE_PATH: "${RUNNER_TEMP}"/keystore/meowvie.jks
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      - name: Apk Release Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Release Artifact
+          path: app\build\outputs\apk\release
