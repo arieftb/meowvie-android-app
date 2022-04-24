@@ -9,6 +9,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-env
-      - run: chmod +x ./gradlew
-      - name: Test
-        run: ./gradlew clean test --full-stacktrace
+      - name: Test Execution
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean test --full-stacktrace
