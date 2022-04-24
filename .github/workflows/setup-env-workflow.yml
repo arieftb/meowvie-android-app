@@ -29,5 +29,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Init Gradle
+        run: |
+          gradle init
+          gradle wrapper
+
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
