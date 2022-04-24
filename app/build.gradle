@@ -28,6 +28,7 @@ android {
     }
     buildTypes {
         release {
+            testCoverageEnabled false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -119,7 +120,7 @@ dependencies {
     testImplementation dep.unitTest.mockito
     testImplementation dep.unitTest.mockitoKotlin
     testImplementation dep.unitTest.googleTruth
-    implementation dep.unitTest.hamcrest
+//    implementation dep.unitTest.hamcrest
     testImplementation dep.unitTest.junit
     androidTestImplementation dep.unitTest.extJunit
 

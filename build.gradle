@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-ext{
+ext {
     API_KEY = ""
     localProperties = new Properties()
     if (rootProject.file("local.properties").exists()) {
@@ -27,10 +27,16 @@ buildscript {
         classpath dep.dependencyInjection.hiltGradle
         classpath dep.navigation.gradle
         classpath dep.unitTest.junitGradle
+        classpath dep.logging.unitTestCoverage
     }
 }
 
+apply from: "$project.rootDir/jacoco.gradle"
+
 allprojects {
+    apply plugin: 'jacoco'
+    jacoco.toolVersion = "0.8.8"
+
     repositories {
         google()
         mavenCentral()
