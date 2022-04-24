@@ -15,15 +15,14 @@ jobs:
           ./gradlew clean assembleRelease --full-stacktrace
       - name: Sign Apk Release
         id: sign_apk
-        uses: r0adkll/sign-android-release@v1
+        uses: victorbnl/build-signed-apk@main
         with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.KEYSTORE }}
-          alias: ${{ secrets.KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          keystore_b64: ${{ secrets.KEYSTORE }}
+          key_alias: ${{ secrets.KEY_ALIAS }}
+          keystore_password: ${{ secrets.STORE_PASSWORD }}
+          key_password: ${{ secrets.KEY_PASSWORD }}
       - name: Upload Apk Release
         uses: actions/upload-artifact@v2
         with:
           name: Apk Release Artifact
-          path: ${{steps.sign_apk.outputs.signedReleaseFile}}
+          path: app/build/outputs/apk/release
