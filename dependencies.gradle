@@ -32,6 +32,7 @@ version.unitSize = "1.0.6"
 version.leakCanary = "2.8.1"
 version.chucker = "3.5.2"
 version.cipher = "4.4.0"
+version.jacoco = "0.8.8"
 
 ext.version = version
 
@@ -130,6 +131,7 @@ def logging = [:]
 logging.leakCanary = "com.squareup.leakcanary:leakcanary-android:$version.leakCanary"
 logging.chucker = "com.github.chuckerteam.chucker:library:$version.chucker"
 logging.chuckerNoOp = "com.github.chuckerteam.chucker:library-no-op:$version.chucker"
+logging.unitTestCoverage = "org.jacoco:org.jacoco.core:$version.jacoco"
 dep.logging = logging
 
 def security = [:]

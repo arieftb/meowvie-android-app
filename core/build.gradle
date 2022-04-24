@@ -81,7 +81,7 @@ dependencies {
     testImplementation dep.unitTest.mockito
     testImplementation dep.unitTest.mockitoKotlin
     testImplementation dep.unitTest.googleTruth
-    implementation dep.unitTest.hamcrest
+//    implementation dep.unitTest.hamcrest
     testImplementation dep.unitTest.junit
     androidTestImplementation dep.unitTest.extJunit
 }
