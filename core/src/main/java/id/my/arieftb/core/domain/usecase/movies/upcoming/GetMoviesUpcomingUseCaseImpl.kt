@@ -6,6 +6,7 @@ import id.my.arieftb.core.domain.usecase.date.GetDateDayAheadUseCase
 import id.my.arieftb.core.domain.usecase.date.GetDateMonthAheadUseCase
 import id.my.arieftb.core.domain.usecase.movies.GetMoviesUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOn
@@ -16,6 +17,7 @@ class GetMoviesUpcomingUseCaseImpl @Inject constructor(
     private val getDateDayAheadUseCase: GetDateDayAheadUseCase,
     private val getMoviesUseCase: GetMoviesUseCase
 ) : GetMoviesUpcomingUseCase {
+    @OptIn(FlowPreview::class)
     override fun invoke(page: Int): Flow<ResultEntity<List<Content>>> {
         return getDateDayAheadUseCase.invoke("yyyy-MM-dd", 1).flatMapConcat { date ->
             getDateMonthAheadUseCase.invoke("yyyy-MM-dd", 1).flatMapConcat { month ->

@@ -6,6 +6,7 @@ import id.my.arieftb.core.domain.model.base.ContentDetail
 import id.my.arieftb.core.domain.repo.MovieRepository
 import id.my.arieftb.core.domain.usecase.language.GetLanguageUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOn
@@ -16,6 +17,7 @@ class GetMovieDetailUseCaseImpl @Inject constructor(
     private val repository: MovieRepository
 ) : GetMovieDetailUseCase {
 
+    @OptIn(FlowPreview::class)
     override fun invoke(id: Long): Flow<ResultEntity<ContentDetail>> {
         return getLanguageUseCase.invoke().flatMapConcat { lang ->
             val request = DetailRequest().apply {
