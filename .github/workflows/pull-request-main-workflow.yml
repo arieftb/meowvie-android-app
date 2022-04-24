@@ -12,5 +12,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-env
+      - run: chmod +x ./gradlew
       - name: Build App Debug
         run: ./gradlew clean assembleDebug --full-stacktrace
