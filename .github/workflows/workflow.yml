@@ -1,29 +1,14 @@
-name: CI/CD Workflow
+name: Main Pull Request Workflow
 on:
   pull_request:
-  push:
     branches:
       - main
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: "zulu"
-          java-version: 11
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Make Gradlew Executable
-        run: chmod +x ./gradlew
+      - name: Setup ENV
+        uses: arieftb/meowvie-android-app/.github/workflows/setup-env-workflow.yml
 
       - name: Build App Debug
-        run : ./gradlew clean assembleDebug --full-stacktrace
+        run: ./gradlew clean assembleDebug --full-stacktrace
