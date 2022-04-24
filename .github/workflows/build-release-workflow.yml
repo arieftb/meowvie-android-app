@@ -18,7 +18,7 @@ jobs:
       - uses: ./.github/actions/setup-env
       - name: Build App Release Execution
         env:
-          KEYSTORE_PATH: "${RUNNER_TEMP}"/keystore/meowvie.jks
+          KEYSTORE_PATH: $RUNNER_TEMP/keystore/meowvie.jks
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
