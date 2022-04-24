@@ -1,0 +1,8 @@
+name: Main Push Workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-coverage:
+    uses: ./.github/workflows/test-coverage-workflow.yml
