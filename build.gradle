@@ -1,10 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
     API_KEY = ""
+    KEY_ALIAS = ""
+    KEY_PASSWORD = ""
+    STORE_PASSWORD = ""
+    KEYSTORE_PATH = ""
     localProperties = new Properties()
     if (rootProject.file("local.properties").exists()) {
         localProperties.load(new FileInputStream(rootProject.file("local.properties")))
         API_KEY = localProperties['API_KEY']
+        KEY_ALIAS = localProperties['KEY_ALIAS']
+        KEY_PASSWORD = localProperties['KEY_PASSWORD']
+        STORE_PASSWORD = localProperties['STORE_PASSWORD']
+        KEYSTORE_PATH = localProperties['KEYSTORE_PATH']
     }
 
     minSdk = 21
