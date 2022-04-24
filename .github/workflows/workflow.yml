@@ -6,8 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    setup-env:
-      uses: arieftb/meowvie-android-app/.github/workflows/setup-env-workflow.yml@MADE
+    call-setup-env-workflow-in-local-repo:
+      uses: ./.github/workflows/setup-env-workflow.yml
     steps:
       - name: Build App Debug
         run: ./gradlew clean assembleDebug --full-stacktrace
