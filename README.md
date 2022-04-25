@@ -3,13 +3,13 @@ MeowVie
 =====  
 ![coverage](./.github/badges/jacoco.svg)
 
-Just very simple project to show collection of Movies and TV Shows from [MovieDb](https://developers.themoviedb.org). I made this project for graduate from online course of Dicoding about "**Belajar Android Jetpack**" dan "**Menjadi Android Developer Expert**"
+Just very simple project to show collection of Movies and TV Shows from [MovieDb](https://developers.themoviedb.org). I made this project for graduate from online course of Dicoding about "**Belajar Android Jetpack Pro**" dan "**Menjadi Android Developer Expert**"
 
 
 Branches
 -------------  
 * **BAJP**  
-  For "Belajar Android Jetpack" course
+  For "Belajar Android Jetpack Pro" course
 * **MADE**  
   For "Menjadi Android Developer Expert" course
 * **main**  
