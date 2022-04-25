@@ -15,10 +15,9 @@ jobs:
           ./gradlew clean assembleRelease --full-stacktrace
       - name: Sign Apk Release
         id: sign_apk
-        uses: Tlaster/android-sign@v1.2.2
+        uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/apk/release
-          output: build/release/signed
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.STORE_PASSWORD }}
@@ -27,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Apk Release Artifact
-          path: build/release/signed
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
