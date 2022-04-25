@@ -6,6 +6,10 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test-workflow.yml
+  android-lint:
+    uses: ./.github/workflows/lint-android-workflow.yml
   build:
-    needs: test
+    needs:
+      - test
+      - android-lint
     uses: ./.github/workflows/build-debug-workflow.yml
