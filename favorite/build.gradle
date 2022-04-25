@@ -24,12 +24,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-    hilt {
-        enableExperimentalClasspathAggregation = true
-    }
-    lintOptions {
-        checkReleaseBuilds false
-    }
 }
 
 dependencies {
