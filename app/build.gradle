@@ -59,11 +59,10 @@ android {
     kapt {
         correctErrorTypes true
     }
-    hilt {
-        enableExperimentalClasspathAggregation = true
-    }
     lintOptions {
         checkReleaseBuilds false
+        abortOnError false
+        checkDependencies true
     }
     dynamicFeatures = [':favorite']
 }

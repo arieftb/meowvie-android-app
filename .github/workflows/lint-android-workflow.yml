@@ -1,0 +1,20 @@
+name: Android Lint Workflow
+on:
+  workflow_call:
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-env
+      - name: Run Android Lint Execution
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean lintDebug --full-stacktrace
+      - name: Android Lint Result Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: Android Lint Result Artifact
+          path: app/build/reports
