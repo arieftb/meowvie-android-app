@@ -11,7 +11,6 @@ runs:
     - name: Setup JDK
       uses: actions/setup-java@v2
       with:
-        distribution: "zulu"
         java-version: 1.8
 
     - name: Setup Android SDK
