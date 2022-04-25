@@ -1,0 +1,22 @@
+name: Build Debug Workflow
+on:
+  workflow_call:
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-env
+      - name: Build Apk
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean assembleDebug --full-stacktrace
+        env :
+          API_KEY: ${{ secrets.API_KEY }}
+      - name: Upload Apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Artifact
+          path: app\build\outputs\apk\debug

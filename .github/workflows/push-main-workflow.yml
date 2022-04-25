@@ -7,4 +7,4 @@ jobs:
   test-coverage:
     uses: ./.github/workflows/test-coverage-workflow.yml
   build-apk:
-    uses: ./.github/workflows/build-release-workflow.yml
+    uses: ./.github/workflows/build-apk-workflow.yml
