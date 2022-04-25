@@ -42,7 +42,8 @@ MVVM + Clean Architecture (From my learning perspective)
 How to use it?
 ------  
 - Clone this project using `git clone [url]`
-- build the project by using `./gradlew clean :app:assembleDebug`
-- You can run the Unit test by using `./gradlew clean test`
+- build the project by using `./gradlew clean assembleDebug`
+- You can run the Unit test by using `./gradlew clean testDebugUnitTest`
+- Don't forget add env API_URL variable inside local.properties file with value from [TMDB API Setting](https://www.themoviedb.org/settings/api) 
 
 *Clean Architecture will not be appropriate for every project, so it is down to you to decide whether or not it fits your needs*
